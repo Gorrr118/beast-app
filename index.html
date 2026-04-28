@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Beast Omni App</title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <style>
+        :root {
+            --bg: #050505;
+            --card-bg: rgba(255, 255, 255, 0.05);
+            --accent: #00ffcc;
+            --accent-glow: rgba(0, 255, 204, 0.3);
+            --text-main: #ffffff;
+            --text-dim: #888;
+        }
+        body {
+            background: var(--bg);
+            color: var(--text-main);
+            font-family: 'Inter', -apple-system, sans-serif;
+            margin: 0;
+            padding: 20px;
+            overflow-x: hidden;
+        }
+        .glass-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
+            padding: 24px;
+            margin-bottom: 20px;
+        }
+        .logo-area { text-align: center; margin-bottom: 30px; }
+        .logo-text {
+            font-size: 32px;
+            font-weight: 900;
+            letter-spacing: -1px;
+            background: linear-gradient(90deg, #fff, var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .balance-val { font-size: 42px; font-weight: 800; color: var(--accent); }
+        .grid-options {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-top: 20px;
+        }
+        .option-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            padding: 15px;
+            text-align: center;
+            transition: 0.3s;
+        }
+        .option-card:active { transform: scale(0.95); background: var(--accent-glow); }
+        .main-btn {
+            background: var(--accent);
+            color: #000;
+            border: none;
+            padding: 20px;
+            border-radius: 18px;
+            width: 100%;
+            font-size: 18px;
+            font-weight: 800;
+            margin-top: 10px;
+            box-shadow: 0 10px 30px var(--accent-glow);
+        }
+    </style>
+</head>
+<body>
+    <div class="logo-area">
+        <div class="logo-text">BEAST OMNI</div>
+        <p id="user-greeting" style="color: var(--text-dim);">Loding status...</p>
+    </div>
+
+    <div class="glass-card">
+        <div style="color: var(--text-dim); font-size: 14px; text-transform: uppercase;">Доступное время</div>
+        <div class="balance-val" id="balance">5.0 MIN</div>
+        <div style="margin-top: 5px; color: #00ffcc; font-size: 12px;">Статус: ELITE</div>
+    </div>
+
+    <button class="main-btn" onclick="sendAction('upload')">📥 ЗАГРУЗИТЬ ВИДЕО</button>
+
+    <div class="grid-options">
+        <div class="option-card" onclick="sendAction('tarifs')">💎 Тарифы</div>
+        <div class="option-card" onclick="sendAction('stats')">📊 Статистика</div>
+        <div class="option-card" onclick="sendAction('help')">🆘 Помощь</div>
+        <div class="option-card" onclick="sendAction('settings')">⚙️ Настройки</div>
+    </div>
+
+    <script>
+        let tg = window.Telegram.WebApp;
+        tg.expand();
+        tg.headerColor = '#050505';
+        
+        const user = tg.initDataUnsafe?.user;
+        if(user) {
+            document.getElementById('user-greeting').innerText = `Привет, ${user.first_name}!`;
+        }
+
+        function sendAction(action) {
+            // Передаем данные обратно в бота
+            tg.sendData(JSON.stringify({ "action": action }));
+            tg.close();
+        }
+    </script>
+</body>
+</html>
