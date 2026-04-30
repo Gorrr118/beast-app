@@ -3,108 +3,147 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Beast Omni App</title>
+    <title>Beast Omni Premium</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <style>
         :root {
-            --bg: #050505;
-            --card-bg: rgba(255, 255, 255, 0.05);
-            --accent: #00ffcc;
-            --accent-glow: rgba(0, 255, 204, 0.3);
-            --text-main: #ffffff;
-            --text-dim: #888;
+            --bg: #F3F4F6;
+            --card: #FFFFFF;
+            --accent: #2563EB;
+            --text: #111827;
+            --text-dim: #6B7280;
         }
+
         body {
-            background: var(--bg);
-            color: var(--text-main);
-            font-family: 'Inter', -apple-system, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            font-family: -apple-system, system-ui, sans-serif;
             margin: 0;
             padding: 20px;
-            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
-        .glass-card {
-            background: var(--card-bg);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 24px;
+
+        .header { width: 100%; text-align: left; margin-bottom: 20px; }
+        .header h1 { margin: 0; font-size: 26px; font-weight: 800; }
+
+        .balance-card {
+            background: var(--card);
+            width: 100%;
             padding: 24px;
+            border-radius: 24px;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
             margin-bottom: 20px;
+            box-sizing: border-box;
+            text-align: center;
         }
-        .logo-area { text-align: center; margin-bottom: 30px; }
-        .logo-text {
-            font-size: 32px;
-            font-weight: 900;
-            letter-spacing: -1px;
-            background: linear-gradient(90deg, #fff, var(--accent));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+
+        .balance-val { font-size: 42px; font-weight: 900; color: var(--accent); margin: 10px 0; }
+
+        .btn-main {
+            background: var(--accent);
+            color: white;
+            border: none;
+            width: 100%;
+            padding: 20px;
+            border-radius: 18px;
+            font-size: 18px;
+            font-weight: 700;
+            cursor: pointer;
+            margin-bottom: 12px;
+            box-shadow: 0 10px 15px -3px rgba(37, 99, 235, 0.2);
         }
-        .balance-val { font-size: 42px; font-weight: 800; color: var(--accent); }
-        .grid-options {
+
+        .grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 12px;
-            margin-top: 20px;
-        }
-        .option-card {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            border-radius: 16px;
-            padding: 15px;
-            text-align: center;
-            transition: 0.3s;
-        }
-        .option-card:active { transform: scale(0.95); background: var(--accent-glow); }
-        .main-btn {
-            background: var(--accent);
-            color: #000;
-            border: none;
-            padding: 20px;
-            border-radius: 18px;
             width: 100%;
-            font-size: 18px;
-            font-weight: 800;
-            margin-top: 10px;
-            box-shadow: 0 10px 30px var(--accent-glow);
         }
+
+        .grid-item {
+            background: var(--card);
+            padding: 16px;
+            border-radius: 18px;
+            text-align: center;
+            font-weight: 600;
+            font-size: 14px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            cursor: pointer;
+        }
+
+        /* МОДАЛЬНОЕ ОКНО (РЕЗУЛЬТАТ ВНУТРИ) */
+        #modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: var(--bg);
+            z-index: 9999;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 30px;
+            box-sizing: border-box;
+            text-align: center;
+        }
+
+        .modal-title { font-size: 24px; font-weight: 800; margin-bottom: 15px; }
+        .modal-text { font-size: 16px; color: var(--text-dim); line-height: 1.6; margin-bottom: 30px; }
+        .btn-back { color: var(--accent); font-weight: 700; cursor: pointer; padding: 10px; }
     </style>
 </head>
 <body>
-    <div class="logo-area">
-        <div class="logo-text">BEAST OMNI</div>
-        <p id="user-greeting" style="color: var(--text-dim);">Loding status...</p>
+
+    <div class="header">
+        <h1 id="user-name">Beast Omni</h1>
+        <div style="color: #059669; font-weight: 700; font-size: 14px;">● СТАТУС: ELITE</div>
     </div>
 
-    <div class="glass-card">
-        <div style="color: var(--text-dim); font-size: 14px; text-transform: uppercase;">Доступное время</div>
-        <div class="balance-val" id="balance">5.0 MIN</div>
-        <div style="margin-top: 5px; color: #00ffcc; font-size: 12px;">Статус: ELITE</div>
+    <div class="balance-card">
+        <div style="color: var(--text-dim); font-size: 12px; font-weight: 600; text-transform: uppercase;">Доступно минут</div>
+        <div class="balance-val">5.00</div>
+        <div style="color: var(--text-dim); font-size: 13px;">Тариф обновляется ежемесячно</div>
     </div>
 
-    <button class="main-btn" onclick="sendAction('upload')">📥 ЗАГРУЗИТЬ ВИДЕО</button>
+    <button class="btn-main" onclick="openPage('ЗАГРУЗИТЬ ВИДЕО', 'Чтобы начать перевод, просто отправь видео-файл или ссылку на YouTube/TikTok прямо в чат бота. Я сразу его подхвачу!')">📥 ЗАГРУЗИТЬ ВИДЕО</button>
 
-    <div class="grid-options">
-        <div class="option-card" onclick="sendAction('tarifs')">💎 Тарифы</div>
-        <div class="option-card" onclick="sendAction('stats')">📊 Статистика</div>
-        <div class="option-card" onclick="sendAction('help')">🆘 Помощь</div>
-        <div class="option-card" onclick="sendAction('settings')">⚙️ Настройки</div>
+    <div class="grid">
+        <div class="grid-item" onclick="openPage('СТАТИСТИКА', '📊 Твоя активность:\n\nОбработано видео: 12\nПотрачено минут: 25\nОстаток: 5.00 мин\n\nТы в топе 5% пользователей!')">📊 Статистика</div>
+        <div class="grid-item" onclick="openPage('РЕФЕРАЛЫ', '👥 Приглашай друзей!\n\nТвоя ссылка уже работает в боте. За каждого друга ты получишь +1 минуту к балансу БЕСПЛАТНО.')">👥 Рефералы</div>
+        <div class="grid-item" onclick="openPage('ТАРИФЫ', '💎 Выбери свой план:\n\nSTART (10 мин) — 15$\nBEAST (30 мин) — 30$\nULTRA (Безлимит) — 50$')">💎 Тарифы</div>
+        <div class="grid-item" onclick="openPage('ПОМОЩЬ', '🆘 Есть вопросы?\n\nЕсли что-то не работает или видео не грузится — пиши нашему админу: @SUPPORT_USER')">🆘 Помощь</div>
+    </div>
+
+    <div id="modal">
+        <div class="modal-title" id="m-title"></div>
+        <div class="modal-text" id="m-text"></div>
+        <div class="btn-back" onclick="closePage()">← НАЗАД В МЕНЮ</div>
     </div>
 
     <script>
         let tg = window.Telegram.WebApp;
         tg.expand();
-        tg.headerColor = '#050505';
-        
+        tg.headerColor = '#F3F4F6';
+
+        // Берем имя пользователя из Телеграм
         const user = tg.initDataUnsafe?.user;
         if(user) {
-            document.getElementById('user-greeting').innerText = `Привет, ${user.first_name}!`;
+            document.getElementById('user-name').innerText = user.first_name;
         }
 
-        function sendAction(action) {
-            // Передаем данные обратно в бота
-            tg.sendData(JSON.stringify({ "action": action }));
-            tg.close();
+        // Функции для работы ВНУТРИ приложения
+        function openPage(title, text) {
+            document.getElementById('m-title').innerText = title;
+            document.getElementById('m-text').innerText = text;
+            document.getElementById('modal').style.display = 'flex';
         }
+
+        function closePage() {
+            document.getElementById('modal').style.display = 'none';
+        }
+
+        tg.ready();
     </script>
 </body>
 </html>
