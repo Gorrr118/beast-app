@@ -7,15 +7,15 @@
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <style>
         body {
-            background-color: #f8fafc;
-            color: #1e293b;
+            background-color: #0d1117; /* Глубокий темный фон */
+            color: #e6edf3;
             font-family: -apple-system, system-ui, sans-serif;
             margin: 0; padding: 0;
             overflow-x: hidden;
             -webkit-user-select: none;
         }
 
-        /* ВЫБОР ЯЗЫКА */
+        /* ВЫБОР ЯЗЫКА С ЭФФЕКТАМИ СТЕКЛА */
         .lang-container {
             position: absolute;
             top: 25px;
@@ -24,18 +24,19 @@
         }
         
         #lang-select {
-            background: rgba(0, 0, 0, 0.5);
+            background: rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(20px);
             color: white;
-            border: 1px solid rgba(255, 255, 255, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.2);
             padding: 10px 16px;
             border-radius: 16px;
             font-size: 14px;
             font-weight: 700;
             outline: none;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
         }
 
-        /* ГИГАНТСКОЕ ВИДЕО СВЕРХУ */
+        /* ГИГАНТСКОЕ ВИДЕО С ГРАДИЕНТОМ */
         .video-banner {
             position: relative;
             width: 100%;
@@ -48,7 +49,18 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            opacity: 0.85;
+            opacity: 0.8;
+        }
+
+        .video-banner::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 40%;
+            background: linear-gradient(to top, #0d1117, transparent);
+            z-index: 1;
         }
 
         .video-overlay {
@@ -66,39 +78,43 @@
             text-transform: uppercase;
             letter-spacing: -1px;
             line-height: 1;
+            text-shadow: 0 0 20px rgba(37, 99, 235, 0.6);
         }
 
         .main-content {
             position: relative;
-            background: #f8fafc;
+            background: rgba(255, 255, 255, 0.03); /* Glassmorphism эффект */
+            backdrop-filter: blur(15px);
             border-radius: 40px 40px 0 0;
             padding: 30px 25px;
             margin-top: -50px;
             box-sizing: border-box;
             min-height: 55vh;
-            box-shadow: 0 -20px 40px rgba(0,0,0,0.1);
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: 0 -20px 40px rgba(0,0,0,0.4);
+            z-index: 5;
         }
 
-        /* КАРТОЧКА ТАРИФА */
+        /* КАРТОЧКА ТАРИФА В BEAST СТИЛЕ */
         .status-card {
-            background: white;
+            background: rgba(255, 255, 255, 0.05);
             padding: 24px;
             border-radius: 30px;
-            box-shadow: 0 15px 45px rgba(0,0,0,0.05);
             margin-bottom: 25px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border: 1px solid rgba(37, 99, 235, 0.1);
+            border: 1px solid rgba(37, 99, 235, 0.2);
+            transition: transform 0.2s;
         }
 
         .status-value {
             font-size: 28px;
             font-weight: 900;
-            color: #1e293b;
+            color: #fff;
         }
 
-        .status-value span { color: #2563eb; }
+        .status-value span { color: #3b82f6; text-shadow: 0 0 10px rgba(59, 130, 246, 0.5); }
 
         .badge-plan {
             background: linear-gradient(135deg, #2563eb, #1d4ed8);
@@ -107,11 +123,12 @@
             border-radius: 18px;
             font-size: 14px;
             font-weight: 900;
+            box-shadow: 0 0 15px rgba(37, 99, 235, 0.4);
         }
 
-        /* КНОПКИ */
+        /* КНОПКИ С ГРАДИЕНТОМ */
         .btn-action {
-            background: #2563eb;
+            background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
             color: white;
             border: none;
             width: 100%;
@@ -121,7 +138,9 @@
             font-weight: 800;
             margin-bottom: 25px;
             box-shadow: 0 15px 35px rgba(37, 99, 235, 0.35);
+            transition: all 0.2s;
         }
+        .btn-action:active { transform: scale(0.97); }
 
         .menu-grid {
             display: grid;
@@ -130,30 +149,33 @@
         }
 
         .menu-item {
-            background: white;
+            background: rgba(255, 255, 255, 0.05);
             padding: 24px 15px;
             border-radius: 28px;
             text-align: center;
             font-weight: 700;
             font-size: 15px;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.03);
+            color: #e6edf3;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
+        .menu-item:active { background: rgba(37, 99, 235, 0.1); border-color: #2563eb; }
 
         .item-gift {
             grid-column: span 2;
-            background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+            background: rgba(37, 99, 235, 0.1);
             border: 2px solid #2563eb;
-            color: #2563eb;
+            color: #3b82f6;
             font-weight: 800;
         }
 
-        /* МОДАЛКА РУЛЕТКИ */
+        /* МОДАЛКА РУЛЕТКИ ТЕМНАЯ */
         #gift-modal {
             display: none;
             position: fixed;
             top: 0; left: 0;
             width: 100%; height: 100%;
-            background: white;
+            background: #0d1117;
             z-index: 5000;
             flex-direction: column;
             align-items: center;
@@ -189,15 +211,15 @@
         <video autoplay muted loop playsinline><source src="https://www.w3schools.com/howto/rain.mp4" type="video/mp4"></video>
         <div class="video-overlay">
             <h1 id="user-name">GORO</h1>
-            <div id="sub-title" style="font-size: 16px; opacity: 0.9; font-weight: 600;">Beast Omni Global</div>
+            <div id="sub-title" style="font-size: 16px; opacity: 0.8; font-weight: 600;">Beast Omni Global</div>
         </div>
     </div>
 
     <div class="main-content">
         <div class="status-card">
             <div class="status-info">
-                <div id="label-status" style="font-size:12px; font-weight:800; color:#64748b; text-transform:uppercase;">Лимит видео</div>
-                <div class="status-value"><span id="limit-val">4</span> <small id="unit-text" style="font-size: 16px;">мин.</small></div>
+                <div id="label-status" style="font-size:12px; font-weight:800; color:#8b949e; text-transform:uppercase;">Лимит видео</div>
+                <div class="status-value"><span id="limit-val">4</span> <small id="unit-text" style="font-size: 16px; color:#8b949e;">мин.</small></div>
             </div>
             <div id="plan-badge" class="badge-plan">PREMIUM</div>
         </div>
@@ -210,26 +232,28 @@
             <div id="item-tariffs" class="menu-item">💎 Тарифы</div>
             <div id="item-help" class="menu-item">🆘 Помощь</div>
             <div id="item-gift" class="menu-item item-gift" onclick="openGiftModal()">🎁 Ежедневный подарок</div>
-            <div id="item-profile" class="menu-item" style="color:#475569;">👤 Кабинет</div>
-            <div id="item-showcase" class="menu-item" style="color:#475569;">🎬 Примеры</div>
+            <div id="item-profile" class="menu-item">👤 Кабинет</div>
+            <div id="item-showcase" class="menu-item">🎬 Примеры</div>
         </div>
     </div>
 
     <div id="gift-modal">
-        <h2 id="g-title" style="font-size: 32px; font-weight: 950; color:#1e293b; margin:0;">Удача Beast</h2>
-        <p id="timer-info" style="color:#64748b; font-weight:600; margin-bottom:20px;">Крути и получай бонусы!</p>
+        <h2 id="g-title" style="font-size: 32px; font-weight: 950; color:#fff; margin:0;">Удача Beast</h2>
+        <p id="timer-info" style="color:#8b949e; font-weight:600; margin-bottom:20px;">Крути и получай бонусы!</p>
         <canvas id="wheel-canvas" width="600" height="600"></canvas>
         <button id="spin-button" class="btn-action" style="max-width:300px; margin-top:30px;" onclick="runWheel()">КРУТИТЬ</button>
-        <div id="btn-back" style="margin-top:20px; color:#2563eb; font-weight:800; cursor:pointer;" onclick="closeGiftModal()">← ВЕРНУТЬСЯ</div>
+        <div id="btn-back" style="margin-top:20px; color:#3b82f6; font-weight:800; cursor:pointer;" onclick="closeGiftModal()">← ВЕРНУТЬСЯ</div>
     </div>
 
     <script>
         let tg = window.Telegram.WebApp;
         tg.expand();
+        tg.headerColor = '#0d1117';
+        tg.backgroundColor = '#0d1117';
 
-        // ТВОЯ ЛОГИКА ТАРИФОВ
+        // ТВОЯ ЛОГИКА ТАРИФОВ (СОХРАНЕНА ПОЛНОСТЬЮ)
         const userPlan = {
-            price: 15, // Здесь будет цена из БД
+            price: 15,
             getLimit: function() {
                 if (this.price >= 100) return "∞";
                 if (this.price >= 50) return "8";
@@ -259,7 +283,7 @@
             am: { limit: "Վիդեո սահմանաչափ", unit: "րոպե", unlim: "Անսահմանափակ", try: "ՍՏԵՂԾԵԼ ՎԻԴԵՈ", stats: "📊 Վիճակագրություն", ref: "👥 Ռեֆերալներ", tar: "💎 Սակագներ", help: "🆘 Օգնություն", gift: "🎁 Օրական նվեր", profile: "👤 Կաբինետ", show: "🎬 Օրինակներ", back: "← ՀԵՏ", spin: "ՊՏՏԵԼ", luck: "Պտտիր և շահիր" },
             es: { limit: "Límite de video", unit: "min.", unlim: "Ilimitado", try: "CREAR VIDEO", stats: "📊 Estadísticas", ref: "👥 Referidos", tar: "💎 Tarifas", help: "🆘 Ayuda", gift: "🎁 Regalo", profile: "👤 Perfil", show: "🎬 Ejemplos", back: "← VOLVER", spin: "GIRAR", luck: "¡Gira y gana!" },
             kz: { limit: "Видео шегі", unit: "мин.", unlim: "Шексіз", try: "ВИДЕО ЖАСАУ", stats: "📊 Статистика", ref: "👥 Рефералдар", tar: "💎 Тарифтер", help: "🆘 Көмек", gift: "🎁 Сыйлық", profile: "👤 Кабинет", show: "🎬 Мысалдар", back: "← ҚАЙТУ", spin: "АЙНАЛДЫРУ", luck: "Айналдырып, ұтып ал!" },
-            ua: { limit: "Ліміт відео", unit: "хв.", unlim: "Безліміт", try: "СТВОРИТИ ВІДЕО", stats: "📊 Статистика", ref: "👥 Реферали", tar: "💎 Тарифи", help: "🆘 Допомога", gift: "🎁 Подарунок", profile: "👤 Кабінет", show: "🎬 Приклади", back: "← НАЗАД", spin: "КРУТИТИ", luck: "Крути та вигравай!" },
+            ua: { limit: "Ліміт відео", unit: "хв.", unlim: "Безліміт", try: "СТВОРИТИ ВІДЕО", stats: "📊 Статистика", ref: "👥 Реферали", tar: "💎 Тарифи", help: "Допомога", gift: "🎁 Подарунок", profile: "👤 Кабінет", show: "🎬 Приклади", back: "← НАЗАД", spin: "КРУТИТИ", luck: "Крути та вигравай!" },
             fr: { limit: "Limite vidéo", unit: "min.", unlim: "Illimité", try: "CRÉER VIDÉO", stats: "📊 Stats", ref: "👥 Parrainage", tar: "💎 Tarifs", help: "🆘 Aide", gift: "🎁 Cadeau", profile: "👤 Profil", show: "🎬 Exemples", back: "← RETOUR", spin: "TOURNER", luck: "Tournez et gagnez !" },
             zh: { limit: "视频限制", unit: "分钟", unlim: "无限", try: "创建视频", stats: "📊 统计", ref: "👥 推荐", tar: "💎 资费", help: "🆘 帮助", gift: "🎁 礼物", profile: "👤 账户", show: "🎬 案例", back: "← 返回", spin: "旋转", luck: "旋转赢取奖励！" },
             pl: { limit: "Limit wideo", unit: "min.", unlim: "Limit", try: "STWÓRZ WIDEO", stats: "📊 Statystyki", ref: "👥 Polecenia", tar: "💎 Plany", help: "🆘 Pomoc", gift: "🎁 Prezent", profile: "👤 Profil", show: "🎬 Przykłady", back: "← POWRÓT", spin: "KRĘĆ", luck: "Kręć i wygrywaj!" },
@@ -309,7 +333,7 @@
             document.getElementById('wheel-canvas').style.transform = `rotate(${totalDeg}deg)`;
             setTimeout(() => {
                 const prize = prizes[prizes.length - 1 - randomPrizeIndex];
-                tg.showAlert(prize.v > 0 ? `🎉 +${prize.n}!` : "Try again!");
+                tg.showAlert(prize.v > 0 ? `🎉 +${prize.n}!` : "Try again tomorrow!");
                 btn.disabled = false;
             }, 4100);
         }
