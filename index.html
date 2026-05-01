@@ -3,91 +3,260 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Beast Omni: Gift System</title>
+    <title>Beast Omni Global</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <style>
-        body { background-color: #f1f5f9; color: #1e293b; font-family: -apple-system, system-ui, sans-serif; margin: 0; padding: 0; overflow-x: hidden; }
+        body {
+            background-color: #f1f5f9;
+            color: #1e293b;
+            font-family: -apple-system, system-ui, sans-serif;
+            margin: 0; padding: 0;
+            overflow-x: hidden;
+            -webkit-user-select: none;
+        }
+
+        /* КОМПАКТНЫЙ ВЫБОР ЯЗЫКА */
+        .lang-container {
+            position: absolute;
+            top: 20px;
+            right: 15px;
+            z-index: 100;
+        }
         
-        /* Видео баннер */
-        .video-banner { position: relative; width: 100%; height: 35vh; background: #000; }
-        .video-banner video { width: 100%; height: 100%; object-fit: cover; opacity: 0.8; }
-        .video-overlay { position: absolute; bottom: 25px; left: 20px; color: white; z-index: 2; }
-        .video-overlay h1 { margin: 0; font-size: 32px; font-weight: 900; text-transform: uppercase; }
-
-        .main-content { position: relative; background: #f1f5f9; border-radius: 30px 30px 0 0; padding: 25px 20px; margin-top: -30px; box-sizing: border-box; }
-
-        /* Баланс */
-        .balance-card { background: white; padding: 20px; border-radius: 24px; box-shadow: 0 8px 30px rgba(0,0,0,0.04); margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; }
-        .balance-val { font-size: 26px; font-weight: 900; color: #2563eb; }
-
-        /* Сетка меню */
-        .menu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-        .menu-item { 
-            background: white; padding: 20px; border-radius: 22px; text-align: center; 
-            font-weight: 700; font-size: 15px; box-shadow: 0 4px 12px rgba(0,0,0,0.03); 
-            cursor: pointer; transition: transform 0.1s;
+        #lang-select {
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(15px);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 10px 14px;
+            border-radius: 14px;
+            font-size: 13px;
+            font-weight: 700;
+            outline: none;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
         }
-        .menu-item:active { transform: scale(0.95); }
-        .item-gift { background: #eff6ff; border: 2px solid #2563eb; color: #2563eb; }
 
-        /* ОКНО РУЛЕТКИ (GIFT MODAL) */
+        /* ВИДЕО БАННЕР */
+        .video-banner {
+            position: relative;
+            width: 100%;
+            height: 38vh;
+            background: #000;
+            overflow: hidden;
+        }
+
+        .video-banner video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.8;
+        }
+
+        .video-overlay {
+            position: absolute;
+            bottom: 35px;
+            left: 20px;
+            color: white;
+            z-index: 2;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+        }
+
+        .video-overlay h1 {
+            margin: 0;
+            font-size: 38px;
+            font-weight: 950;
+            text-transform: uppercase;
+            letter-spacing: -1px;
+        }
+
+        .main-content {
+            position: relative;
+            background: #f1f5f9;
+            border-radius: 35px 35px 0 0;
+            padding: 30px 20px;
+            margin-top: -35px;
+            box-sizing: border-box;
+            min-height: 60vh;
+        }
+
+        /* БАЛАНС */
+        .balance-card {
+            background: white;
+            padding: 24px;
+            border-radius: 28px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.06);
+            margin-bottom: 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .balance-val {
+            font-size: 32px;
+            font-weight: 900;
+            color: #2563eb;
+        }
+
+        /* КНОПКА ДЕЙСТВИЯ */
+        .btn-action {
+            background: #2563eb;
+            color: white;
+            border: none;
+            width: 100%;
+            padding: 22px;
+            border-radius: 24px;
+            font-size: 18px;
+            font-weight: 800;
+            margin-bottom: 25px;
+            box-shadow: 0 12px 30px rgba(37, 99, 235, 0.3);
+            transition: transform 0.1s;
+        }
+
+        .btn-action:active { transform: scale(0.98); }
+
+        /* МЕНЮ */
+        .menu-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .menu-item {
+            background: white;
+            padding: 22px 15px;
+            border-radius: 25px;
+            text-align: center;
+            font-weight: 700;
+            font-size: 15px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.03);
+            transition: all 0.2s;
+        }
+
+        /* ОТДЕЛЬНАЯ КНОПКА ПОДАРКА */
+        .item-gift {
+            grid-column: span 2;
+            background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+            border: 2px solid #2563eb;
+            color: #2563eb;
+            font-weight: 800;
+            margin-top: 5px;
+        }
+
+        /* МОДАЛЬНОЕ ОКНО РУЛЕТКИ */
         #gift-modal {
-            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: white; z-index: 3000; flex-direction: column; align-items: center;
-            justify-content: center; padding: 20px; box-sizing: border-box;
+            display: none;
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: white;
+            z-index: 5000;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 30px;
+            box-sizing: border-box;
         }
-        .wheel-container { position: relative; width: 280px; height: 280px; margin: 20px 0; }
-        #wheel-canvas { width: 100%; height: 100%; transition: transform 4s cubic-bezier(0.15, 0, 0.15, 1); }
+
+        .wheel-container {
+            position: relative;
+            width: 300px;
+            height: 300px;
+            margin: 30px 0;
+        }
+
+        #wheel-canvas {
+            width: 100%;
+            height: 100%;
+            transition: transform 4s cubic-bezier(0.1, 0, 0.1, 1);
+        }
+
         .wheel-pointer {
-            position: absolute; top: -15px; left: 50%; transform: translateX(-50%);
-            width: 0; height: 0; border-left: 15px solid transparent; border-right: 15px solid transparent;
-            border-top: 30px solid #ef4444; z-index: 10;
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0; height: 0;
+            border-left: 18px solid transparent;
+            border-right: 18px solid transparent;
+            border-top: 35px solid #ef4444;
+            z-index: 10;
         }
+
         .btn-spin {
-            background: #2563eb; color: white; border: none; width: 100%; max-width: 280px;
-            padding: 18px; border-radius: 20px; font-size: 18px; font-weight: 800; margin-top: 20px;
+            background: #2563eb;
+            color: white;
+            border: none;
+            width: 100%;
+            max-width: 300px;
+            padding: 20px;
+            border-radius: 22px;
+            font-size: 20px;
+            font-weight: 800;
+            box-shadow: 0 10px 25px rgba(37, 99, 235, 0.3);
         }
-        .btn-spin:disabled { background: #94a3b8; }
-        .close-gift { margin-top: 30px; color: #64748b; font-weight: 700; cursor: pointer; }
+
+        .btn-spin:disabled { background: #cbd5e1; box-shadow: none; }
     </style>
 </head>
 <body>
+
+    <div class="lang-container">
+        <select id="lang-select" onchange="changeLanguage(this.value)">
+            <option value="ru">🇷🇺 RU</option>
+            <option value="en">🇺🇸 EN</option>
+            <option value="am">🇦🇲 AM</option>
+            <option value="es">🇪🇸 ES</option>
+            <option value="fr">🇫🇷 FR</option>
+            <option value="kz">🇰🇿 KZ</option>
+            <option value="zh">🇨🇳 ZH</option>
+            <option value="pl">🇵🇱 PL</option>
+            <option value="cz">🇨🇿 CZ</option>
+            <option value="ua">🇺🇦 UA</option>
+        </select>
+    </div>
 
     <div class="video-banner">
         <video autoplay muted loop playsinline>
             <source src="https://www.w3schools.com/howto/rain.mp4" type="video/mp4">
         </video>
-        <div class="video-overlay"><h1 id="user-name">GORO</h1></div>
+        <div class="video-overlay">
+            <h1 id="user-name">GORO</h1>
+            <div id="sub-title" style="font-size: 15px; opacity: 0.9; font-weight: 600;">AI Video Revolution</div>
+        </div>
     </div>
 
     <div class="main-content">
         <div class="balance-card">
             <div>
-                <div style="font-size: 11px; font-weight: 700; color: #64748b;">БАЛАНС</div>
-                <div class="balance-val"><span id="balance-num">5.00</span> <small style="font-size: 12px;">мин.</small></div>
+                <div id="label-balance" style="font-size: 12px; font-weight: 800; color: #64748b; text-transform: uppercase; letter-spacing: 1px;">Ваш баланс</div>
+                <div class="balance-val"><span id="balance-num">5.00</span> <small id="unit-min" style="font-size: 14px;">мин.</small></div>
             </div>
-            <div style="background: #dbeafe; color: #2563eb; padding: 6px 12px; border-radius: 10px; font-size: 12px; font-weight: 800;">ELITE</div>
+            <div style="background: #dbeafe; color: #2563eb; padding: 10px 18px; border-radius: 15px; font-size: 14px; font-weight: 900;">ELITE</div>
         </div>
 
+        <button id="btn-try" class="btn-action">ПОПРОБОВАТЬ СЕЙЧАС</button>
+
         <div class="menu-grid">
-            <div class="menu-item item-gift" onclick="openGiftModal()">🎁 Подарки</div>
-            <div class="menu-item">📊 Статистика</div>
-            <div class="menu-item">👥 Рефералы</div>
-            <div class="menu-item">💎 Тарифы</div>
+            <div id="item-stats" class="menu-item">📊 Статистика</div>
+            <div id="item-ref" class="menu-item">👥 Рефералы</div>
+            <div id="item-tariffs" class="menu-item">💎 Тарифы</div>
+            <div id="item-help" class="menu-item">🆘 Помощь</div>
+            
+            <div id="item-gift" class="menu-item item-gift" onclick="openGiftModal()">🎁 Ежедневный подарок</div>
         </div>
     </div>
 
     <div id="gift-modal">
-        <h2 style="font-size: 26px; font-weight: 900; margin: 0;">Ежедневный приз</h2>
-        <p id="timer-info" style="color: #64748b; font-size: 14px; margin-top: 5px;">Испытай удачу!</p>
+        <h2 id="g-title" style="font-size: 32px; font-weight: 950; margin: 0; color: #1e293b;">Удача Beast</h2>
+        <p id="timer-info" style="color: #64748b; font-size: 16px; margin-top: 10px; font-weight: 600;">Крути и получай минуты!</p>
         
         <div class="wheel-container">
             <div class="wheel-pointer"></div>
-            <canvas id="wheel-canvas" width="500" height="500"></canvas>
+            <canvas id="wheel-canvas" width="600" height="600"></canvas>
         </div>
 
         <button id="spin-button" class="btn-spin" onclick="runWheel()">КРУТИТЬ</button>
-        <div class="close-gift" onclick="closeGiftModal()">← ЗАКРЫТЬ</div>
+        <div style="margin-top: 40px; color: #2563eb; font-weight: 800; font-size: 16px;" onclick="closeGiftModal()">← ВЕРНУТЬСЯ</div>
     </div>
 
     <script>
@@ -101,49 +270,52 @@
             { n: "0.1", c: "#6366f1", v: 0.1 }, { n: "0.0", c: "#94a3b8", v: 0 }
         ];
 
-        const canvas = document.getElementById('wheel-canvas');
-        const ctx = canvas.getContext('2d');
+        const i18n = {
+            ru: { bal: "Ваш баланс", try: "ПОПРОБОВАТЬ СЕЙЧАС", stats: "📊 Статистика", ref: "👥 Рефералы", tar: "💎 Тарифы", help: "🆘 Помощь", gift: "🎁 Ежедневный подарок" },
+            en: { bal: "Your Balance", try: "TRY NOW", stats: "📊 Statistics", ref: "👥 Referrals", tar: "💎 Plans", help: "🆘 Help", gift: "🎁 Daily Gift" },
+            am: { bal: "Ձեր հաշվեկշիռը", try: "ՓՈՐՁԵԼ ՀԻՄԱ", stats: "📊 Վիճակագրություն", ref: "👥 Ռեֆերալներ", tar: "💎 Սակագներ", help: "🆘 Օգնություն", gift: "🎁 Օրական նվեր" }
+            // Добавь остальные по вкусу
+        };
+
+        function changeLanguage(lang) {
+            const t = i18n[lang] || i18n['en'];
+            document.getElementById('label-balance').innerText = t.bal;
+            document.getElementById('btn-try').innerText = t.try;
+            document.getElementById('item-stats').innerText = t.stats;
+            document.getElementById('item-ref').innerText = t.ref;
+            document.getElementById('item-tariffs').innerText = t.tar;
+            document.getElementById('item-help').innerText = t.help;
+            document.getElementById('item-gift').innerText = t.gift;
+        }
 
         function drawWheel() {
+            const canvas = document.getElementById('wheel-canvas');
+            const ctx = canvas.getContext('2d');
             const arc = (Math.PI * 2) / prizes.length;
             prizes.forEach((p, i) => {
-                ctx.beginPath(); ctx.fillStyle = p.c;
-                ctx.moveTo(250, 250);
-                ctx.arc(250, 250, 250, i * arc, (i + 1) * arc);
-                ctx.fill();
-                ctx.save(); ctx.translate(250, 250); ctx.rotate(i * arc + arc/2);
-                ctx.fillStyle = "white"; ctx.font = "bold 50px sans-serif";
-                ctx.fillText(p.n, 130, 20); ctx.restore();
+                ctx.beginPath(); ctx.fillStyle = p.c; ctx.moveTo(300, 300);
+                ctx.arc(300, 300, 300, i * arc, (i + 1) * arc); ctx.fill();
+                ctx.save(); ctx.translate(300, 300); ctx.rotate(i * arc + arc/2);
+                ctx.fillStyle = "white"; ctx.font = "bold 55px sans-serif";
+                ctx.fillText(p.n, 150, 20); ctx.restore();
             });
         }
 
-        function openGiftModal() {
-            document.getElementById('gift-modal').style.display = 'flex';
-            checkSpinLimit();
-        }
-
-        function closeGiftModal() {
-            document.getElementById('gift-modal').style.display = 'none';
-        }
+        function openGiftModal() { document.getElementById('gift-modal').style.display = 'flex'; checkSpinLimit(); }
+        function closeGiftModal() { document.getElementById('gift-modal').style.display = 'none'; }
 
         function runWheel() {
             const btn = document.getElementById('spin-button');
             btn.disabled = true;
-
             const randomPrizeIndex = Math.floor(Math.random() * prizes.length);
             const totalDeg = 3600 + (randomPrizeIndex * (360 / prizes.length));
-            
-            canvas.style.transform = `rotate(${totalDeg}deg)`;
-
+            document.getElementById('wheel-canvas').style.transform = `rotate(${totalDeg}deg)`;
             setTimeout(() => {
                 const prize = prizes[prizes.length - 1 - randomPrizeIndex];
                 if(prize.v > 0) {
-                    let b = document.getElementById('balance-num');
-                    b.innerText = (parseFloat(b.innerText) + prize.v).toFixed(2);
-                    tg.showAlert(`🎉 Круто! Ты выиграл ${prize.n} мин.`);
-                } else {
-                    tg.showAlert("Пусто! Повезет завтра.");
-                }
+                    document.getElementById('balance-num').innerText = (parseFloat(document.getElementById('balance-num').innerText) + prize.v).toFixed(2);
+                    tg.showAlert(`🎉 Победа! Начислено ${prize.n} мин.`);
+                } else { tg.showAlert("Повезет завтра!"); }
                 localStorage.setItem('beast_gift_time', Date.now());
                 checkSpinLimit();
             }, 4100);
@@ -151,24 +323,21 @@
 
         function checkSpinLimit() {
             const last = localStorage.getItem('beast_gift_time');
-            const btn = document.getElementById('spin-button');
             const info = document.getElementById('timer-info');
-            
             if(last && (Date.now() - last < 86400000)) {
-                btn.disabled = true;
+                document.getElementById('spin-button').disabled = true;
                 const left = 86400000 - (Date.now() - last);
                 const h = Math.floor(left/3600000);
                 const m = Math.floor((left%3600000)/60000);
-                info.innerText = `Доступно через ${h}ч ${m}м`;
+                info.innerText = `Приходи через ${h}ч ${m}м`;
             } else {
-                btn.disabled = false;
-                info.innerText = "Испытай удачу!";
+                document.getElementById('spin-button').disabled = false;
+                info.innerText = "Крути и получай минуты!";
             }
         }
 
         const user = tg.initDataUnsafe?.user;
         if(user) document.getElementById('user-name').innerText = user.first_name.toUpperCase();
-        
         drawWheel();
         tg.ready();
     </script>
