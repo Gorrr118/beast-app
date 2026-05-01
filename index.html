@@ -15,7 +15,6 @@
             -webkit-user-select: none;
         }
 
-        /* КОМПАКТНЫЙ ВЫБОР ЯЗЫКА */
         .lang-container {
             position: absolute;
             top: 20px;
@@ -36,7 +35,6 @@
             box-shadow: 0 4px 15px rgba(0,0,0,0.2);
         }
 
-        /* ВИДЕО БАННЕР */
         .video-banner {
             position: relative;
             width: 100%;
@@ -79,7 +77,6 @@
             min-height: 60vh;
         }
 
-        /* БАЛАНС */
         .balance-card {
             background: white;
             padding: 24px;
@@ -97,7 +94,6 @@
             color: #2563eb;
         }
 
-        /* КНОПКА ДЕЙСТВИЯ */
         .btn-action {
             background: #2563eb;
             color: white;
@@ -114,7 +110,6 @@
 
         .btn-action:active { transform: scale(0.98); }
 
-        /* МЕНЮ */
         .menu-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -132,7 +127,6 @@
             transition: all 0.2s;
         }
 
-        /* ОТДЕЛЬНАЯ КНОПКА ПОДАРКА */
         .item-gift {
             grid-column: span 2;
             background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
@@ -142,7 +136,13 @@
             margin-top: 5px;
         }
 
-        /* МОДАЛЬНОЕ ОКНО РУЛЕТКИ */
+        .item-secondary {
+            background: white;
+            border: 1px solid #e2e8f0;
+            color: #64748b;
+            font-size: 14px;
+        }
+
         #gift-modal {
             display: none;
             position: fixed;
@@ -243,6 +243,9 @@
             <div id="item-help" class="menu-item">🆘 Помощь</div>
             
             <div id="item-gift" class="menu-item item-gift" onclick="openGiftModal()">🎁 Ежедневный подарок</div>
+
+            <div id="item-profile" class="menu-item item-secondary">👤 Кабинет</div>
+            <div id="item-showcase" class="menu-item item-secondary">🎬 Примеры</div>
         </div>
     </div>
 
@@ -256,7 +259,7 @@
         </div>
 
         <button id="spin-button" class="btn-spin" onclick="runWheel()">КРУТИТЬ</button>
-        <div style="margin-top: 40px; color: #2563eb; font-weight: 800; font-size: 16px;" onclick="closeGiftModal()">← ВЕРНУТЬСЯ</div>
+        <div id="btn-back" style="margin-top: 40px; color: #2563eb; font-weight: 800; font-size: 16px;" onclick="closeGiftModal()">← ВЕРНУТЬСЯ</div>
     </div>
 
     <script>
@@ -271,10 +274,16 @@
         ];
 
         const i18n = {
-            ru: { bal: "Ваш баланс", try: "ПОПРОБОВАТЬ СЕЙЧАС", stats: "📊 Статистика", ref: "👥 Рефералы", tar: "💎 Тарифы", help: "🆘 Помощь", gift: "🎁 Ежедневный подарок" },
-            en: { bal: "Your Balance", try: "TRY NOW", stats: "📊 Statistics", ref: "👥 Referrals", tar: "💎 Plans", help: "🆘 Help", gift: "🎁 Daily Gift" },
-            am: { bal: "Ձեր հաշվեկշիռը", try: "ՓՈՐՁԵԼ ՀԻՄԱ", stats: "📊 Վիճակագրություն", ref: "👥 Ռեֆերալներ", tar: "💎 Սակագներ", help: "🆘 Օգնություն", gift: "🎁 Օրական նվեր" }
-            // Добавь остальные по вкусу
+            ru: { bal: "Ваш баланс", try: "ПОПРОБОВАТЬ СЕЙЧАС", stats: "📊 Статистика", ref: "👥 Рефералы", tar: "💎 Тарифы", help: "🆘 Помощь", gift: "🎁 Ежедневный подарок", profile: "👤 Кабинет", show: "🎬 Примеры", win: "Победа! Начислено", luck: "Крути и получай минуты!", back: "← ВЕРНУТЬСЯ", wait: "Приходи через", spin: "КРУТИТЬ" },
+            en: { bal: "Your Balance", try: "TRY NOW", stats: "📊 Statistics", ref: "👥 Referrals", tar: "💎 Plans", help: "🆘 Help", gift: "🎁 Daily Gift", profile: "👤 Profile", show: "🎬 Showcase", win: "Win! Credited", luck: "Spin and get minutes!", back: "← GO BACK", wait: "Come back in", spin: "SPIN" },
+            am: { bal: "Ձեր հաշվեկշիռը", try: "ՓՈՐՁԵԼ ՀԻՄԱ", stats: "📊 Վիճակագրություն", ref: "👥 Ռեֆերալներ", tar: "💎 Սակագներ", help: "🆘 Օգնություն", gift: "🎁 Օրական նվեր", profile: "👤 Կաբինետ", show: "🎬 Օրինակներ", win: "Հաղթանակ: Ավելացվեց", luck: "Պտտիր և ստացիր րոպեներ", back: "← ՀԵՏ ՎԵՐԱԴԱՌՆԱԼ", wait: "Արի", spin: "ՊՏՏԵԼ" },
+            es: { bal: "Tu Saldo", try: "PRUEBA AHORA", stats: "📊 Estadísticas", ref: "👥 Referidos", tar: "💎 Tarifas", help: "🆘 Ayuda", gift: "🎁 Regalo Diario", profile: "👤 Perfil", show: "🎬 Ejemplos", win: "¡Victoria! Acreditado", luck: "¡Gira y gana minutos!", back: "← VOLVER", wait: "Vuelve en", spin: "GIRAR" },
+            fr: { bal: "Votre Solde", try: "ESSAYER MAINTENANT", stats: "📊 Statistiques", ref: "👥 Parrainage", tar: "💎 Tarifs", help: "🆘 Aide", gift: "🎁 Cadeau Quotidien", profile: "👤 Profil", show: "🎬 Exemples", win: "Victoire ! Crédité", luck: "Tournez et gagnez !", back: "← RETOUR", wait: "Revenez dans", spin: "TOURNER" },
+            kz: { bal: "Сіздің теңгеріміңіз", try: "ҚАЗІР КӨРУ", stats: "📊 Статистика", ref: "👥 Рефералдар", tar: "💎 Тарифтер", help: "🆘 Көмек", gift: "🎁 Күнделікті сыйлық", profile: "👤 Кабинет", show: "🎬 Мысалдар", win: "Жеңіс! Аударылды", luck: "Айналдырып, минут ал!", back: "← ҚАЙТУ", wait: "Кейін кел", spin: "АЙНАЛДЫРУ" },
+            zh: { bal: "您的余额", try: "立即尝试", stats: "📊 统计数据", ref: "👥 推荐人", tar: "💎 资费", help: "🆘 帮助", gift: "🎁 每日礼物", profile: "👤 个人中心", show: "🎬 示例", win: "胜利！已到账", luck: "旋转赢取分钟！", back: "← 返回", wait: "请在后回来", spin: "旋转" },
+            pl: { bal: "Twój Balans", try: "SPRÓBUJ TERAZ", stats: "📊 Statystyki", ref: "👥 Polecenia", tar: "💎 Plany", help: "🆘 Pomoc", gift: "🎁 Codzienny Prezent", profile: "👤 Profil", show: "🎬 Przykłady", win: "Wygrana! Naliczono", luck: "Kręć i wygrywaj!", back: "← POWRÓT", wait: "Wróć za", spin: "KRĘĆ" },
+            cz: { bal: "Váš Zůstatek", try: "VYZKOUŠET TEĎ", stats: "📊 Statistiky", ref: "👥 Reference", tar: "💎 Tarify", help: "🆘 Pomoc", gift: "🎁 Denní Dárek", profile: "👤 Profil", show: "🎬 Ukázky", win: "Výhra! Připsáno", luck: "Toč a získej minuty!", back: "← ZPĚT", wait: "Vrať se za", spin: "TOČIT" },
+            ua: { bal: "Ваш Баланс", try: "СПРОБУВАТИ ЗАРАЗ", stats: "📊 Статистика", ref: "👥 Реферали", tar: "💎 Тарифи", help: "🆘 Допомога", gift: "🎁 Щоденний подарунок", profile: "👤 Кабінет", show: "🎬 Приклади", win: "Перемога! Нараховано", luck: "Крути та отримуй хвилини!", back: "← ПОВЕРНУТИСЯ", wait: "Приходь через", spin: "КРУТИТИ" }
         };
 
         function changeLanguage(lang) {
@@ -286,6 +295,12 @@
             document.getElementById('item-tariffs').innerText = t.tar;
             document.getElementById('item-help').innerText = t.help;
             document.getElementById('item-gift').innerText = t.gift;
+            document.getElementById('item-profile').innerText = t.profile;
+            document.getElementById('item-showcase').innerText = t.show;
+            document.getElementById('timer-info').innerText = t.luck;
+            document.getElementById('btn-back').innerText = t.back;
+            document.getElementById('spin-button').innerText = t.spin;
+            document.getElementById('g-title').innerText = (lang === 'ru' ? "Удача Beast" : (lang === 'am' ? "Beast-ի հաջողությունը" : "Beast Luck"));
         }
 
         function drawWheel() {
@@ -306,6 +321,8 @@
 
         function runWheel() {
             const btn = document.getElementById('spin-button');
+            const lang = document.getElementById('lang-select').value;
+            const t = i18n[lang] || i18n['en'];
             btn.disabled = true;
             const randomPrizeIndex = Math.floor(Math.random() * prizes.length);
             const totalDeg = 3600 + (randomPrizeIndex * (360 / prizes.length));
@@ -314,8 +331,8 @@
                 const prize = prizes[prizes.length - 1 - randomPrizeIndex];
                 if(prize.v > 0) {
                     document.getElementById('balance-num').innerText = (parseFloat(document.getElementById('balance-num').innerText) + prize.v).toFixed(2);
-                    tg.showAlert(`🎉 Победа! Начислено ${prize.n} мин.`);
-                } else { tg.showAlert("Повезет завтра!"); }
+                    tg.showAlert(`${t.win} ${prize.n} мин.`);
+                } else { tg.showAlert(lang === 'ru' ? "Повезет завтра!" : "Better luck tomorrow!"); }
                 localStorage.setItem('beast_gift_time', Date.now());
                 checkSpinLimit();
             }, 4100);
@@ -324,15 +341,17 @@
         function checkSpinLimit() {
             const last = localStorage.getItem('beast_gift_time');
             const info = document.getElementById('timer-info');
+            const lang = document.getElementById('lang-select').value;
+            const t = i18n[lang] || i18n['en'];
             if(last && (Date.now() - last < 86400000)) {
                 document.getElementById('spin-button').disabled = true;
                 const left = 86400000 - (Date.now() - last);
                 const h = Math.floor(left/3600000);
                 const m = Math.floor((left%3600000)/60000);
-                info.innerText = `Приходи через ${h}ч ${m}м`;
+                info.innerText = `${t.wait} ${h}ч ${m}м`;
             } else {
                 document.getElementById('spin-button').disabled = false;
-                info.innerText = "Крути и получай минуты!";
+                info.innerText = t.luck;
             }
         }
 
