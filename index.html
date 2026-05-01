@@ -4,130 +4,128 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Beast Omni Ultimate</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <style>
+        :root {
+            --bg-color: #f2f2f7; /* Светло-серый фон как в iOS */
+            --card-bg: #ffffff;
+            --accent-blue: #007aff;
+            --text-main: #1c1c1e;
+            --text-secondary: #8e8e93;
+            --border-color: #e5e5ea;
+        }
+
         body {
-            background-color: #0d1117;
-            color: #e6edf3;
-            font-family: 'Poppins', -apple-system, system-ui, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: 'Inter', -apple-system, system-ui, sans-serif;
             margin: 0; padding: 0;
-            overflow-x: hidden;
-            -webkit-user-select: none;
+            overflow-x: hidden; -webkit-user-select: none;
         }
 
         /* LANG SELECT */
         .lang-container {
-            position: absolute; top: 25px; right: 20px; z-index: 100;
+            position: absolute; top: 20px; right: 20px; z-index: 100;
         }
         
         #lang-select {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(20px);
-            color: white;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            padding: 10px 16px;
-            border-radius: 16px;
-            font-size: 14px; font-weight: 700;
-            outline: none;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            color: var(--text-main);
+            border: 1px solid var(--border-color);
+            padding: 8px 14px;
+            border-radius: 12px;
+            font-size: 13px; font-weight: 700;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
         }
 
+        /* HEADER & BANNER */
         .video-banner {
-            position: relative; width: 100%; height: 45vh; background: #000; overflow: hidden;
+            position: relative; width: 100%; height: 35vh; background: #fff; overflow: hidden;
         }
 
         .video-banner video {
-            width: 100%; height: 100%; object-fit: cover; opacity: 0.7;
+            width: 100%; height: 100%; object-fit: cover;
         }
 
         .video-banner::after {
-            content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 40%;
-            background: linear-gradient(to top, #0d1117, transparent); z-index: 1;
+            content: ''; position: absolute; bottom: 0; width: 100%; height: 100%;
+            background: linear-gradient(to bottom, transparent 60%, var(--bg-color));
         }
 
         .video-overlay {
-            position: absolute; bottom: 65px; left: 25px; color: white; z-index: 2;
+            position: absolute; bottom: 50px; left: 25px; z-index: 2;
         }
 
         .video-overlay h1 {
-            margin: 0; font-size: 42px; font-weight: 950; text-transform: uppercase;
-            letter-spacing: -1px; line-height: 1; text-shadow: 0 0 20px rgba(37, 99, 235, 0.6);
+            margin: 0; font-size: 38px; font-weight: 800; letter-spacing: -1px;
+            color: var(--text-main); text-transform: uppercase;
         }
 
+        /* MAIN CONTENT */
         .main-content {
-            position: relative;
-            background: rgba(255, 255, 255, 0.03); 
-            backdrop-filter: blur(15px);
-            border-radius: 40px 40px 0 0;
-            padding: 30px 25px; margin-top: -50px;
-            box-sizing: border-box; min-height: 55vh;
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
-            box-shadow: 0 -20px 40px rgba(0,0,0,0.4);
-            z-index: 5;
+            padding: 0 20px 40px; margin-top: -30px; position: relative; z-index: 5;
         }
 
         .status-card {
-            background: rgba(255, 255, 255, 0.05);
-            padding: 24px; border-radius: 30px;
-            margin-bottom: 25px; display: flex;
+            background: var(--card-bg);
+            padding: 20px; border-radius: 24px;
+            margin-bottom: 20px; display: flex;
             justify-content: space-between; align-items: center;
-            border: 1px solid rgba(37, 99, 235, 0.2);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.04);
+            border: 1px solid var(--card-bg);
         }
 
-        .status-value { font-size: 28px; font-weight: 900; color: #fff; }
-        .status-value span { color: #3b82f6; text-shadow: 0 0 10px rgba(59, 130, 246, 0.5); }
+        .status-label { font-size: 13px; font-weight: 700; color: var(--text-secondary); text-transform: uppercase; }
+        .status-value { font-size: 28px; font-weight: 800; color: var(--text-main); }
+        .status-value span { color: var(--accent-blue); }
 
         #plan-badge {
-            background: linear-gradient(135deg, #2563eb, #1d4ed8);
-            color: white; padding: 12px 20px; border-radius: 18px;
-            font-size: 14px; font-weight: 900; text-transform: uppercase;
+            background: #e1f0ff; color: var(--accent-blue);
+            padding: 8px 16px; border-radius: 14px;
+            font-size: 12px; font-weight: 800;
         }
 
+        /* BUTTONS */
         .btn-action {
-            background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
-            color: white; border: none; width: 100%; padding: 24px;
-            border-radius: 26px; font-size: 19px; font-weight: 800;
-            margin-bottom: 25px;
-            box-shadow: 0 15px 35px rgba(37, 99, 235, 0.35), inset 0 2px 4px rgba(255,255,255,0.3);
-            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-            cursor: pointer;
+            background: var(--accent-blue);
+            color: white; border: none; width: 100%; padding: 22px;
+            border-radius: 20px; font-size: 17px; font-weight: 700;
+            margin-bottom: 20px;
+            box-shadow: 0 8px 20px rgba(0, 122, 255, 0.25);
+            transition: all 0.2s; cursor: pointer;
         }
-        .btn-action:active { transform: scale(0.96); box-shadow: 0 5px 15px rgba(37, 99, 235, 0.2); }
+        .btn-action:active { transform: scale(0.97); opacity: 0.9; }
 
-        .menu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; padding-bottom: 30px; }
+        .menu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
 
         .menu-item {
-            background: rgba(255, 255, 255, 0.05);
-            padding: 24px 15px; border-radius: 28px;
-            text-align: center; font-weight: 700; font-size: 15px;
-            color: #e6edf3; border: 1px solid rgba(255, 255, 255, 0.05);
-            transition: all 0.2s ease;
+            background: var(--card-bg);
+            padding: 20px 10px; border-radius: 20px;
+            text-align: center; font-weight: 700; font-size: 14px;
+            color: var(--text-main); border: 1px solid var(--border-color);
+            transition: all 0.2s; box-shadow: 0 4px 10px rgba(0,0,0,0.02);
         }
-        .menu-item:active { background: rgba(37, 99, 235, 0.15); transform: translateY(2px); border-color: #2563eb; }
+        .menu-item:active { background: #f9f9f9; transform: translateY(2px); }
 
         .item-gift {
-            grid-column: span 2; background: rgba(37, 99, 235, 0.1);
-            border: 2px solid #2563eb; color: #3b82f6; font-weight: 800;
+            grid-column: span 2; background: #fff;
+            border: 2px solid var(--accent-blue); color: var(--accent-blue);
         }
 
+        /* MODAL */
         #gift-modal {
-            display: none; position: fixed; top: 0; left: 0;
-            width: 100%; height: 100%; background: #0d1117;
-            z-index: 9000; flex-direction: column;
-            align-items: center; justify-content: center; padding: 20px;
-            box-sizing: border-box;
+            display: none; position: fixed; inset: 0;
+            background: var(--bg-color); z-index: 1000;
+            flex-direction: column; align-items: center; justify-content: center; padding: 20px;
         }
 
-        .wheel-container { 
-            position: relative; width: 320px; height: 320px; 
-            margin: 30px auto; display: flex; justify-content: center; align-items: center; 
-        }
-        #wheel-canvas { width: 100%; height: 100%; transition: transform 4s cubic-bezier(0.1, 0, 0, 1); }
+        .wheel-container { position: relative; width: 300px; height: 300px; margin: 30px 0; }
+        #wheel-canvas { width: 100%; height: 100%; border-radius: 50%; border: 6px solid #fff; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
         .wheel-pointer { 
-            position: absolute; top: -20px; left: 50%; transform: translateX(-50%); 
-            width: 0; height: 0; border-left: 15px solid transparent; 
-            border-right: 15px solid transparent; border-top: 30px solid #ef4444; z-index: 10; 
+            position: absolute; top: -10px; left: 50%; transform: translateX(-50%); 
+            width: 4px; height: 30px; background: #ff3b30; z-index: 10; border-radius: 2px;
         }
     </style>
 </head>
@@ -135,18 +133,12 @@
 
     <div class="lang-container">
         <select id="lang-select" onchange="changeLanguage(this.value)">
-            <option value="ru" selected>🇷🇺 RU</option>
-            <option value="en">🇺🇸 EN</option>
-            <option value="am">🇦🇲 AM</option>
-            <option value="es">🇪🇸 ES</option>
-            <option value="fr">🇫🇷 FR</option>
-            <option value="de">🇩🇪 DE</option>
-            <option value="it">🇮🇹 IT</option>
-            <option value="pt">🇵🇹 PT</option>
-            <option value="tr">🇹🇷 TR</option>
-            <option value="ar">🇸🇦 AR</option>
-            <option value="zh">🇨🇳 ZH</option>
-            <option value="ja">🇯🇵 JA</option>
+            <option value="ru" selected>🇷🇺 Русский</option>
+            <option value="en">🇺🇸 English</option>
+            <option value="am">🇦🇲 Armenian</option>
+            <option value="es">🇪🇸 Spanish</option>
+            <option value="fr">🇫🇷 French</option>
+            <option value="de">🇩🇪 German</option>
         </select>
     </div>
 
@@ -154,66 +146,58 @@
         <video autoplay muted loop playsinline><source src="https://www.w3schools.com/howto/rain.mp4" type="video/mp4"></video>
         <div class="video-overlay">
             <h1 id="user-name">BEAST</h1>
-            <div id="sub-title" style="font-size: 16px; opacity: 0.8; font-weight: 600;">Beast Omni Global</div>
+            <div id="sub-title" style="font-size: 14px; color: var(--text-secondary); font-weight: 700; text-transform: uppercase;">Premium Interface</div>
         </div>
     </div>
 
     <div class="main-content">
         <div class="status-card">
-            <div class="status-info">
-                <div id="label-status">Лимит видео</div>
-                <div class="status-value"><span id="limit-val">0.5</span> <small id="unit-text">мин.</small></div>
+            <div>
+                <div id="label-status" class="status-label">Лимит видео</div>
+                <div class="status-value"><span id="limit-val">0.5</span> <small style="font-size: 14px;" id="unit-text">мин.</small></div>
             </div>
-            <div id="plan-badge">FREE</div>
+            <div id="plan-badge">FREE PLAN</div>
         </div>
 
-        <button id="btn-try" class="btn-action" onclick="tg.showAlert('Generating...')">СОЗДАТЬ ВИДЕО</button>
+        <button id="btn-try" class="btn-action">СОЗДАТЬ ВИДЕО</button>
 
         <div class="menu-grid">
-            <div id="item-stats" class="menu-item" onclick="tg.showAlert('Stats loading...')">📊 Статистика</div>
-            <div id="item-ref" class="menu-item" onclick="tg.showAlert('Referrals empty')">👥 Рефералы</div>
-            <div id="item-tariffs" class="menu-item" onclick="tg.showAlert('Tariffs list...')">💎 Тарифы</div>
-            <div id="item-help" class="menu-item" onclick="tg.showAlert('Support 24/7')">🆘 Помощь</div>
+            <div id="item-stats" class="menu-item">📊 Статистика</div>
+            <div id="item-ref" class="menu-item">👥 Рефералы</div>
+            <div id="item-tariffs" class="menu-item">💎 Тарифы</div>
+            <div id="item-help" class="menu-item">🆘 Помощь</div>
             <div id="item-gift" class="menu-item item-gift" onclick="openGiftModal()">🎁 Ежедневный подарок</div>
-            <div id="item-profile" class="menu-item" onclick="tg.showAlert('Profile loading...')">👤 Кабинет</div>
-            <div id="item-showcase" class="menu-item" onclick="tg.showAlert('Opening Showcase')">🎬 Примеры</div>
+            <div id="item-profile" class="menu-item">👤 Кабинет</div>
+            <div id="item-showcase" class="menu-item">🎬 Примеры</div>
         </div>
     </div>
 
     <div id="gift-modal">
-        <h2 id="g-title" style="font-size: 32px; font-weight: 950; color:#fff; margin:0; text-align:center;">Beast Luck</h2>
-        <p id="timer-info" style="color:#8b949e; font-weight:600; margin-bottom:10px;">Крути и выигрывай!</p>
+        <h2 id="g-title" style="font-size: 32px; font-weight: 800; color: var(--text-main); margin: 0;">Beast Luck</h2>
         <div class="wheel-container">
             <div class="wheel-pointer"></div>
             <canvas id="wheel-canvas" width="600" height="600"></canvas>
         </div>
-        <button id="spin-button" class="btn-action" style="max-width:300px;" onclick="runWheel()">КРУТИТЬ</button>
-        <div id="btn-back" style="margin-top:20px; color:#3b82f6; font-weight:800; cursor:pointer;" onclick="closeGiftModal()">← НАЗАД</div>
+        <button id="spin-button" class="btn-action" style="max-width: 300px;" onclick="runWheel()">КРУТИТЬ</button>
+        <div id="btn-back" style="margin-top: 20px; color: var(--accent-blue); font-weight: 700; cursor: pointer;" onclick="closeGiftModal()">← НАЗАД</div>
     </div>
 
     <script>
         let tg = window.Telegram.WebApp;
         tg.expand();
+        tg.headerColor = "#f2f2f7";
 
-        let userPlan = {
-            balance: 0.5,
-            updateDisplay: function() {
-                document.getElementById('limit-val').innerText = this.balance.toFixed(1);
-            }
-        };
-
+        let userPlan = { balance: 0.5 };
         const prizes = [
-            { n: "0.1", c: "#121212", v: 0.1 }, { n: "0.5", c: "#3b82f6", v: 0.5 },
-            { n: "0.1", c: "#1a1a1a", v: 0.1 }, { n: "1.0", c: "#2563eb", v: 1.0 },
-            { n: "0.1", c: "#121212", v: 0.1 }, { n: "2.0", c: "#1e40af", v: 2.0 },
-            { n: "0.1", c: "#1a1a1a", v: 0.1 }, { n: "0.0", c: "#4b5563", v: 0 }
+            { n: "0.1", c: "#e5e5ea", v: 0.1 }, { n: "0.5", c: "#007aff", v: 0.5 },
+            { n: "0.1", c: "#d1d1d6", v: 0.1 }, { n: "1.0", c: "#5856d6", v: 1.0 },
+            { n: "0.1", c: "#e5e5ea", v: 0.1 }, { n: "2.0", c: "#34c759", v: 2.0 },
+            { n: "0.1", c: "#d1d1d6", v: 0.1 }, { n: "0.0", c: "#8e8e93", v: 0 }
         ];
 
         const i18n = {
-            ru: { limit: "Лимит видео", unit: "мин.", try: "СОЗДАТЬ ВИДЕО", stats: "📊 Статистика", ref: "👥 Рефералы", tar: "💎 Тарифы", help: "🆘 Помощь", gift: "🎁 Ежедневный подарок", profile: "👤 Кабинет", show: "🎬 Примеры", back: "← НАЗАД", spin: "КРУТИТЬ", luck: "Beast Luck", wait: "Ждите 24 часа!" },
-            en: { limit: "Video Limit", unit: "min.", try: "CREATE VIDEO", stats: "📊 Stats", ref: "👥 Refs", tar: "💎 Plans", help: "🆘 Help", gift: "🎁 Daily Gift", profile: "👤 Profile", show: "🎬 Showcase", back: "← BACK", spin: "SPIN", luck: "Beast Luck", wait: "Wait 24h!" },
-            am: { limit: "Վիդեո սահմանաչափ", unit: "րոպե", try: "ՍՏԵՂԾԵԼ ՎԻԴԵՈ", stats: "📊 Վիճակագրություն", ref: "👥 Ռեֆերալներ", tar: "💎 Սակագներ", help: "🆘 Օգնություն", gift: "🎁 Նվեր", profile: "👤 Կաբինետ", show: "🎬 Օրինակներ", back: "← ՀԵՏ", spin: "ՊՏՏԵԼ", luck: "Beast Luck", wait: "Սպասեք 24 ժամ" }
-            // Аналогично добавляются остальные языки
+            ru: { limit: "Лимит видео", unit: "мин.", try: "СОЗДАТЬ ВИДЕО", stats: "📊 Статистика", ref: "👥 Рефералы", tar: "💎 Тарифы", help: "🆘 Помощь", gift: "🎁 Ежедневный подарок", profile: "👤 Кабинет", show: "🎬 Примеры", back: "← НАЗАД", spin: "КРУТИТЬ", luck: "Beast Luck" },
+            en: { limit: "Video Limit", unit: "min.", try: "CREATE VIDEO", stats: "📊 Stats", ref: "👥 Refs", tar: "💎 Plans", help: "🆘 Help", gift: "🎁 Daily Gift", profile: "👤 Profile", show: "🎬 Showcase", back: "← BACK", spin: "SPIN", luck: "Beast Luck" }
         };
 
         function changeLanguage(lang) {
@@ -247,20 +231,19 @@
         }
 
         function runWheel() {
-            const last = localStorage.getItem('beast_last_spin');
+            const last = localStorage.getItem('beast_spin_v2');
             if (last && (Date.now() - last < 86400000)) {
-                tg.showAlert("Access denied: 24h limit"); return;
+                tg.showAlert("Доступно раз в 24 часа!"); return;
             }
             const canvas = document.getElementById('wheel-canvas');
             const idx = Math.floor(Math.random() * prizes.length);
-            const totalDeg = 3600 + (idx * (360 / prizes.length));
-            canvas.style.transform = `rotate(${totalDeg}deg)`;
+            canvas.style.transform = `rotate(${3600 + (idx * 45)}deg)`;
             setTimeout(() => {
-                const prize = prizes[prizes.length - 1 - (idx % prizes.length)];
-                userPlan.balance += prize.v;
-                userPlan.updateDisplay();
-                localStorage.setItem('beast_last_spin', Date.now());
-                tg.showAlert(`Win: +${prize.n} min`);
+                const p = prizes[prizes.length - 1 - (idx % prizes.length)];
+                userPlan.balance += p.v;
+                document.getElementById('limit-val').innerText = userPlan.balance.toFixed(1);
+                localStorage.setItem('beast_spin_v2', Date.now());
+                tg.showAlert(`Вы выиграли: +${p.n} мин.`);
             }, 4100);
         }
 
