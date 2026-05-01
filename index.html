@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Beast Omni Global</title>
+    <title>Beast Omni Ultimate</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <style>
         body {
-            background-color: #f1f5f9;
+            background-color: #f8fafc;
             color: #1e293b;
             font-family: -apple-system, system-ui, sans-serif;
             margin: 0; padding: 0;
@@ -15,30 +15,31 @@
             -webkit-user-select: none;
         }
 
+        /* ВЫБОР ЯЗЫКА */
         .lang-container {
             position: absolute;
-            top: 20px;
-            right: 15px;
+            top: 25px;
+            right: 20px;
             z-index: 100;
         }
         
         #lang-select {
-            background: rgba(0, 0, 0, 0.4);
-            backdrop-filter: blur(15px);
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(20px);
             color: white;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            padding: 10px 14px;
-            border-radius: 14px;
-            font-size: 13px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            padding: 10px 16px;
+            border-radius: 16px;
+            font-size: 14px;
             font-weight: 700;
             outline: none;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
         }
 
+        /* ГИГАНТСКОЕ ВИДЕО СВЕРХУ */
         .video-banner {
             position: relative;
             width: 100%;
-            height: 38vh;
+            height: 50vh; 
             background: #000;
             overflow: hidden;
         }
@@ -47,68 +48,80 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            opacity: 0.8;
+            opacity: 0.85;
         }
 
         .video-overlay {
             position: absolute;
-            bottom: 35px;
-            left: 20px;
+            bottom: 65px;
+            left: 25px;
             color: white;
             z-index: 2;
-            text-shadow: 0 2px 10px rgba(0,0,0,0.5);
         }
 
         .video-overlay h1 {
             margin: 0;
-            font-size: 38px;
+            font-size: 42px;
             font-weight: 950;
             text-transform: uppercase;
             letter-spacing: -1px;
+            line-height: 1;
         }
 
         .main-content {
             position: relative;
-            background: #f1f5f9;
-            border-radius: 35px 35px 0 0;
-            padding: 30px 20px;
-            margin-top: -35px;
+            background: #f8fafc;
+            border-radius: 40px 40px 0 0;
+            padding: 30px 25px;
+            margin-top: -50px;
             box-sizing: border-box;
-            min-height: 60vh;
+            min-height: 55vh;
+            box-shadow: 0 -20px 40px rgba(0,0,0,0.1);
         }
 
-        .balance-card {
+        /* КАРТОЧКА ТАРИФА */
+        .status-card {
             background: white;
             padding: 24px;
-            border-radius: 28px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.06);
+            border-radius: 30px;
+            box-shadow: 0 15px 45px rgba(0,0,0,0.05);
             margin-bottom: 25px;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            border: 1px solid rgba(37, 99, 235, 0.1);
         }
 
-        .balance-val {
-            font-size: 32px;
+        .status-value {
+            font-size: 28px;
             font-weight: 900;
-            color: #2563eb;
+            color: #1e293b;
         }
 
+        .status-value span { color: #2563eb; }
+
+        .badge-plan {
+            background: linear-gradient(135deg, #2563eb, #1d4ed8);
+            color: white;
+            padding: 12px 20px;
+            border-radius: 18px;
+            font-size: 14px;
+            font-weight: 900;
+        }
+
+        /* КНОПКИ */
         .btn-action {
             background: #2563eb;
             color: white;
             border: none;
             width: 100%;
-            padding: 22px;
-            border-radius: 24px;
-            font-size: 18px;
+            padding: 24px;
+            border-radius: 26px;
+            font-size: 19px;
             font-weight: 800;
             margin-bottom: 25px;
-            box-shadow: 0 12px 30px rgba(37, 99, 235, 0.3);
-            transition: transform 0.1s;
+            box-shadow: 0 15px 35px rgba(37, 99, 235, 0.35);
         }
-
-        .btn-action:active { transform: scale(0.98); }
 
         .menu-grid {
             display: grid;
@@ -118,13 +131,12 @@
 
         .menu-item {
             background: white;
-            padding: 22px 15px;
-            border-radius: 25px;
+            padding: 24px 15px;
+            border-radius: 28px;
             text-align: center;
             font-weight: 700;
             font-size: 15px;
-            box-shadow: 0 6px 20px rgba(0,0,0,0.03);
-            transition: all 0.2s;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.03);
         }
 
         .item-gift {
@@ -133,16 +145,9 @@
             border: 2px solid #2563eb;
             color: #2563eb;
             font-weight: 800;
-            margin-top: 5px;
         }
 
-        .item-secondary {
-            background: white;
-            border: 1px solid #e2e8f0;
-            color: #64748b;
-            font-size: 14px;
-        }
-
+        /* МОДАЛКА РУЛЕТКИ */
         #gift-modal {
             display: none;
             position: fixed;
@@ -154,48 +159,13 @@
             align-items: center;
             justify-content: center;
             padding: 30px;
-            box-sizing: border-box;
-        }
-
-        .wheel-container {
-            position: relative;
-            width: 300px;
-            height: 300px;
-            margin: 30px 0;
         }
 
         #wheel-canvas {
-            width: 100%;
-            height: 100%;
+            width: 320px;
+            height: 320px;
             transition: transform 4s cubic-bezier(0.1, 0, 0.1, 1);
         }
-
-        .wheel-pointer {
-            position: absolute;
-            top: -20px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 0; height: 0;
-            border-left: 18px solid transparent;
-            border-right: 18px solid transparent;
-            border-top: 35px solid #ef4444;
-            z-index: 10;
-        }
-
-        .btn-spin {
-            background: #2563eb;
-            color: white;
-            border: none;
-            width: 100%;
-            max-width: 300px;
-            padding: 20px;
-            border-radius: 22px;
-            font-size: 20px;
-            font-weight: 800;
-            box-shadow: 0 10px 25px rgba(37, 99, 235, 0.3);
-        }
-
-        .btn-spin:disabled { background: #cbd5e1; box-shadow: none; }
     </style>
 </head>
 <body>
@@ -216,55 +186,65 @@
     </div>
 
     <div class="video-banner">
-        <video autoplay muted loop playsinline>
-            <source src="https://www.w3schools.com/howto/rain.mp4" type="video/mp4">
-        </video>
+        <video autoplay muted loop playsinline><source src="https://www.w3schools.com/howto/rain.mp4" type="video/mp4"></video>
         <div class="video-overlay">
             <h1 id="user-name">GORO</h1>
-            <div id="sub-title" style="font-size: 15px; opacity: 0.9; font-weight: 600;">AI Video Revolution</div>
+            <div id="sub-title" style="font-size: 16px; opacity: 0.9; font-weight: 600;">Beast Omni Global</div>
         </div>
     </div>
 
     <div class="main-content">
-        <div class="balance-card">
-            <div>
-                <div id="label-balance" style="font-size: 12px; font-weight: 800; color: #64748b; text-transform: uppercase; letter-spacing: 1px;">Ваш баланс</div>
-                <div class="balance-val"><span id="balance-num">5.00</span> <small id="unit-min" style="font-size: 14px;">мин.</small></div>
+        <div class="status-card">
+            <div class="status-info">
+                <div id="label-status" style="font-size:12px; font-weight:800; color:#64748b; text-transform:uppercase;">Лимит видео</div>
+                <div class="status-value"><span id="limit-val">4</span> <small id="unit-text" style="font-size: 16px;">мин.</small></div>
             </div>
-            <div style="background: #dbeafe; color: #2563eb; padding: 10px 18px; border-radius: 15px; font-size: 14px; font-weight: 900;">ELITE</div>
+            <div id="plan-badge" class="badge-plan">PREMIUM</div>
         </div>
 
-        <button id="btn-try" class="btn-action">ПОПРОБОВАТЬ СЕЙЧАС</button>
+        <button id="btn-try" class="btn-action">СОЗДАТЬ ВИДЕО</button>
 
         <div class="menu-grid">
             <div id="item-stats" class="menu-item">📊 Статистика</div>
             <div id="item-ref" class="menu-item">👥 Рефералы</div>
             <div id="item-tariffs" class="menu-item">💎 Тарифы</div>
             <div id="item-help" class="menu-item">🆘 Помощь</div>
-            
             <div id="item-gift" class="menu-item item-gift" onclick="openGiftModal()">🎁 Ежедневный подарок</div>
-
-            <div id="item-profile" class="menu-item item-secondary">👤 Кабинет</div>
-            <div id="item-showcase" class="menu-item item-secondary">🎬 Примеры</div>
+            <div id="item-profile" class="menu-item" style="color:#475569;">👤 Кабинет</div>
+            <div id="item-showcase" class="menu-item" style="color:#475569;">🎬 Примеры</div>
         </div>
     </div>
 
     <div id="gift-modal">
-        <h2 id="g-title" style="font-size: 32px; font-weight: 950; margin: 0; color: #1e293b;">Удача Beast</h2>
-        <p id="timer-info" style="color: #64748b; font-size: 16px; margin-top: 10px; font-weight: 600;">Крути и получай минуты!</p>
-        
-        <div class="wheel-container">
-            <div class="wheel-pointer"></div>
-            <canvas id="wheel-canvas" width="600" height="600"></canvas>
-        </div>
-
-        <button id="spin-button" class="btn-spin" onclick="runWheel()">КРУТИТЬ</button>
-        <div id="btn-back" style="margin-top: 40px; color: #2563eb; font-weight: 800; font-size: 16px;" onclick="closeGiftModal()">← ВЕРНУТЬСЯ</div>
+        <h2 id="g-title" style="font-size: 32px; font-weight: 950; color:#1e293b; margin:0;">Удача Beast</h2>
+        <p id="timer-info" style="color:#64748b; font-weight:600; margin-bottom:20px;">Крути и получай бонусы!</p>
+        <canvas id="wheel-canvas" width="600" height="600"></canvas>
+        <button id="spin-button" class="btn-action" style="max-width:300px; margin-top:30px;" onclick="runWheel()">КРУТИТЬ</button>
+        <div id="btn-back" style="margin-top:20px; color:#2563eb; font-weight:800; cursor:pointer;" onclick="closeGiftModal()">← ВЕРНУТЬСЯ</div>
     </div>
 
     <script>
         let tg = window.Telegram.WebApp;
         tg.expand();
+
+        // ТВОЯ ЛОГИКА ТАРИФОВ
+        const userPlan = {
+            price: 15, // Здесь будет цена из БД
+            getLimit: function() {
+                if (this.price >= 100) return "∞";
+                if (this.price >= 50) return "8";
+                if (this.price >= 30) return "6";
+                if (this.price >= 15) return "4";
+                if (this.price >= 5) return "2";
+                return "0.5";
+            },
+            getBadge: function() {
+                if (this.price >= 100) return "ULTRA";
+                if (this.price >= 30) return "PRO";
+                if (this.price >= 5) return "BASIC";
+                return "FREE";
+            }
+        };
 
         const prizes = [
             { n: "0.1", c: "#6366f1", v: 0.1 }, { n: "0.5", c: "#3b82f6", v: 0.5 },
@@ -274,21 +254,22 @@
         ];
 
         const i18n = {
-            ru: { bal: "Ваш баланс", try: "ПОПРОБОВАТЬ СЕЙЧАС", stats: "📊 Статистика", ref: "👥 Рефералы", tar: "💎 Тарифы", help: "🆘 Помощь", gift: "🎁 Ежедневный подарок", profile: "👤 Кабинет", show: "🎬 Примеры", win: "Победа! Начислено", luck: "Крути и получай минуты!", back: "← ВЕРНУТЬСЯ", wait: "Приходи через", spin: "КРУТИТЬ" },
-            en: { bal: "Your Balance", try: "TRY NOW", stats: "📊 Statistics", ref: "👥 Referrals", tar: "💎 Plans", help: "🆘 Help", gift: "🎁 Daily Gift", profile: "👤 Profile", show: "🎬 Showcase", win: "Win! Credited", luck: "Spin and get minutes!", back: "← GO BACK", wait: "Come back in", spin: "SPIN" },
-            am: { bal: "Ձեր հաշվեկշիռը", try: "ՓՈՐՁԵԼ ՀԻՄԱ", stats: "📊 Վիճակագրություն", ref: "👥 Ռեֆերալներ", tar: "💎 Սակագներ", help: "🆘 Օգնություն", gift: "🎁 Օրական նվեր", profile: "👤 Կաբինետ", show: "🎬 Օրինակներ", win: "Հաղթանակ: Ավելացվեց", luck: "Պտտիր և ստացիր րոպեներ", back: "← ՀԵՏ ՎԵՐԱԴԱՌՆԱԼ", wait: "Արի", spin: "ՊՏՏԵԼ" },
-            es: { bal: "Tu Saldo", try: "PRUEBA AHORA", stats: "📊 Estadísticas", ref: "👥 Referidos", tar: "💎 Tarifas", help: "🆘 Ayuda", gift: "🎁 Regalo Diario", profile: "👤 Perfil", show: "🎬 Ejemplos", win: "¡Victoria! Acreditado", luck: "¡Gira y gana minutos!", back: "← VOLVER", wait: "Vuelve en", spin: "GIRAR" },
-            fr: { bal: "Votre Solde", try: "ESSAYER MAINTENANT", stats: "📊 Statistiques", ref: "👥 Parrainage", tar: "💎 Tarifs", help: "🆘 Aide", gift: "🎁 Cadeau Quotidien", profile: "👤 Profil", show: "🎬 Exemples", win: "Victoire ! Crédité", luck: "Tournez et gagnez !", back: "← RETOUR", wait: "Revenez dans", spin: "TOURNER" },
-            kz: { bal: "Сіздің теңгеріміңіз", try: "ҚАЗІР КӨРУ", stats: "📊 Статистика", ref: "👥 Рефералдар", tar: "💎 Тарифтер", help: "🆘 Көмек", gift: "🎁 Күнделікті сыйлық", profile: "👤 Кабинет", show: "🎬 Мысалдар", win: "Жеңіс! Аударылды", luck: "Айналдырып, минут ал!", back: "← ҚАЙТУ", wait: "Кейін кел", spin: "АЙНАЛДЫРУ" },
-            zh: { bal: "您的余额", try: "立即尝试", stats: "📊 统计数据", ref: "👥 推荐人", tar: "💎 资费", help: "🆘 帮助", gift: "🎁 每日礼物", profile: "👤 个人中心", show: "🎬 示例", win: "胜利！已到账", luck: "旋转赢取分钟！", back: "← 返回", wait: "请在后回来", spin: "旋转" },
-            pl: { bal: "Twój Balans", try: "SPRÓBUJ TERAZ", stats: "📊 Statystyki", ref: "👥 Polecenia", tar: "💎 Plany", help: "🆘 Pomoc", gift: "🎁 Codzienny Prezent", profile: "👤 Profil", show: "🎬 Przykłady", win: "Wygrana! Naliczono", luck: "Kręć i wygrywaj!", back: "← POWRÓT", wait: "Wróć za", spin: "KRĘĆ" },
-            cz: { bal: "Váš Zůstatek", try: "VYZKOUŠET TEĎ", stats: "📊 Statistiky", ref: "👥 Reference", tar: "💎 Tarify", help: "🆘 Pomoc", gift: "🎁 Denní Dárek", profile: "👤 Profil", show: "🎬 Ukázky", win: "Výhra! Připsáno", luck: "Toč a získej minuty!", back: "← ZPĚT", wait: "Vrať se za", spin: "TOČIT" },
-            ua: { bal: "Ваш Баланс", try: "СПРОБУВАТИ ЗАРАЗ", stats: "📊 Статистика", ref: "👥 Реферали", tar: "💎 Тарифи", help: "🆘 Допомога", gift: "🎁 Щоденний подарунок", profile: "👤 Кабінет", show: "🎬 Приклади", win: "Перемога! Нараховано", luck: "Крути та отримуй хвилини!", back: "← ПОВЕРНУТИСЯ", wait: "Приходь через", spin: "КРУТИТИ" }
+            ru: { limit: "Лимит видео", unit: "мин.", unlim: "Безлимит", try: "СОЗДАТЬ ВИДЕО", stats: "📊 Статистика", ref: "👥 Рефералы", tar: "💎 Тарифы", help: "🆘 Помощь", gift: "🎁 Ежедневный подарок", profile: "👤 Кабинет", show: "🎬 Примеры", back: "← ВЕРНУТЬСЯ", spin: "КРУТИТЬ", luck: "Крути и получай бонусы!" },
+            en: { limit: "Video Limit", unit: "min.", unlim: "Unlimited", try: "CREATE VIDEO", stats: "📊 Stats", ref: "👥 Refs", tar: "💎 Plans", help: "🆘 Help", gift: "🎁 Daily Gift", profile: "👤 Profile", show: "🎬 Showcase", back: "← GO BACK", spin: "SPIN", luck: "Spin and win bonuses!" },
+            am: { limit: "Վիդեո սահմանաչափ", unit: "րոպե", unlim: "Անսահմանափակ", try: "ՍՏԵՂԾԵԼ ՎԻԴԵՈ", stats: "📊 Վիճակագրություն", ref: "👥 Ռեֆերալներ", tar: "💎 Սակագներ", help: "🆘 Օգնություն", gift: "🎁 Օրական նվեր", profile: "👤 Կաբինետ", show: "🎬 Օրինակներ", back: "← ՀԵՏ", spin: "ՊՏՏԵԼ", luck: "Պտտիր և շահիր" },
+            es: { limit: "Límite de video", unit: "min.", unlim: "Ilimitado", try: "CREAR VIDEO", stats: "📊 Estadísticas", ref: "👥 Referidos", tar: "💎 Tarifas", help: "🆘 Ayuda", gift: "🎁 Regalo", profile: "👤 Perfil", show: "🎬 Ejemplos", back: "← VOLVER", spin: "GIRAR", luck: "¡Gira y gana!" },
+            kz: { limit: "Видео шегі", unit: "мин.", unlim: "Шексіз", try: "ВИДЕО ЖАСАУ", stats: "📊 Статистика", ref: "👥 Рефералдар", tar: "💎 Тарифтер", help: "🆘 Көмек", gift: "🎁 Сыйлық", profile: "👤 Кабинет", show: "🎬 Мысалдар", back: "← ҚАЙТУ", spin: "АЙНАЛДЫРУ", luck: "Айналдырып, ұтып ал!" },
+            ua: { limit: "Ліміт відео", unit: "хв.", unlim: "Безліміт", try: "СТВОРИТИ ВІДЕО", stats: "📊 Статистика", ref: "👥 Реферали", tar: "💎 Тарифи", help: "🆘 Допомога", gift: "🎁 Подарунок", profile: "👤 Кабінет", show: "🎬 Приклади", back: "← НАЗАД", spin: "КРУТИТИ", luck: "Крути та вигравай!" },
+            fr: { limit: "Limite vidéo", unit: "min.", unlim: "Illimité", try: "CRÉER VIDÉO", stats: "📊 Stats", ref: "👥 Parrainage", tar: "💎 Tarifs", help: "🆘 Aide", gift: "🎁 Cadeau", profile: "👤 Profil", show: "🎬 Exemples", back: "← RETOUR", spin: "TOURNER", luck: "Tournez et gagnez !" },
+            zh: { limit: "视频限制", unit: "分钟", unlim: "无限", try: "创建视频", stats: "📊 统计", ref: "👥 推荐", tar: "💎 资费", help: "🆘 帮助", gift: "🎁 礼物", profile: "👤 账户", show: "🎬 案例", back: "← 返回", spin: "旋转", luck: "旋转赢取奖励！" },
+            pl: { limit: "Limit wideo", unit: "min.", unlim: "Limit", try: "STWÓRZ WIDEO", stats: "📊 Statystyki", ref: "👥 Polecenia", tar: "💎 Plany", help: "🆘 Pomoc", gift: "🎁 Prezent", profile: "👤 Profil", show: "🎬 Przykłady", back: "← POWRÓT", spin: "KRĘĆ", luck: "Kręć i wygrywaj!" },
+            cz: { limit: "Limit videa", unit: "min.", unlim: "Neomezeně", try: "VYTVOŘIT VIDEO", stats: "📊 Statistiky", ref: "👥 Reference", tar: "💎 Tarify", help: "🆘 Pomoc", gift: "🎁 Dárek", profile: "👤 Profil", show: "🎬 Ukázky", back: "← ZPĚT", spin: "TOČIT", luck: "Toč a vyhrávej!" }
         };
 
         function changeLanguage(lang) {
-            const t = i18n[lang] || i18n['en'];
-            document.getElementById('label-balance').innerText = t.bal;
+            const t = i18n[lang] || i18n['ru'];
+            document.getElementById('label-status').innerText = t.limit;
+            document.getElementById('unit-text').innerText = t.unit;
             document.getElementById('btn-try').innerText = t.try;
             document.getElementById('item-stats').innerText = t.stats;
             document.getElementById('item-ref').innerText = t.ref;
@@ -297,10 +278,14 @@
             document.getElementById('item-gift').innerText = t.gift;
             document.getElementById('item-profile').innerText = t.profile;
             document.getElementById('item-showcase').innerText = t.show;
-            document.getElementById('timer-info').innerText = t.luck;
             document.getElementById('btn-back').innerText = t.back;
             document.getElementById('spin-button').innerText = t.spin;
-            document.getElementById('g-title').innerText = (lang === 'ru' ? "Удача Beast" : (lang === 'am' ? "Beast-ի հաջողությունը" : "Beast Luck"));
+            document.getElementById('timer-info').innerText = t.luck;
+            
+            const limit = userPlan.getLimit();
+            document.getElementById('limit-val').innerText = (limit === "∞" ? t.unlim : limit);
+            document.getElementById('unit-text').style.display = (limit === "∞" ? 'none' : 'inline');
+            document.getElementById('plan-badge').innerText = userPlan.getBadge();
         }
 
         function drawWheel() {
@@ -311,53 +296,31 @@
                 ctx.beginPath(); ctx.fillStyle = p.c; ctx.moveTo(300, 300);
                 ctx.arc(300, 300, 300, i * arc, (i + 1) * arc); ctx.fill();
                 ctx.save(); ctx.translate(300, 300); ctx.rotate(i * arc + arc/2);
-                ctx.fillStyle = "white"; ctx.font = "bold 55px sans-serif";
-                ctx.fillText(p.n, 150, 20); ctx.restore();
+                ctx.fillStyle = "white"; ctx.font = "bold 50px sans-serif";
+                ctx.fillText(p.n, 160, 20); ctx.restore();
             });
         }
 
-        function openGiftModal() { document.getElementById('gift-modal').style.display = 'flex'; checkSpinLimit(); }
-        function closeGiftModal() { document.getElementById('gift-modal').style.display = 'none'; }
-
         function runWheel() {
             const btn = document.getElementById('spin-button');
-            const lang = document.getElementById('lang-select').value;
-            const t = i18n[lang] || i18n['en'];
             btn.disabled = true;
             const randomPrizeIndex = Math.floor(Math.random() * prizes.length);
             const totalDeg = 3600 + (randomPrizeIndex * (360 / prizes.length));
             document.getElementById('wheel-canvas').style.transform = `rotate(${totalDeg}deg)`;
             setTimeout(() => {
                 const prize = prizes[prizes.length - 1 - randomPrizeIndex];
-                if(prize.v > 0) {
-                    document.getElementById('balance-num').innerText = (parseFloat(document.getElementById('balance-num').innerText) + prize.v).toFixed(2);
-                    tg.showAlert(`${t.win} ${prize.n} мин.`);
-                } else { tg.showAlert(lang === 'ru' ? "Повезет завтра!" : "Better luck tomorrow!"); }
-                localStorage.setItem('beast_gift_time', Date.now());
-                checkSpinLimit();
+                tg.showAlert(prize.v > 0 ? `🎉 +${prize.n}!` : "Try again!");
+                btn.disabled = false;
             }, 4100);
         }
 
-        function checkSpinLimit() {
-            const last = localStorage.getItem('beast_gift_time');
-            const info = document.getElementById('timer-info');
-            const lang = document.getElementById('lang-select').value;
-            const t = i18n[lang] || i18n['en'];
-            if(last && (Date.now() - last < 86400000)) {
-                document.getElementById('spin-button').disabled = true;
-                const left = 86400000 - (Date.now() - last);
-                const h = Math.floor(left/3600000);
-                const m = Math.floor((left%3600000)/60000);
-                info.innerText = `${t.wait} ${h}ч ${m}м`;
-            } else {
-                document.getElementById('spin-button').disabled = false;
-                info.innerText = t.luck;
-            }
-        }
+        function openGiftModal() { document.getElementById('gift-modal').style.display = 'flex'; drawWheel(); }
+        function closeGiftModal() { document.getElementById('gift-modal').style.display = 'none'; }
 
         const user = tg.initDataUnsafe?.user;
         if(user) document.getElementById('user-name').innerText = user.first_name.toUpperCase();
-        drawWheel();
+        
+        changeLanguage('ru');
         tg.ready();
     </script>
 </body>
