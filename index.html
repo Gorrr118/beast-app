@@ -34,11 +34,11 @@
         }
 
         .video-banner {
-            position: relative; width: 100%; height: 50vh; background: #000; overflow: hidden;
+            position: relative; width: 100%; height: 45vh; background: #000; overflow: hidden;
         }
 
         .video-banner video {
-            width: 100%; height: 100%; object-fit: cover; opacity: 0.8;
+            width: 100%; height: 100%; object-fit: cover; opacity: 0.7;
         }
 
         .video-banner::after {
@@ -95,7 +95,7 @@
         }
         .btn-action:active { transform: scale(0.96); box-shadow: 0 5px 15px rgba(37, 99, 235, 0.2); }
 
-        .menu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+        .menu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; padding-bottom: 30px; }
 
         .menu-item {
             background: rgba(255, 255, 255, 0.05);
@@ -111,7 +111,6 @@
             border: 2px solid #2563eb; color: #3b82f6; font-weight: 800;
         }
 
-        /* MODAL FIX */
         #gift-modal {
             display: none; position: fixed; top: 0; left: 0;
             width: 100%; height: 100%; background: #0d1117;
@@ -124,7 +123,7 @@
             position: relative; width: 320px; height: 320px; 
             margin: 30px auto; display: flex; justify-content: center; align-items: center; 
         }
-        #wheel-canvas { width: 100%; height: 100%; transition: transform 4s cubic-bezier(0.1, 0, 0.1, 1); }
+        #wheel-canvas { width: 100%; height: 100%; transition: transform 4s cubic-bezier(0.1, 0, 0, 1); }
         .wheel-pointer { 
             position: absolute; top: -20px; left: 50%; transform: translateX(-50%); 
             width: 0; height: 0; border-left: 15px solid transparent; 
@@ -136,11 +135,19 @@
 
     <div class="lang-container">
         <select id="lang-select" onchange="changeLanguage(this.value)">
-            <option value="ru" selected>🇷🇺 RU</option><option value="en">🇺🇸 EN</option><option value="am">🇦🇲 AM</option>
-            <option value="es">🇪🇸 ES</option><option value="fr">🇫🇷 FR</option><option value="de">🇩🇪 DE</option>
-            <option value="it">🇮🇹 IT</option><option value="pt">🇵🇹 PT</option><option value="tr">🇹🇷 TR</option>
-            <option value="ar">🇸🇦 AR</option><option value="zh">🇨🇳 ZH</option><option value="ja">🇯🇵 JA</option>
-            </select>
+            <option value="ru" selected>🇷🇺 RU</option>
+            <option value="en">🇺🇸 EN</option>
+            <option value="am">🇦🇲 AM</option>
+            <option value="es">🇪🇸 ES</option>
+            <option value="fr">🇫🇷 FR</option>
+            <option value="de">🇩🇪 DE</option>
+            <option value="it">🇮🇹 IT</option>
+            <option value="pt">🇵🇹 PT</option>
+            <option value="tr">🇹🇷 TR</option>
+            <option value="ar">🇸🇦 AR</option>
+            <option value="zh">🇨🇳 ZH</option>
+            <option value="ja">🇯🇵 JA</option>
+        </select>
     </div>
 
     <div class="video-banner">
@@ -160,16 +167,16 @@
             <div id="plan-badge">FREE</div>
         </div>
 
-        <button id="btn-try" class="btn-action">СОЗДАТЬ ВИДЕО</button>
+        <button id="btn-try" class="btn-action" onclick="tg.showAlert('Generating...')">СОЗДАТЬ ВИДЕО</button>
 
         <div class="menu-grid">
-            <div id="item-stats" class="menu-item">📊 Статистика</div>
-            <div id="item-ref" class="menu-item">👥 Рефералы</div>
-            <div id="item-tariffs" class="menu-item">💎 Тарифы</div>
-            <div id="item-help" class="menu-item">🆘 Помощь</div>
+            <div id="item-stats" class="menu-item" onclick="tg.showAlert('Stats loading...')">📊 Статистика</div>
+            <div id="item-ref" class="menu-item" onclick="tg.showAlert('Referrals empty')">👥 Рефералы</div>
+            <div id="item-tariffs" class="menu-item" onclick="tg.showAlert('Tariffs list...')">💎 Тарифы</div>
+            <div id="item-help" class="menu-item" onclick="tg.showAlert('Support 24/7')">🆘 Помощь</div>
             <div id="item-gift" class="menu-item item-gift" onclick="openGiftModal()">🎁 Ежедневный подарок</div>
-            <div id="item-profile" class="menu-item">👤 Кабинет</div>
-            <div id="item-showcase" class="menu-item">🎬 Примеры</div>
+            <div id="item-profile" class="menu-item" onclick="tg.showAlert('Profile loading...')">👤 Кабинет</div>
+            <div id="item-showcase" class="menu-item" onclick="tg.showAlert('Opening Showcase')">🎬 Примеры</div>
         </div>
     </div>
 
@@ -188,32 +195,25 @@
         let tg = window.Telegram.WebApp;
         tg.expand();
 
-        const userPlan = {
+        let userPlan = {
             balance: 0.5,
-            price: 0, 
             updateDisplay: function() {
                 document.getElementById('limit-val').innerText = this.balance.toFixed(1);
-                document.getElementById('plan-badge').innerText = this.getBadge();
-            },
-            getBadge: function() {
-                if (this.price >= 100) return "ULTRA";
-                if (this.price >= 50) return "ELITE";
-                return "FREE";
             }
         };
 
         const prizes = [
-            { n: "0.1", c: "#6366f1", v: 0.1 }, { n: "0.5", c: "#3b82f6", v: 0.5 },
-            { n: "0.1", c: "#6366f1", v: 0.1 }, { n: "1.0", c: "#2563eb", v: 1.0 },
-            { n: "0.1", c: "#6366f1", v: 0.1 }, { n: "2.0", c: "#1e40af", v: 2.0 },
-            { n: "0.1", c: "#6366f1", v: 0.1 }, { n: "0.0", c: "#4b5563", v: 0 }
+            { n: "0.1", c: "#121212", v: 0.1 }, { n: "0.5", c: "#3b82f6", v: 0.5 },
+            { n: "0.1", c: "#1a1a1a", v: 0.1 }, { n: "1.0", c: "#2563eb", v: 1.0 },
+            { n: "0.1", c: "#121212", v: 0.1 }, { n: "2.0", c: "#1e40af", v: 2.0 },
+            { n: "0.1", c: "#1a1a1a", v: 0.1 }, { n: "0.0", c: "#4b5563", v: 0 }
         ];
 
         const i18n = {
-            ru: { limit: "Лимит видео", unit: "мин.", try: "СОЗДАТЬ ВИДЕО", stats: "📊 Статистика", ref: "👥 Рефералы", tar: "💎 Тарифы", help: "🆘 Помощь", gift: "🎁 Ежедневный подарок", profile: "👤 Кабинет", show: "🎬 Примеры", back: "← НАЗАД", spin: "КРУТИТЬ", wait: "Вы уже крутили! Ждите 24 часа." },
-            en: { limit: "Video Limit", unit: "min.", try: "CREATE VIDEO", stats: "📊 Stats", ref: "👥 Refs", tar: "💎 Plans", help: "🆘 Help", gift: "🎁 Daily Gift", profile: "👤 Profile", show: "🎬 Showcase", back: "← BACK", spin: "SPIN", wait: "Wait 24h!" },
-            am: { limit: "Վիդեո սահմանաչափ", unit: "րոպե", try: "ՍՏԵՂԾԵԼ ՎԻԴԵՈ", stats: "📊 Վիճակագրություն", ref: "👥 Ռեֆերալներ", tar: "💎 Սակագներ", help: "🆘 Օգնություն", gift: "🎁 Նվեր", back: "← ՀԵՏ", spin: "ՊՏՏԵԼ", wait: "Սպասեք 24 ժամ" }
-            // Можно дописать остальные 37 языков по аналогии
+            ru: { limit: "Лимит видео", unit: "мин.", try: "СОЗДАТЬ ВИДЕО", stats: "📊 Статистика", ref: "👥 Рефералы", tar: "💎 Тарифы", help: "🆘 Помощь", gift: "🎁 Ежедневный подарок", profile: "👤 Кабинет", show: "🎬 Примеры", back: "← НАЗАД", spin: "КРУТИТЬ", luck: "Beast Luck", wait: "Ждите 24 часа!" },
+            en: { limit: "Video Limit", unit: "min.", try: "CREATE VIDEO", stats: "📊 Stats", ref: "👥 Refs", tar: "💎 Plans", help: "🆘 Help", gift: "🎁 Daily Gift", profile: "👤 Profile", show: "🎬 Showcase", back: "← BACK", spin: "SPIN", luck: "Beast Luck", wait: "Wait 24h!" },
+            am: { limit: "Վիդեո սահմանաչափ", unit: "րոպե", try: "ՍՏԵՂԾԵԼ ՎԻԴԵՈ", stats: "📊 Վիճակագրություն", ref: "👥 Ռեֆերալներ", tar: "💎 Սակագներ", help: "🆘 Օգնություն", gift: "🎁 Նվեր", profile: "👤 Կաբինետ", show: "🎬 Օրինակներ", back: "← ՀԵՏ", spin: "ՊՏՏԵԼ", luck: "Beast Luck", wait: "Սպասեք 24 ժամ" }
+            // Аналогично добавляются остальные языки
         };
 
         function changeLanguage(lang) {
@@ -230,69 +230,47 @@
             document.getElementById('item-showcase').innerText = t.show;
             document.getElementById('btn-back').innerText = t.back;
             document.getElementById('spin-button').innerText = t.spin;
-            userPlan.updateDisplay();
+            document.getElementById('g-title').innerText = t.luck;
         }
 
         function drawWheel() {
-            const canvas = document.getElementById('wheel-canvas');
-            const ctx = canvas.getContext('2d');
+            const ctx = document.getElementById('wheel-canvas').getContext('2d');
             const arc = (Math.PI * 2) / prizes.length;
             ctx.clearRect(0,0,600,600);
             prizes.forEach((p, i) => {
                 ctx.beginPath(); ctx.fillStyle = p.c; ctx.moveTo(300, 300);
                 ctx.arc(300, 300, 300, i * arc, (i + 1) * arc); ctx.fill();
                 ctx.save(); ctx.translate(300, 300); ctx.rotate(i * arc + arc/2);
-                ctx.fillStyle = "white"; ctx.font = "bold 50px Poppins"; ctx.textAlign = "right";
+                ctx.fillStyle = "white"; ctx.font = "bold 50px sans-serif"; ctx.textAlign = "right";
                 ctx.fillText(p.n, 280, 15); ctx.restore();
             });
         }
 
         function runWheel() {
-            const lastSpin = localStorage.getItem('beast_last_spin');
-            const now = Date.now();
-            const lang = document.getElementById('lang-select').value;
-            
-            if (lastSpin && (now - lastSpin < 86400000)) {
-                tg.showAlert(i18n[lang]?.wait || "Wait 24h!");
-                return;
+            const last = localStorage.getItem('beast_last_spin');
+            if (last && (Date.now() - last < 86400000)) {
+                tg.showAlert("Access denied: 24h limit"); return;
             }
-
-            const btn = document.getElementById('spin-button');
             const canvas = document.getElementById('wheel-canvas');
-            if(btn.disabled) return;
-            btn.disabled = true;
-
-            const randomIdx = Math.floor(Math.random() * prizes.length);
-            const totalDeg = 3600 + (randomIdx * (360 / prizes.length));
+            const idx = Math.floor(Math.random() * prizes.length);
+            const totalDeg = 3600 + (idx * (360 / prizes.length));
             canvas.style.transform = `rotate(${totalDeg}deg)`;
-
             setTimeout(() => {
-                const prize = prizes[prizes.length - 1 - (randomIdx % prizes.length)];
-                if(prize.v > 0) {
-                    userPlan.balance += prize.v;
-                    userPlan.updateDisplay();
-                    tg.showAlert(`🎉 +${prize.n} min!`);
-                } else {
-                    tg.showAlert("Try again tomorrow!");
-                }
+                const prize = prizes[prizes.length - 1 - (idx % prizes.length)];
+                userPlan.balance += prize.v;
+                userPlan.updateDisplay();
                 localStorage.setItem('beast_last_spin', Date.now());
-                btn.disabled = false;
+                tg.showAlert(`Win: +${prize.n} min`);
             }, 4100);
         }
 
-        function openGiftModal() { 
-            document.getElementById('gift-modal').style.display = 'flex'; 
-            drawWheel(); 
-        }
-        function closeGiftModal() { 
-            document.getElementById('gift-modal').style.display = 'none'; 
-        }
+        function openGiftModal() { document.getElementById('gift-modal').style.display = 'flex'; drawWheel(); }
+        function closeGiftModal() { document.getElementById('gift-modal').style.display = 'none'; }
 
         window.onload = () => {
             const user = tg.initDataUnsafe?.user;
             if(user) document.getElementById('user-name').innerText = user.first_name.toUpperCase();
             changeLanguage('ru');
-            tg.ready();
         };
     </script>
 </body>
