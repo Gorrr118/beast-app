@@ -3,107 +3,69 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Beast Omni Pro: Cinematic Edition</title>
+    <title>Beast Omni Global</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <style>
         body {
-            background-color: #f1f5f9;
-            color: #1e293b;
+            background-color: #f1f5f9; color: #1e293b;
             font-family: -apple-system, system-ui, sans-serif;
-            margin: 0; padding: 0;
-            overflow-x: hidden;
+            margin: 0; padding: 0; overflow-x: hidden;
         }
 
-        /* 1. КИНЕМАТОГРАФИЧНЫЙ БАННЕР (БОЛЬШЕ ВИДЕО) */
+        /* КОМПАКТНЫЙ ВЫБОР ЯЗЫКА */
+        .lang-container {
+            position: absolute; top: 20px; right: 15px; z-index: 100;
+        }
+        
+        #lang-select {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            color: white; border: 1px solid rgba(255,255,255,0.3);
+            padding: 8px 12px; border-radius: 12px;
+            font-size: 13px; font-weight: 700; outline: none;
+        }
+        option { color: black; }
+
         .video-banner {
-            position: relative;
-            width: 100%;
-            height: 40vh; /* Занимает 40% высоты видимой области (View Height) */
-            background: #000;
-            overflow: hidden;
+            position: relative; width: 100%; height: 40vh; background: #000;
         }
 
-        .video-banner video {
-            width: 100%; height: 100%;
-            object-fit: cover;
-            opacity: 0.9;
-        }
+        .video-banner video { width: 100%; height: 100%; object-fit: cover; opacity: 0.9; }
 
-        /* Позиционируем имя внизу видео-зоны */
         .video-overlay {
-            position: absolute;
-            bottom: 30px; /* 30px от нижнего края видео */
-            left: 20px;
-            color: white;
-            z-index: 2;
-            text-shadow: 0 4px 15px rgba(0,0,0,0.6); /* Мощная тень для читаемости */
+            position: absolute; bottom: 30px; left: 20px; color: white; z-index: 2;
         }
 
-        .video-overlay h1 {
-            margin: 0; font-size: 36px; font-weight: 900; text-transform: uppercase; letter-spacing: -1px;
-        }
+        .video-overlay h1 { margin: 0; font-size: 36px; font-weight: 900; text-transform: uppercase; }
 
-        /* 2. КОНТЕНТНАЯ ЧАСТЬ (ТЕПЕРЬ НИЖЕ) */
         .main-content {
-            position: relative;
-            /* Убрали отрицательный маргин! Контент начинается сразу после видео */
-            background: #f1f5f9;
-            border-radius: 30px 30px 0 0; /* Оставили закругление сверху */
-            padding: 25px 20px; /* Увеличили отступы */
-            box-sizing: border-box;
+            position: relative; background: #f1f5f9;
+            border-radius: 30px 30px 0 0; padding: 25px 20px; box-sizing: border-box;
         }
 
         .balance-card {
-            background: white;
-            padding: 24px;
-            border-radius: 24px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.06);
-            margin-bottom: 20px;
+            background: white; padding: 24px; border-radius: 24px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.06); margin-bottom: 20px;
             display: flex; justify-content: space-between; align-items: center;
         }
 
         .balance-val { font-size: 30px; font-weight: 900; color: #2563eb; }
 
         .btn-action {
-            background: #2563eb;
-            color: white; border: none;
-            width: 100%; padding: 20px;
-            border-radius: 20px; font-size: 18px; font-weight: 800;
-            margin-bottom: 20px;
+            background: #2563eb; color: white; border: none;
+            width: 100%; padding: 20px; border-radius: 20px;
+            font-size: 18px; font-weight: 800; margin-bottom: 20px;
             box-shadow: 0 10px 25px rgba(37, 99, 235, 0.25);
-            cursor: pointer;
         }
 
-        .menu-grid {
-            display: grid; grid-template-columns: 1fr 1fr; gap: 15px;
-        }
+        .menu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
 
         .menu-item {
-            background: white; padding: 20px;
-            border-radius: 22px; text-align: center;
-            font-weight: 700; font-size: 15px;
-            box-shadow: 0 6px 15px rgba(0,0,0,0.03);
-            border: 1px solid rgba(0,0,0,0.01);
-            cursor: pointer;
-        }
-
-        /* РЕФЕРАЛЬНЫЙ БЛОК (ВСТРОЕН) */
-        .ref-box {
-            background: white;
-            padding: 20px; border-radius: 22px;
-            margin-top: 20px; display: none; /* Скрыт по умолчанию */
-            flex-direction: column; gap: 12px;
+            background: white; padding: 20px; border-radius: 22px;
+            text-align: center; font-weight: 700; font-size: 15px;
             box-shadow: 0 6px 15px rgba(0,0,0,0.03);
         }
 
-        .ref-link {
-            background: #f8fafc; padding: 12px;
-            border-radius: 12px; font-size: 12px;
-            word-break: break-all; color: #4338ca; font-family: monospace;
-            border: 1px solid #e2e8f0;
-        }
-
-        /* МОДАЛЬНОЕ ОКНО */
         #modal {
             display: none; position: fixed; top: 0; left: 0; 
             width: 100%; height: 100%; background: white;
@@ -115,93 +77,101 @@
 </head>
 <body>
 
+    <div class="lang-container">
+        <select id="lang-select" onchange="changeLanguage(this.value)">
+            <option value="ru">🇷🇺 RU</option>
+            <option value="en">🇺🇸 EN</option>
+            <option value="am">🇦🇲 AM</option>
+            <option value="es">🇪🇸 ES</option>
+            <option value="fr">🇫🇷 FR</option>
+            <option value="kz">🇰🇿 KZ</option>
+            <option value="zh">🇨🇳 ZH</option>
+            <option value="pl">🇵🇱 PL</option>
+            <option value="cz">🇨🇿 CZ</option>
+            <option value="ua">🇺🇦 UA</option>
+        </select>
+    </div>
+
     <div class="video-banner">
         <video autoplay muted loop playsinline>
             <source src="https://www.w3schools.com/howto/rain.mp4" type="video/mp4">
         </video>
         <div class="video-overlay">
             <h1 id="user-name">GORO</h1>
-            <div style="font-size: 14px; opacity: 0.9; font-weight: 500;">AI Video Revolution</div>
+            <div id="sub-title" style="font-size: 14px; opacity: 0.9;">AI Video Revolution</div>
         </div>
     </div>
 
     <div class="main-content">
         <div class="balance-card">
             <div>
-                <div style="font-size: 12px; font-weight: 700; color: #64748b; text-transform: uppercase; letter-spacing: 1px;">Ваш баланс</div>
-                <div class="balance-val" id="balance-display">5.00 мин.</div>
+                <div id="label-balance" style="font-size: 12px; font-weight: 700; color: #64748b; text-transform: uppercase;">Ваш баланс</div>
+                <div class="balance-val"><span id="balance-num">5.00</span> <small id="unit-min" style="font-size: 14px;">мин.</small></div>
             </div>
             <div style="background: #dbeafe; color: #2563eb; padding: 8px 16px; border-radius: 12px; font-size: 13px; font-weight: 800;">ELITE</div>
         </div>
 
-        <button class="btn-action" onclick="openModal('ЗАГРУЗИТЬ', 'Просто отправь видео в чат бота, и я приступлю к магии нейросетей!')">ПОПРОБОВАТЬ СЕЙЧАС</button>
+        <button id="btn-try" class="btn-action" onclick="openModal('try')">ПОПРОБОВАТЬ СЕЙЧАС</button>
 
         <div class="menu-grid">
-            <div class="menu-item" onclick="openModal('СТАТИСТИКА', '📊 Твоя история обработок...')">📊 Статистика</div>
-            <div class="menu-item" onclick="toggleRef()">👥 Рефералы</div>
-            <div class="menu-item" onclick="openModal('ТАРИФЫ', 'START: 15$\nBEAST: 30$\nELITE: 50$')">💎 Тарифы</div>
-            <div class="menu-item" onclick="openModal('ПОМОЩЬ', '🆘 Поддержка: @SUPPORT_USER')">🆘 Помощь</div>
-        </div>
-
-        <div id="ref-section" class="ref-box">
-            <div style="font-weight: 800; font-size: 16px;">👥 Приглашай друзей!</div>
-            <div style="font-size: 14px; color: #64748b;">За каждого друга получишь +1 минуту. Твоя ссылка:</div>
-            <div class="ref-link" id="ref-link-text">https://t.me/ViralVoice_bot?start=user</div>
-            <button onclick="copyRef()" style="background: #2563eb; color: white; border: none; padding: 12px; border-radius: 12px; font-weight: 700; cursor: pointer;">Копировать ссылку</button>
+            <div id="item-stats" class="menu-item" onclick="openModal('stats')">📊 Статистика</div>
+            <div id="item-ref" class="menu-item" onclick="openModal('ref')">👥 Рефералы</div>
+            <div id="item-tariffs" class="menu-item" onclick="openModal('tariffs')">💎 Тарифы</div>
+            <div id="item-help" class="menu-item" onclick="openModal('help')">🆘 Помощь</div>
         </div>
     </div>
 
     <div id="modal">
         <h2 id="m-title" style="font-size: 28px; font-weight: 900; color: #2563eb;"></h2>
-        <p id="m-text" style="white-space: pre-wrap; font-size: 16px; color: #64748b; line-height: 1.6;"></p>
-        <div onclick="closeModal()" style="color: #2563eb; font-weight: 800; margin-top: 30px; cursor: pointer; font-size: 16px;">← НАЗАД</div>
+        <p id="m-text" style="white-space: pre-wrap; font-size: 16px; color: #64748b;"></p>
+        <div id="m-close" onclick="closeModal()" style="color: #2563eb; font-weight: 800; margin-top: 30px; cursor: pointer;">← НАЗАД</div>
     </div>
 
     <script>
         let tg = window.Telegram.WebApp;
         tg.expand();
-        // Устанавливаем цвет шапки в тон видео (черный)
         tg.headerColor = '#000000';
-        tg.backgroundColor = '#f1f5f9'; // Цвет фона под карточкой
 
-        const userId = tg.initDataUnsafe?.user?.id || '8709223620';
-        const firstName = tg.initDataUnsafe?.user?.first_name || 'GORO';
-        
-        document.getElementById('user-name').innerText = firstName.toUpperCase();
-        // Генерируем реальную реферальную ссылку
-        document.getElementById('ref-link-text').innerText = `https://t.me/ViralVoice_bot?start=${userId}`;
+        const i18n = {
+            ru: { subtitle: "AI Video Revolution", balance: "Ваш баланс", unit: "мин.", btn_try: "ПОПРОБОВАТЬ СЕЙЧАС", stats: "📊 Статистика", ref: "👥 Рефералы", tariffs: "💎 Тарифы", help: "🆘 Помощь", back: "← НАЗАД", modal: { try: ["ЗАГРУЗИТЬ", "Отправь видео в чат бота!"], stats: ["СТАТИСТИКА", "Твоя история появится здесь."], ref: ["РЕФЕРАЛЫ", "Приглашай друзей и получай минуты!"], tariffs: ["ТАРИФЫ", "Выбери свой план."], help: ["ПОМОЩЬ", "Связь: @SUPPORT_USER"] } },
+            en: { subtitle: "AI Video Revolution", balance: "Your Balance", unit: "min.", btn_try: "TRY NOW", stats: "📊 Statistics", ref: "👥 Referrals", tariffs: "💎 Plans", help: "🆘 Help", back: "← BACK", modal: { try: ["UPLOAD", "Send a video to the bot!"], stats: ["STATS", "Your history will appear here."], ref: ["REF", "Invite friends for rewards!"], tariffs: ["PLANS", "Choose your plan."], help: ["HELP", "Support: @SUPPORT_USER"] } },
+            am: { subtitle: "AI հեղափոխություն", balance: "Ձեր հաշվեկշիռը", unit: "ր.", btn_try: "ՓՈՐՁԵԼ ՀԻՄԱ", stats: "📊 Վիճակագրություն", ref: "👥 Ռեֆերալներ", tariffs: "💎 Սակագներ", help: "🆘 Օգնություն", back: "← ՀԵՏ", modal: { try: ["ՎԵՐՆԵՐԲԵՌՆԵԼ", "Ուղարկեք տեսանյութը բոտին!"], stats: ["ՎԻՃԱԿԱԳՐՈՒԹՅՈՒՆ", "Ձեր պատմությունը այստեղ կլինի:"], ref: ["ՌԵՖԵРАԼՆԵՐ", "Հրավիրեք ընկերներին!"], tariffs: ["ՍԱԿԱԳՆԵՐ", "Ընտրեք ձեր պլանը:"], help: ["ՕԳՆՈՒԹՅՈՒՆ", "Կապ: @SUPPORT_USER"] } },
+            es: { subtitle: "Revolución de Video AI", balance: "Tu saldo", unit: "min.", btn_try: "PROBAR AHORA", stats: "📊 Estadísticas", ref: "👥 Referidos", tariffs: "💎 Tarifas", help: "🆘 Ayuda", back: "← VOLVER", modal: { try: ["CARGAR", "Envía un video al bot!"], stats: ["STATS", "Tu historial aparecerá aquí."], ref: ["REF", "Invita amigos y gana minutos!"], tariffs: ["PLANES", "Elige tu plan."], help: ["AYUDA", "Contacto: @SUPPORT_USER"] } },
+            fr: { subtitle: "Révolution Vidéo IA", balance: "Votre solde", unit: "min.", btn_try: "ESSAYER MAINTENANT", stats: "📊 Statistiques", ref: "👥 Parrainage", tariffs: "💎 Tarifs", help: "🆘 Aide", back: "← RETOUR", modal: { try: ["CHARGER", "Envoyez une vidéo au bot!"], stats: ["STATS", "Votre historique apparaîtra ici."], ref: ["REF", "Invitez des amis!"], tariffs: ["PLANS", "Choisissez votre plan."], help: ["AIDE", "Support: @SUPPORT_USER"] } },
+            kz: { subtitle: "AI видео революциясы", balance: "Сіздің балансыңыз", unit: "мин.", btn_try: "ҚАЗІР КӨРУ", stats: "📊 Статистика", ref: "👥 Рефералдар", tariffs: "💎 Тарифтер", help: "🆘 Көмек", back: "← АРТҚА", modal: { try: ["ЖҮКТЕУ", "Ботқа видео жіберіңіз!"], stats: ["СТАТИСТИКА", "Тарихыңыз осында болады."], ref: ["РЕФЕРАЛДАР", "Достарыңызды шақырыңыз!"], tariffs: ["ТАРИФТЕР", "Жоспарды таңдаңыз."], help: ["КӨМЕК", "Байланыс: @SUPPORT_USER"] } },
+            zh: { subtitle: "AI 视频革命", balance: "您的余额", unit: "分", btn_try: "立即尝试", stats: "📊 统计数据", ref: "👥 推荐人", tariffs: "💎 资费", help: "🆘 帮助", back: "← 返回", modal: { try: ["上传", "向机器人发送视频！"], stats: ["统计", "您的历史记录将显示在这里。"], ref: ["推荐", "邀请朋友获得奖励！"], tariffs: ["资费", "选择您的计划。"], help: ["帮助", "联系：@SUPPORT_USER"] } },
+            pl: { subtitle: "Rewolucja AI Video", balance: "Twoje saldo", unit: "min.", btn_try: "WYPRÓBUJ TERAZ", stats: "📊 Statystyki", ref: "👥 Polecenia", tariffs: "💎 Taryfy", help: "🆘 Pomoc", back: "← POWRÓT", modal: { try: ["WYŚLIJ", "Wyślij wideo do bota!"], stats: ["STATYSTYKI", "Twoja historia pojawi się tutaj."], ref: ["REF", "Zaproś znajomych!"], tariffs: ["PLANS", "Wybierz plan."], help: ["POMOC", "Kontakt: @SUPPORT_USER"] } },
+            cz: { subtitle: "AI Video Revoluce", balance: "Váš zůstatek", unit: "min.", btn_try: "VYZKOUŠET", stats: "📊 Statistiky", ref: "👥 Doporučení", tariffs: "💎 Tarify", help: "🆘 Pomoc", back: "← ZPĚT", modal: { try: ["NAHRÁT", "Pošlete video botovi!"], stats: ["STATY", "Zde se zobrazí historie."], ref: ["REF", "Pozvěte přátele!"], tariffs: ["PLANS", "Vyberte si tarif."], help: ["POMOC", "Kontakt: @SUPPORT_USER"] } },
+            ua: { subtitle: "AI Відео Революція", balance: "Ваш баланс", unit: "хв.", btn_try: "СПРОБУВАТИ ЗАРАЗ", stats: "📊 Статистика", ref: "👥 Реферали", tariffs: "💎 Тарифи", help: "🆘 Допомога", back: "← НАЗАД", modal: { try: ["ЗАВАНТАЖИТИ", "Надішліть відео боту!"], stats: ["СТАТИСТИКА", "Ваша історія з'явиться тут."], ref: ["РЕФЕРАЛИ", "Запрошуйте друзів!"], tariffs: ["ТАРИФИ", "Оберіть план."], help: ["ДОПОМОГА", "Зв'язок: @SUPPORT_USER"] } }
+        };
 
-        function openModal(title, text) {
-            document.getElementById('m-title').innerText = title;
-            document.getElementById('m-text').innerText = text;
+        let currentLang = 'ru';
+
+        function changeLanguage(lang) {
+            currentLang = lang;
+            const t = i18n[lang];
+            document.getElementById('sub-title').innerText = t.subtitle;
+            document.getElementById('label-balance').innerText = t.balance;
+            document.getElementById('unit-min').innerText = t.unit;
+            document.getElementById('btn-try').innerText = t.btn_try;
+            document.getElementById('item-stats').innerText = t.stats;
+            document.getElementById('item-ref').innerText = t.ref;
+            document.getElementById('item-tariffs').innerText = t.tariffs;
+            document.getElementById('item-help').innerText = t.help;
+            document.getElementById('m-close').innerText = t.back;
+        }
+
+        function openModal(key) {
+            const t = i18n[currentLang].modal[key];
+            document.getElementById('m-title').innerText = t[0];
+            document.getElementById('m-text').innerText = t[1];
             document.getElementById('modal').style.display = 'flex';
         }
 
-        function closeModal() {
-            document.getElementById('modal').style.display = 'none';
-        }
+        function closeModal() { document.getElementById('modal').style.display = 'none'; }
 
-        function toggleRef() {
-            let section = document.getElementById('ref-section');
-            section.style.display = (section.style.display === 'flex') ? 'none' : 'flex';
-            if (section.style.display === 'flex') {
-                // Скроллим вниз, чтобы увидеть рефералку
-                section.scrollIntoView({ behavior: 'smooth' });
-            }
-        }
-
-        function copyRef() {
-            const link = document.getElementById('ref-link-text').innerText;
-            const el = document.createElement('textarea');
-            el.value = link;
-            document.body.appendChild(el);
-            el.select();
-            document.execCommand('copy');
-            document.body.removeChild(el);
-            // Красивый системный алерт от Telegram
-            tg.showAlert('✅ Ссылка скопирована! Отправь её другу.');
-        }
-
+        const user = tg.initDataUnsafe?.user;
+        if(user) document.getElementById('user-name').innerText = user.first_name.toUpperCase();
         tg.ready();
     </script>
 </body>
