@@ -16,7 +16,7 @@
             -webkit-user-select: none;
         }
 
-        /* ВЫБОР ЯЗЫКА С ЭФФЕКТАМИ СТЕКЛА */
+        /* LANG SELECT */
         .lang-container {
             position: absolute; top: 25px; right: 20px; z-index: 100;
         }
@@ -30,10 +30,8 @@
             border-radius: 16px;
             font-size: 14px; font-weight: 700;
             outline: none;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
         }
 
-        /* ГИГАНТСКОЕ ВИДЕО С ГРАДИЕНТОМ */
         .video-banner {
             position: relative; width: 100%; height: 50vh; background: #000; overflow: hidden;
         }
@@ -53,7 +51,7 @@
 
         .video-overlay h1 {
             margin: 0; font-size: 42px; font-weight: 950; text-transform: uppercase;
-            letter-spacing: -1px; line-height: 1; text-shadow: 0 0 20px rgba(37, 99, 235, 0.6);
+            text-shadow: 0 0 20px rgba(37, 99, 235, 0.6);
         }
 
         .main-content {
@@ -64,40 +62,32 @@
             padding: 30px 25px; margin-top: -50px;
             box-sizing: border-box; min-height: 55vh;
             border-top: 1px solid rgba(255, 255, 255, 0.05);
-            box-shadow: 0 -20px 40px rgba(0,0,0,0.4);
             z-index: 5;
         }
 
-        /* КАРТОЧКА ТАРИФА */
         .status-card {
             background: rgba(255, 255, 255, 0.05);
             padding: 24px; border-radius: 30px;
             margin-bottom: 25px; display: flex;
             justify-content: space-between; align-items: center;
             border: 1px solid rgba(37, 99, 235, 0.2);
-            box-shadow: inset 0 0 15px rgba(255,255,255,0.05), 0 10px 20px rgba(0,0,0,0.2);
         }
 
         .status-value { font-size: 28px; font-weight: 900; color: #fff; }
-        .status-value span { color: #3b82f6; text-shadow: 0 0 10px rgba(59, 130, 246, 0.5); }
+        .status-value span { color: #3b82f6; }
 
         #plan-badge {
             background: linear-gradient(135deg, #2563eb, #1d4ed8);
             color: white; padding: 12px 20px; border-radius: 18px;
-            font-size: 14px; font-weight: 900; box-shadow: 0 0 15px rgba(37, 99, 235, 0.4);
-            text-transform: uppercase;
+            font-size: 14px; font-weight: 900; text-transform: uppercase;
         }
 
-        /* КНОПКИ */
         .btn-action {
             background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
             color: white; border: none; width: 100%; padding: 24px;
             border-radius: 26px; font-size: 19px; font-weight: 800;
-            margin-bottom: 25px;
-            box-shadow: 0 15px 35px rgba(37, 99, 235, 0.35), inset 0 2px 4px rgba(255,255,255,0.3);
-            transition: all 0.2s; cursor: pointer;
+            margin-bottom: 25px; cursor: pointer; transition: 0.2s;
         }
-        .btn-action:active { transform: scale(0.97); }
 
         .menu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
 
@@ -106,36 +96,28 @@
             padding: 24px 15px; border-radius: 28px;
             text-align: center; font-weight: 700; font-size: 15px;
             color: #e6edf3; border: 1px solid rgba(255, 255, 255, 0.05);
-            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
-        .menu-item:active { background: rgba(37, 99, 235, 0.1); border-color: #2563eb; transform: translateY(2px); }
 
         .item-gift {
             grid-column: span 2; background: rgba(37, 99, 235, 0.1);
             border: 2px solid #2563eb; color: #3b82f6; font-weight: 800;
         }
 
-        /* МОДАЛКА РУЛЕТКИ ЦЕНТРИРОВАННАЯ */
+        /* MODAL FIX */
         #gift-modal {
             display: none; position: fixed; top: 0; left: 0;
             width: 100%; height: 100%; background: #0d1117;
             z-index: 5000; flex-direction: column;
-            align-items: center; justify-content: center; padding: 30px;
+            align-items: center; justify-content: center;
         }
 
         .wheel-container { 
-            position: relative; 
-            width: 320px; 
-            height: 320px; 
-            margin: 20px 0; 
-            display: flex; 
-            justify-content: center; 
-            align-items: center;
+            position: relative; width: 320px; height: 320px; margin: 20px 0; 
+            display: flex; justify-content: center; align-items: center;
         }
         
         #wheel-canvas {
-            width: 100%; height: 100%;
+            width: 320px; height: 320px;
             transition: transform 4s cubic-bezier(0.1, 0, 0.1, 1);
         }
         
@@ -181,7 +163,7 @@
         <div class="status-card">
             <div class="status-info">
                 <div id="label-status" style="font-size:12px; font-weight:800; color:#8b949e; text-transform:uppercase;">Limit</div>
-                <div class="status-value"><span id="limit-val">4</span> <small id="unit-text" style="font-size: 16px; color:#8b949e;">min.</small></div>
+                <div class="status-value"><span id="limit-val">0.5</span> <small id="unit-text" style="font-size: 16px; color:#8b949e;">min.</small></div>
             </div>
             <div id="plan-badge">FREE</div>
         </div>
@@ -208,35 +190,13 @@
             <canvas id="wheel-canvas" width="600" height="600"></canvas>
         </div>
 
-        <button id="spin-button" class="btn-action" style="max-width:300px; margin-top:20px;" onclick="runWheel()">SPIN</button>
+        <button id="spin-button" class="btn-action" style="max-width:300px;" onclick="runWheel()">SPIN</button>
         <div id="btn-back" style="margin-top:20px; color:#3b82f6; font-weight:800; cursor:pointer;" onclick="closeGiftModal()">← GO BACK</div>
     </div>
 
     <script>
         let tg = window.Telegram.WebApp;
         tg.expand();
-        tg.headerColor = '#0d1117';
-        tg.backgroundColor = '#0d1117';
-
-        const userPlan = {
-            price: 0, 
-            getLimit: function() {
-                if (this.price >= 100) return "∞";
-                if (this.price >= 50) return "8";
-                if (this.price >= 30) return "6";
-                if (this.price >= 15) return "4";
-                if (this.price >= 5) return "2";
-                return "0.5";
-            },
-            getBadge: function() {
-                if (this.price >= 100) return "ULTRA";
-                if (this.price >= 50) return "ELITE";
-                if (this.price >= 30) return "PRO";
-                if (this.price >= 15) return "PREMIUM";
-                if (this.price >= 5) return "BASIC";
-                return "FREE";
-            }
-        };
 
         const prizes = [
             { n: "0.1", c: "#6366f1", v: 0.1 }, { n: "0.5", c: "#3b82f6", v: 0.5 },
@@ -246,9 +206,9 @@
         ];
 
         const i18n = {
-            ru: { limit: "Лимит видео", unit: "мин.", unlim: "Безлимит", try: "СОЗДАТЬ ВИДЕО", stats: "📊 Статистика", ref: "👥 Рефералы", tar: "💎 Тарифы", help: "🆘 Помощь", gift: "🎁 Ежедневный подарок", profile: "👤 Кабинет", show: "🎬 Примеры", back: "← ВЕРНУТЬСЯ", spin: "КРУТИТЬ", luck: "Крути и получай бонусы!" },
-            en: { limit: "Video Limit", unit: "min.", unlim: "Unlimited", try: "CREATE VIDEO", stats: "📊 Stats", ref: "👥 Refs", tar: "💎 Plans", help: "🆘 Help", gift: "🎁 Daily Gift", profile: "👤 Profile", show: "🎬 Showcase", back: "← GO BACK", spin: "SPIN", luck: "Spin and win!" },
-            am: { limit: "Վիդեո սահմանաչափ", unit: "րոպե", unlim: "Անսահմանափակ", try: "ՍՏԵՂԾԵԼ ՎԻԴԵՈ", stats: "📊 Վիճակագրություն", ref: "👥 Ռեֆերալներ", tar: "💎 Սակագներ", help: "🆘 Օգնություն", gift: "🎁 Օրական նվեր", profile: "👤 Կաբինետ", show: "🎬 Օրինակներ", back: "← ՀԵՏ", spin: "ՊՏՏԵԼ", luck: "Պտտիր և շահիր" }
+            en: { limit: "Video Limit", unit: "min.", try: "CREATE VIDEO", stats: "📊 Stats", ref: "👥 Refs", tar: "💎 Plans", help: "🆘 Help", gift: "🎁 Daily Gift", profile: "👤 Profile", show: "🎬 Showcase", back: "← GO BACK", spin: "SPIN", luck: "Spin and win!" },
+            ru: { limit: "Лимит видео", unit: "мин.", try: "СОЗДАТЬ ВИДЕО", stats: "📊 Статистика", ref: "👥 Рефералы", tar: "💎 Тарифы", help: "🆘 Помощь", gift: "🎁 Ежедневный подарок", profile: "👤 Кабинет", show: "🎬 Примеры", back: "← ВЕРНУТЬСЯ", spin: "КРУТИТЬ", luck: "Крути и получай бонусы!" },
+            am: { limit: "Վիդեո սահմանաչափ", unit: "րոպե", try: "ՍՏԵՂԾԵԼ ՎԻԴԵՈ", stats: "📊 Վիճակագրություն", ref: "👥 Ռեֆերալներ", tar: "💎 Սակագներ", help: "🆘 Օգնություն", gift: "🎁 Օրական նվեր", profile: "👤 Կաբինետ", show: "🎬 Օրինակներ", back: "← ՀԵТ", spin: "ՊՏՏԵԼ", luck: "Պտտիր և շահիր" }
         };
 
         function changeLanguage(lang) {
@@ -268,15 +228,11 @@
             document.getElementById('spin-button').innerText = t.spin;
             document.getElementById('timer-info').innerText = t.luck;
             document.getElementById('g-title').innerText = t.gift.replace('🎁 ', '');
-            
-            const limit = userPlan.getLimit();
-            document.getElementById('limit-val').innerText = (limit === "∞" ? (t.unlim || "∞") : limit);
-            document.getElementById('unit-text').style.display = (limit === "∞" ? 'none' : 'inline');
-            document.getElementById('plan-badge').innerText = userPlan.getBadge();
         }
 
         function drawWheel() {
             const canvas = document.getElementById('wheel-canvas');
+            if (!canvas) return;
             const ctx = canvas.getContext('2d');
             const arc = (Math.PI * 2) / prizes.length;
             ctx.clearRect(0,0,600,600);
@@ -312,10 +268,13 @@
             document.getElementById('gift-modal').style.display = 'none'; 
         }
 
-        const user = tg.initDataUnsafe?.user;
-        if(user) document.getElementById('user-name').innerText = user.first_name.toUpperCase();
-        
-        changeLanguage('en'); 
+        window.onload = () => {
+            const user = tg.initDataUnsafe?.user;
+            if(user) document.getElementById('user-name').innerText = user.first_name.toUpperCase();
+            changeLanguage('en'); 
+            drawWheel();
+        };
+
         tg.ready();
     </script>
 </body>
