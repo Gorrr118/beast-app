@@ -7,142 +7,145 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;900&display=swap" rel="stylesheet">
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <style>
+        :root {
+            /* Мягкая светлая палитра */
+            --bg-main: #f8f7f2; /* Кремовый оттенок */
+            --card-white: #ffffff;
+            --text-dark: #1a1a1a;
+            --text-gray: #7a7a7a;
+            --accent-blue: #2563eb;
+            --accent-gradient: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+            --border-soft: rgba(0, 0, 0, 0.05);
+        }
+
         body {
-            background-color: #0d1117;
-            color: #e6edf3;
+            background-color: var(--bg-main);
+            color: var(--text-dark);
             font-family: 'Poppins', -apple-system, system-ui, sans-serif;
             margin: 0; padding: 0;
             overflow-x: hidden;
             -webkit-user-select: none;
         }
 
-        /* ВЫБОР ЯЗЫКА С ЭФФЕКТАМИ СТЕКЛА */
+        /* ВЫБОР ЯЗЫКА */
         .lang-container {
             position: absolute; top: 25px; right: 20px; z-index: 100;
         }
         
         #lang-select {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(20px);
-            color: white;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            padding: 10px 16px;
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(15px);
+            color: var(--text-dark);
+            border: 1px solid var(--border-soft);
+            padding: 10px 14px;
             border-radius: 16px;
             font-size: 14px; font-weight: 700;
             outline: none;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
         }
 
-        /* ГИГАНТСКОЕ ВИДЕО С ГРАДИЕНТОМ */
+        /* БАННЕР */
         .video-banner {
-            position: relative; width: 100%; height: 50vh; background: #000; overflow: hidden;
+            position: relative; width: 100%; height: 45vh; background: #fff; overflow: hidden;
         }
 
         .video-banner video {
-            width: 100%; height: 100%; object-fit: cover; opacity: 0.8;
+            width: 100%; height: 100%; object-fit: cover; opacity: 0.9;
         }
 
         .video-banner::after {
-            content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 40%;
-            background: linear-gradient(to top, #0d1117, transparent); z-index: 1;
+            content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 50%;
+            background: linear-gradient(to top, var(--bg-main), transparent); z-index: 1;
         }
 
         .video-overlay {
-            position: absolute; bottom: 65px; left: 25px; color: white; z-index: 2;
+            position: absolute; bottom: 65px; left: 25px; z-index: 2;
         }
 
         .video-overlay h1 {
             margin: 0; font-size: 42px; font-weight: 950; text-transform: uppercase;
-            letter-spacing: -1px; line-height: 1; text-shadow: 0 0 20px rgba(37, 99, 235, 0.6);
+            letter-spacing: -1.5px; line-height: 1; color: var(--text-dark);
         }
 
         .main-content {
             position: relative;
-            background: rgba(255, 255, 255, 0.03); 
-            backdrop-filter: blur(15px);
-            border-radius: 40px 40px 0 0;
-            padding: 30px 25px; margin-top: -50px;
+            background: var(--bg-main);
+            padding: 0 25px 40px; margin-top: -30px;
             box-sizing: border-box; min-height: 55vh;
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
-            box-shadow: 0 -20px 40px rgba(0,0,0,0.4);
             z-index: 5;
         }
 
-        /* КАРТОЧКА ТАРИФА */
+        /* КАРТОЧКИ */
         .status-card {
-            background: rgba(255, 255, 255, 0.05);
-            padding: 24px; border-radius: 30px;
+            background: var(--card-white);
+            padding: 24px; border-radius: 32px;
             margin-bottom: 25px; display: flex;
             justify-content: space-between; align-items: center;
-            border: 1px solid rgba(37, 99, 235, 0.2);
-            box-shadow: inset 0 0 15px rgba(255,255,255,0.05), 0 10px 20px rgba(0,0,0,0.2);
+            border: 1px solid var(--border-soft);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.03);
         }
 
-        .status-value { font-size: 28px; font-weight: 900; color: #fff; }
-        .status-value span { color: #3b82f6; text-shadow: 0 0 10px rgba(59, 130, 246, 0.5); }
+        .status-value { font-size: 28px; font-weight: 900; color: var(--text-dark); }
+        .status-value span { color: var(--accent-blue); }
 
         #plan-badge {
-            background: linear-gradient(135deg, #2563eb, #1d4ed8);
-            color: white; padding: 12px 20px; border-radius: 18px;
-            font-size: 14px; font-weight: 900; box-shadow: 0 0 15px rgba(37, 99, 235, 0.4);
-            text-transform: uppercase;
+            background: var(--accent-gradient);
+            color: white; padding: 10px 18px; border-radius: 16px;
+            font-size: 13px; font-weight: 900; 
+            text-transform: uppercase; letter-spacing: 0.5px;
         }
 
         /* КНОПКИ */
         .btn-action {
-            background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
-            color: white; border: none; width: 100%; padding: 24px;
-            border-radius: 26px; font-size: 19px; font-weight: 800;
+            background: var(--accent-gradient);
+            color: white; border: none; width: 100%; padding: 22px;
+            border-radius: 24px; font-size: 18px; font-weight: 800;
             margin-bottom: 25px;
-            box-shadow: 0 15px 35px rgba(37, 99, 235, 0.35), inset 0 2px 4px rgba(255,255,255,0.3);
-            transition: all 0.2s; cursor: pointer;
+            box-shadow: 0 12px 24px rgba(37, 99, 235, 0.25);
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
         }
-        .btn-action:active { transform: scale(0.97); }
+        .btn-action:active { transform: scale(0.96); opacity: 0.9; }
 
-        .menu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+        .menu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
 
         .menu-item {
-            background: rgba(255, 255, 255, 0.05);
-            padding: 24px 15px; border-radius: 28px;
-            text-align: center; font-weight: 700; font-size: 15px;
-            color: #e6edf3; border: 1px solid rgba(255, 255, 255, 0.05);
-            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            background: var(--card-white);
+            padding: 22px 15px; border-radius: 28px;
+            text-align: center; font-weight: 700; font-size: 14px;
+            color: var(--text-dark); border: 1px solid var(--border-soft);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.02);
+            transition: all 0.2s;
         }
-        .menu-item:active { background: rgba(37, 99, 235, 0.1); border-color: #2563eb; transform: translateY(2px); }
+        .menu-item:active { background: #fcfbf7; transform: translateY(2px); border-color: var(--accent-blue); }
 
         .item-gift {
-            grid-column: span 2; background: rgba(37, 99, 235, 0.1);
-            border: 2px solid #2563eb; color: #3b82f6; font-weight: 800;
+            grid-column: span 2; background: #fff;
+            border: 2px solid var(--accent-blue); color: var(--accent-blue);
         }
 
-        /* МОДАЛКА РУЛЕТКИ */
+        /* МОДАЛКА */
         #gift-modal {
-            display: none; position: fixed; top: 0; left: 0;
-            width: 100%; height: 100%; background: #0d1117;
+            display: none; position: fixed; inset: 0;
+            background: var(--bg-main);
             z-index: 5000; flex-direction: column;
             align-items: center; justify-content: center; padding: 30px;
         }
 
         .wheel-container { 
-            position: relative; 
-            width: 320px; 
-            height: 320px; 
-            margin: 20px 0; 
-            display: flex; 
-            justify-content: center; 
-            align-items: center;
+            position: relative; width: 320px; height: 320px; 
+            margin: 20px 0; display: flex; justify-content: center; align-items: center;
         }
         
         #wheel-canvas {
-            width: 100%; height: 100%;
+            width: 100%; height: 100%; border-radius: 50%;
+            border: 8px solid #fff; box-shadow: 0 15px 40px rgba(0,0,0,0.1);
             transition: transform 4s cubic-bezier(0.1, 0, 0.1, 1);
         }
         
         .wheel-pointer {
-            position: absolute; top: -15px; left: 50%; transform: translateX(-50%);
-            width: 0; height: 0; border-left: 15px solid transparent; border-right: 15px solid transparent;
-            border-top: 30px solid #ef4444; z-index: 10;
+            position: absolute; top: -10px; left: 50%; transform: translateX(-50%);
+            width: 6px; height: 30px; background: #ff3b30; z-index: 10; border-radius: 3px;
         }
     </style>
 </head>
@@ -173,15 +176,15 @@
         <video autoplay muted loop playsinline><source src="https://www.w3schools.com/howto/rain.mp4" type="video/mp4"></video>
         <div class="video-overlay">
             <h1 id="user-name">GORO</h1>
-            <div id="sub-title" style="font-size: 16px; opacity: 0.8; font-weight: 600;">Beast Omni Global</div>
+            <div id="sub-title" style="font-size: 14px; color: var(--text-gray); font-weight: 700; text-transform: uppercase; letter-spacing: 1px;">Beast Omni Global</div>
         </div>
     </div>
 
     <div class="main-content">
         <div class="status-card">
             <div class="status-info">
-                <div id="label-status" style="font-size:12px; font-weight:800; color:#8b949e; text-transform:uppercase;">Limit</div>
-                <div class="status-value"><span id="limit-val">0.5</span> <small id="unit-text" style="font-size: 16px; color:#8b949e;">min.</small></div>
+                <div id="label-status" style="font-size:12px; font-weight:800; color:var(--text-gray); text-transform:uppercase;">Limit</div>
+                <div class="status-value"><span id="limit-val">0.5</span> <small id="unit-text" style="font-size: 16px; color:var(--text-gray);">min.</small></div>
             </div>
             <div id="plan-badge">FREE</div>
         </div>
@@ -200,8 +203,8 @@
     </div>
 
     <div id="gift-modal">
-        <h2 id="g-title" style="font-size: 32px; font-weight: 950; color:#fff; margin:0;">Beast Luck</h2>
-        <p id="timer-info" style="color:#8b949e; font-weight:600; margin-bottom:10px;">Spin and win!</p>
+        <h2 id="g-title" style="font-size: 32px; font-weight: 900; color:var(--text-dark); margin:0;">Beast Luck</h2>
+        <p id="timer-info" style="color:var(--text-gray); font-weight:600; margin-bottom:10px;">Spin and win!</p>
         
         <div class="wheel-container">
             <div class="wheel-pointer"></div>
@@ -209,16 +212,15 @@
         </div>
 
         <button id="spin-button" class="btn-action" style="max-width:300px; margin-top:20px;" onclick="runWheel()">SPIN</button>
-        <div id="btn-back" style="margin-top:20px; color:#3b82f6; font-weight:800; cursor:pointer;" onclick="closeGiftModal()">← GO BACK</div>
+        <div id="btn-back" style="margin-top:20px; color:var(--accent-blue); font-weight:800; cursor:pointer;" onclick="closeGiftModal()">← GO BACK</div>
     </div>
 
     <script>
         let tg = window.Telegram.WebApp;
         tg.expand();
-        tg.headerColor = '#0d1117';
-        tg.backgroundColor = '#0d1117';
+        tg.headerColor = '#f8f7f2';
+        tg.backgroundColor = '#f8f7f2';
 
-        // ТВОЯ ЛОГИКА ТАРИФОВ (СОХРАНЕНА ПОЛНОСТЬЮ)
         const userPlan = {
             price: 0, 
             getLimit: function() {
@@ -240,10 +242,10 @@
         };
 
         const prizes = [
-            { n: "0.1", c: "#6366f1", v: 0.1 }, { n: "0.5", c: "#3b82f6", v: 0.5 },
-            { n: "0.1", c: "#6366f1", v: 0.1 }, { n: "1.0", c: "#2563eb", v: 1.0 },
-            { n: "0.1", c: "#6366f1", v: 0.1 }, { n: "2.0", c: "#1e40af", v: 2.0 },
-            { n: "0.1", c: "#6366f1", v: 0.1 }, { n: "0.0", c: "#4b5563", v: 0 }
+            { n: "0.1", c: "#e5e5ea", v: 0.1 }, { n: "0.5", c: "#3b82f6", v: 0.5 },
+            { n: "0.1", c: "#d1d1d6", v: 0.1 }, { n: "1.0", c: "#2563eb", v: 1.0 },
+            { n: "0.1", c: "#e5e5ea", v: 0.1 }, { n: "2.0", c: "#1e40af", v: 2.0 },
+            { n: "0.1", c: "#d1d1d6", v: 0.1 }, { n: "0.0", c: "#8e8e93", v: 0 }
         ];
 
         const i18n = {
@@ -285,7 +287,7 @@
                 ctx.beginPath(); ctx.fillStyle = p.c; ctx.moveTo(300, 300);
                 ctx.arc(300, 300, 300, i * arc, (i + 1) * arc); ctx.fill();
                 ctx.save(); ctx.translate(300, 300); ctx.rotate(i * arc + arc/2);
-                ctx.fillStyle = "white"; ctx.font = "bold 50px Poppins"; ctx.textAlign = "right";
+                ctx.fillStyle = i % 2 === 0 ? "#1a1a1a" : "white"; ctx.font = "bold 50px Poppins"; ctx.textAlign = "right";
                 ctx.fillText(p.n, 280, 15); ctx.restore();
             });
         }
@@ -299,7 +301,6 @@
             const totalDeg = 3600 + (randomPrizeIndex * (360 / prizes.length));
             canvas.style.transform = `rotate(${totalDeg}deg)`;
             setTimeout(() => {
-                // Математика индекса для корректного отображения выпавшего приза
                 const prize = prizes[prizes.length - 1 - (randomPrizeIndex % prizes.length)];
                 tg.showAlert(prize.v > 0 ? `🎉 +${prize.n}!` : "Try tomorrow!");
                 btn.disabled = false;
@@ -314,12 +315,9 @@
             document.getElementById('gift-modal').style.display = 'none'; 
         }
 
-        // Инициализация при загрузке
         window.onload = () => {
             const user = tg.initDataUnsafe?.user;
             if(user) document.getElementById('user-name').innerText = user.first_name.toUpperCase();
-            
-            // Ставим язык по умолчанию
             changeLanguage('en'); 
             tg.ready();
         };
