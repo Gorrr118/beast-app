@@ -84,7 +84,6 @@
             font-size: 14px; font-weight: 900; text-transform: uppercase;
         }
 
-        /* АНИМАЦИИ КНОПОК ВОЗВРАЩЕНЫ */
         .btn-action {
             background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
             color: white; border: none; width: 100%; padding: 24px;
@@ -112,33 +111,42 @@
             border: 2px solid #2563eb; color: #3b82f6; font-weight: 800;
         }
 
+        /* MODAL FIX */
         #gift-modal {
             display: none; position: fixed; top: 0; left: 0;
             width: 100%; height: 100%; background: #0d1117;
-            z-index: 5000; flex-direction: column;
-            align-items: center; justify-content: center; padding: 30px;
+            z-index: 9000; flex-direction: column;
+            align-items: center; justify-content: center; padding: 20px;
+            box-sizing: border-box;
         }
 
-        .wheel-container { position: relative; width: 320px; height: 320px; margin: 20px 0; display: flex; justify-content: center; align-items: center; }
+        .wheel-container { 
+            position: relative; width: 320px; height: 320px; 
+            margin: 30px auto; display: flex; justify-content: center; align-items: center; 
+        }
         #wheel-canvas { width: 100%; height: 100%; transition: transform 4s cubic-bezier(0.1, 0, 0.1, 1); }
-        .wheel-pointer { position: absolute; top: -15px; left: 50%; transform: translateX(-50%); width: 0; height: 0; border-left: 15px solid transparent; border-right: 15px solid transparent; border-top: 30px solid #ef4444; z-index: 10; }
+        .wheel-pointer { 
+            position: absolute; top: -20px; left: 50%; transform: translateX(-50%); 
+            width: 0; height: 0; border-left: 15px solid transparent; 
+            border-right: 15px solid transparent; border-top: 30px solid #ef4444; z-index: 10; 
+        }
     </style>
 </head>
 <body>
 
     <div class="lang-container">
         <select id="lang-select" onchange="changeLanguage(this.value)">
-            <option value="en">🇺🇸 EN</option>
-            <option value="ru" selected>🇷🇺 RU</option>
-            <option value="am">🇦🇲 AM</option>
-            <option value="es">🇪🇸 ES</option><option value="fr">🇫🇷 FR</option>
-        </select>
+            <option value="ru" selected>🇷🇺 RU</option><option value="en">🇺🇸 EN</option><option value="am">🇦🇲 AM</option>
+            <option value="es">🇪🇸 ES</option><option value="fr">🇫🇷 FR</option><option value="de">🇩🇪 DE</option>
+            <option value="it">🇮🇹 IT</option><option value="pt">🇵🇹 PT</option><option value="tr">🇹🇷 TR</option>
+            <option value="ar">🇸🇦 AR</option><option value="zh">🇨🇳 ZH</option><option value="ja">🇯🇵 JA</option>
+            </select>
     </div>
 
     <div class="video-banner">
         <video autoplay muted loop playsinline><source src="https://www.w3schools.com/howto/rain.mp4" type="video/mp4"></video>
         <div class="video-overlay">
-            <h1 id="user-name">USER</h1>
+            <h1 id="user-name">BEAST</h1>
             <div id="sub-title" style="font-size: 16px; opacity: 0.8; font-weight: 600;">Beast Omni Global</div>
         </div>
     </div>
@@ -146,58 +154,50 @@
     <div class="main-content">
         <div class="status-card">
             <div class="status-info">
-                <div id="label-status">Limit</div>
-                <div class="status-value"><span id="limit-val">0.5</span> <small id="unit-text">min.</small></div>
+                <div id="label-status">Лимит видео</div>
+                <div class="status-value"><span id="limit-val">0.5</span> <small id="unit-text">мин.</small></div>
             </div>
             <div id="plan-badge">FREE</div>
         </div>
 
-        <button id="btn-try" class="btn-action">CREATE VIDEO</button>
+        <button id="btn-try" class="btn-action">СОЗДАТЬ ВИДЕО</button>
 
         <div class="menu-grid">
-            <div id="item-stats" class="menu-item">📊 Stats</div>
-            <div id="item-ref" class="menu-item">👥 Refs</div>
-            <div id="item-tariffs" class="menu-item">💎 Plans</div>
-            <div id="item-help" class="menu-item">🆘 Help</div>
-            <div id="item-gift" class="menu-item item-gift" onclick="openGiftModal()">🎁 Daily Gift</div>
-            <div id="item-profile" class="menu-item">👤 Profile</div>
-            <div id="item-showcase" class="menu-item">🎬 Showcase</div>
+            <div id="item-stats" class="menu-item">📊 Статистика</div>
+            <div id="item-ref" class="menu-item">👥 Рефералы</div>
+            <div id="item-tariffs" class="menu-item">💎 Тарифы</div>
+            <div id="item-help" class="menu-item">🆘 Помощь</div>
+            <div id="item-gift" class="menu-item item-gift" onclick="openGiftModal()">🎁 Ежедневный подарок</div>
+            <div id="item-profile" class="menu-item">👤 Кабинет</div>
+            <div id="item-showcase" class="menu-item">🎬 Примеры</div>
         </div>
     </div>
 
     <div id="gift-modal">
-        <h2 id="g-title" style="font-size: 32px; font-weight: 950; color:#fff; margin:0;">Beast Luck</h2>
-        <p id="timer-info" style="color:#8b949e; font-weight:600; margin-bottom:10px;">Spin and win!</p>
+        <h2 id="g-title" style="font-size: 32px; font-weight: 950; color:#fff; margin:0; text-align:center;">Beast Luck</h2>
+        <p id="timer-info" style="color:#8b949e; font-weight:600; margin-bottom:10px;">Крути и выигрывай!</p>
         <div class="wheel-container">
             <div class="wheel-pointer"></div>
             <canvas id="wheel-canvas" width="600" height="600"></canvas>
         </div>
-        <button id="spin-button" class="btn-action" style="max-width:300px;" onclick="runWheel()">SPIN</button>
-        <div id="btn-back" style="margin-top:20px; color:#3b82f6; font-weight:800; cursor:pointer;" onclick="closeGiftModal()">← GO BACK</div>
+        <button id="spin-button" class="btn-action" style="max-width:300px;" onclick="runWheel()">КРУТИТЬ</button>
+        <div id="btn-back" style="margin-top:20px; color:#3b82f6; font-weight:800; cursor:pointer;" onclick="closeGiftModal()">← НАЗАД</div>
     </div>
 
     <script>
         let tg = window.Telegram.WebApp;
         tg.expand();
-        tg.headerColor = '#0d1117';
-        tg.backgroundColor = '#0d1117';
 
         const userPlan = {
+            balance: 0.5,
             price: 0, 
-            getLimit: function() {
-                if (this.price >= 100) return "∞";
-                if (this.price >= 50) return "8";
-                if (this.price >= 30) return "6";
-                if (this.price >= 15) return "4";
-                if (this.price >= 5) return "2";
-                return "0.5";
+            updateDisplay: function() {
+                document.getElementById('limit-val').innerText = this.balance.toFixed(1);
+                document.getElementById('plan-badge').innerText = this.getBadge();
             },
             getBadge: function() {
                 if (this.price >= 100) return "ULTRA";
                 if (this.price >= 50) return "ELITE";
-                if (this.price >= 30) return "PRO";
-                if (this.price >= 15) return "PREMIUM";
-                if (this.price >= 5) return "BASIC";
                 return "FREE";
             }
         };
@@ -210,9 +210,10 @@
         ];
 
         const i18n = {
-            ru: { limit: "Лимит видео", unit: "мин.", unlim: "Безлимит", try: "СОЗДАТЬ ВИДЕО", stats: "📊 Статистика", ref: "👥 Рефералы", tar: "💎 Тарифы", help: "🆘 Помощь", gift: "🎁 Ежедневный подарок", profile: "👤 Кабинет", show: "🎬 Примеры", back: "← ВЕРНУТЬСЯ", spin: "КРУТИТЬ", luck: "Крути и получай бонусы!" },
-            en: { limit: "Video Limit", unit: "min.", unlim: "Unlimited", try: "CREATE VIDEO", stats: "📊 Stats", ref: "👥 Refs", tar: "💎 Plans", help: "🆘 Help", gift: "🎁 Daily Gift", profile: "👤 Profile", show: "🎬 Showcase", back: "← GO BACK", spin: "SPIN", luck: "Spin and win!" },
-            am: { limit: "Վիդեո սահմանաչափ", unit: "րոպե", unlim: "Անսահմանափակ", try: "ՍՏԵՂԾԵԼ ՎԻԴԵՈ", stats: "📊 Վիճակագրություն", ref: "👥 Ռեֆերալներ", tar: "💎 Սակագներ", help: "🆘 Օգնություն", gift: "🎁 Օրական նվեր", profile: "👤 Կաբինետ", show: "🎬 Օրինակներ", back: "← ՀԵՏ", spin: "ՊՏՏԵԼ", luck: "Պտտիր և շահիր" }
+            ru: { limit: "Лимит видео", unit: "мин.", try: "СОЗДАТЬ ВИДЕО", stats: "📊 Статистика", ref: "👥 Рефералы", tar: "💎 Тарифы", help: "🆘 Помощь", gift: "🎁 Ежедневный подарок", profile: "👤 Кабинет", show: "🎬 Примеры", back: "← НАЗАД", spin: "КРУТИТЬ", wait: "Вы уже крутили! Ждите 24 часа." },
+            en: { limit: "Video Limit", unit: "min.", try: "CREATE VIDEO", stats: "📊 Stats", ref: "👥 Refs", tar: "💎 Plans", help: "🆘 Help", gift: "🎁 Daily Gift", profile: "👤 Profile", show: "🎬 Showcase", back: "← BACK", spin: "SPIN", wait: "Wait 24h!" },
+            am: { limit: "Վիդեո սահմանաչափ", unit: "րոպե", try: "ՍՏԵՂԾԵԼ ՎԻԴԵՈ", stats: "📊 Վիճակագրություն", ref: "👥 Ռեֆերալներ", tar: "💎 Սակագներ", help: "🆘 Օգնություն", gift: "🎁 Նվեր", back: "← ՀԵՏ", spin: "ՊՏՏԵԼ", wait: "Սպասեք 24 ժամ" }
+            // Можно дописать остальные 37 языков по аналогии
         };
 
         function changeLanguage(lang) {
@@ -229,13 +230,7 @@
             document.getElementById('item-showcase').innerText = t.show;
             document.getElementById('btn-back').innerText = t.back;
             document.getElementById('spin-button').innerText = t.spin;
-            document.getElementById('timer-info').innerText = t.luck;
-            document.getElementById('g-title').innerText = t.gift.replace('🎁 ', '');
-            
-            const limit = userPlan.getLimit();
-            document.getElementById('limit-val').innerText = (limit === "∞" ? (t.unlim || "∞") : limit);
-            document.getElementById('unit-text').style.display = (limit === "∞" ? 'none' : 'inline');
-            document.getElementById('plan-badge').innerText = userPlan.getBadge();
+            userPlan.updateDisplay();
         }
 
         function drawWheel() {
@@ -253,16 +248,34 @@
         }
 
         function runWheel() {
+            const lastSpin = localStorage.getItem('beast_last_spin');
+            const now = Date.now();
+            const lang = document.getElementById('lang-select').value;
+            
+            if (lastSpin && (now - lastSpin < 86400000)) {
+                tg.showAlert(i18n[lang]?.wait || "Wait 24h!");
+                return;
+            }
+
             const btn = document.getElementById('spin-button');
             const canvas = document.getElementById('wheel-canvas');
             if(btn.disabled) return;
             btn.disabled = true;
-            const randomPrizeIndex = Math.floor(Math.random() * prizes.length);
-            const totalDeg = 3600 + (randomPrizeIndex * (360 / prizes.length));
+
+            const randomIdx = Math.floor(Math.random() * prizes.length);
+            const totalDeg = 3600 + (randomIdx * (360 / prizes.length));
             canvas.style.transform = `rotate(${totalDeg}deg)`;
+
             setTimeout(() => {
-                const prize = prizes[prizes.length - 1 - (randomPrizeIndex % prizes.length)];
-                tg.showAlert(prize.v > 0 ? `🎉 +${prize.n}!` : "Try tomorrow!");
+                const prize = prizes[prizes.length - 1 - (randomIdx % prizes.length)];
+                if(prize.v > 0) {
+                    userPlan.balance += prize.v;
+                    userPlan.updateDisplay();
+                    tg.showAlert(`🎉 +${prize.n} min!`);
+                } else {
+                    tg.showAlert("Try again tomorrow!");
+                }
+                localStorage.setItem('beast_last_spin', Date.now());
                 btn.disabled = false;
             }, 4100);
         }
@@ -278,7 +291,7 @@
         window.onload = () => {
             const user = tg.initDataUnsafe?.user;
             if(user) document.getElementById('user-name').innerText = user.first_name.toUpperCase();
-            changeLanguage('ru'); // Сразу включаем русский
+            changeLanguage('ru');
             tg.ready();
         };
     </script>
