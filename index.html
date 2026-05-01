@@ -16,7 +16,7 @@
             -webkit-user-select: none;
         }
 
-        /* ВЫБОР ЯЗЫКА С ЭФФЕКТАМИ СТЕКЛА */
+        /* LANG SELECT */
         .lang-container {
             position: absolute; top: 25px; right: 20px; z-index: 100;
         }
@@ -33,7 +33,6 @@
             box-shadow: 0 4px 15px rgba(0,0,0,0.3);
         }
 
-        /* ГИГАНТСКОЕ ВИДЕО С ГРАДИЕНТОМ */
         .video-banner {
             position: relative; width: 100%; height: 50vh; background: #000; overflow: hidden;
         }
@@ -68,14 +67,12 @@
             z-index: 5;
         }
 
-        /* КАРТОЧКА ТАРИФА */
         .status-card {
             background: rgba(255, 255, 255, 0.05);
             padding: 24px; border-radius: 30px;
             margin-bottom: 25px; display: flex;
             justify-content: space-between; align-items: center;
             border: 1px solid rgba(37, 99, 235, 0.2);
-            box-shadow: inset 0 0 15px rgba(255,255,255,0.05), 0 10px 20px rgba(0,0,0,0.2);
         }
 
         .status-value { font-size: 28px; font-weight: 900; color: #fff; }
@@ -84,20 +81,20 @@
         #plan-badge {
             background: linear-gradient(135deg, #2563eb, #1d4ed8);
             color: white; padding: 12px 20px; border-radius: 18px;
-            font-size: 14px; font-weight: 900; box-shadow: 0 0 15px rgba(37, 99, 235, 0.4);
-            text-transform: uppercase;
+            font-size: 14px; font-weight: 900; text-transform: uppercase;
         }
 
-        /* КНОПКИ */
+        /* АНИМАЦИИ КНОПОК ВОЗВРАЩЕНЫ */
         .btn-action {
             background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
             color: white; border: none; width: 100%; padding: 24px;
             border-radius: 26px; font-size: 19px; font-weight: 800;
             margin-bottom: 25px;
             box-shadow: 0 15px 35px rgba(37, 99, 235, 0.35), inset 0 2px 4px rgba(255,255,255,0.3);
-            transition: all 0.2s; cursor: pointer;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
         }
-        .btn-action:active { transform: scale(0.97); }
+        .btn-action:active { transform: scale(0.96); box-shadow: 0 5px 15px rgba(37, 99, 235, 0.2); }
 
         .menu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
 
@@ -106,17 +103,15 @@
             padding: 24px 15px; border-radius: 28px;
             text-align: center; font-weight: 700; font-size: 15px;
             color: #e6edf3; border: 1px solid rgba(255, 255, 255, 0.05);
-            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.2s ease;
         }
-        .menu-item:active { background: rgba(37, 99, 235, 0.1); border-color: #2563eb; transform: translateY(2px); }
+        .menu-item:active { background: rgba(37, 99, 235, 0.15); transform: translateY(2px); border-color: #2563eb; }
 
         .item-gift {
             grid-column: span 2; background: rgba(37, 99, 235, 0.1);
             border: 2px solid #2563eb; color: #3b82f6; font-weight: 800;
         }
 
-        /* МОДАЛКА РУЛЕТКИ */
         #gift-modal {
             display: none; position: fixed; top: 0; left: 0;
             width: 100%; height: 100%; background: #0d1117;
@@ -124,26 +119,9 @@
             align-items: center; justify-content: center; padding: 30px;
         }
 
-        .wheel-container { 
-            position: relative; 
-            width: 320px; 
-            height: 320px; 
-            margin: 20px 0; 
-            display: flex; 
-            justify-content: center; 
-            align-items: center;
-        }
-        
-        #wheel-canvas {
-            width: 100%; height: 100%;
-            transition: transform 4s cubic-bezier(0.1, 0, 0.1, 1);
-        }
-        
-        .wheel-pointer {
-            position: absolute; top: -15px; left: 50%; transform: translateX(-50%);
-            width: 0; height: 0; border-left: 15px solid transparent; border-right: 15px solid transparent;
-            border-top: 30px solid #ef4444; z-index: 10;
-        }
+        .wheel-container { position: relative; width: 320px; height: 320px; margin: 20px 0; display: flex; justify-content: center; align-items: center; }
+        #wheel-canvas { width: 100%; height: 100%; transition: transform 4s cubic-bezier(0.1, 0, 0.1, 1); }
+        .wheel-pointer { position: absolute; top: -15px; left: 50%; transform: translateX(-50%); width: 0; height: 0; border-left: 15px solid transparent; border-right: 15px solid transparent; border-top: 30px solid #ef4444; z-index: 10; }
     </style>
 </head>
 <body>
@@ -151,28 +129,16 @@
     <div class="lang-container">
         <select id="lang-select" onchange="changeLanguage(this.value)">
             <option value="en">🇺🇸 EN</option>
-            <option value="ru">🇷🇺 RU</option>
+            <option value="ru" selected>🇷🇺 RU</option>
             <option value="am">🇦🇲 AM</option>
-            <option value="es">🇪🇸 ES</option><option value="fr">🇫🇷 FR</option><option value="de">🇩🇪 DE</option>
-            <option value="it">🇮🇹 IT</option><option value="pt">🇵🇹 PT</option><option value="tr">🇹🇷 TR</option>
-            <option value="kz">🇰🇿 KZ</option><option value="ua">🇺🇦 UA</option><option value="zh">🇨🇳 ZH</option>
-            <option value="ja">🇯🇵 JA</option><option value="ko">🇰🇷 KO</option><option value="pl">🇵🇱 PL</option>
-            <option value="cz">🇨🇿 CZ</option><option value="hi">🇮🇳 HI</option><option value="ar">🇸🇦 AR</option>
-            <option value="nl">🇳🇱 NL</option><option value="sv">🇸🇪 SV</option><option value="no">🇳🇴 NO</option>
-            <option value="da">🇩🇰 DA</option><option value="fi">🇫🇮 FI</option><option value="cs">🇨🇿 CS</option>
-            <option value="hu">🇭🇺 HU</option><option value="ro">🇷🇴 RO</option><option value="bg">🇧🇬 BG</option>
-            <option value="el">🇬🇷 EL</option><option value="he">🇮🇱 HE</option><option value="th">🇹🇭 TH</option>
-            <option value="vi">🇻🇳 VI</option><option value="id">🇮🇩 ID</option><option value="ms">🇲🇾 MS</option>
-            <option value="fa">🇮🇷 FA</option><option value="ka">🇬🇪 KA</option><option value="az">🇦🇿 AZ</option>
-            <option value="uz">🇺🇿 UZ</option><option value="sr">🇷🇸 SR</option><option value="sk">🇸🇰 SK</option>
-            <option value="lt">🇱🇹 LT</option>
+            <option value="es">🇪🇸 ES</option><option value="fr">🇫🇷 FR</option>
         </select>
     </div>
 
     <div class="video-banner">
         <video autoplay muted loop playsinline><source src="https://www.w3schools.com/howto/rain.mp4" type="video/mp4"></video>
         <div class="video-overlay">
-            <h1 id="user-name">GORO</h1>
+            <h1 id="user-name">USER</h1>
             <div id="sub-title" style="font-size: 16px; opacity: 0.8; font-weight: 600;">Beast Omni Global</div>
         </div>
     </div>
@@ -180,8 +146,8 @@
     <div class="main-content">
         <div class="status-card">
             <div class="status-info">
-                <div id="label-status" style="font-size:12px; font-weight:800; color:#8b949e; text-transform:uppercase;">Limit</div>
-                <div class="status-value"><span id="limit-val">0.5</span> <small id="unit-text" style="font-size: 16px; color:#8b949e;">min.</small></div>
+                <div id="label-status">Limit</div>
+                <div class="status-value"><span id="limit-val">0.5</span> <small id="unit-text">min.</small></div>
             </div>
             <div id="plan-badge">FREE</div>
         </div>
@@ -202,13 +168,11 @@
     <div id="gift-modal">
         <h2 id="g-title" style="font-size: 32px; font-weight: 950; color:#fff; margin:0;">Beast Luck</h2>
         <p id="timer-info" style="color:#8b949e; font-weight:600; margin-bottom:10px;">Spin and win!</p>
-        
         <div class="wheel-container">
             <div class="wheel-pointer"></div>
             <canvas id="wheel-canvas" width="600" height="600"></canvas>
         </div>
-
-        <button id="spin-button" class="btn-action" style="max-width:300px; margin-top:20px;" onclick="runWheel()">SPIN</button>
+        <button id="spin-button" class="btn-action" style="max-width:300px;" onclick="runWheel()">SPIN</button>
         <div id="btn-back" style="margin-top:20px; color:#3b82f6; font-weight:800; cursor:pointer;" onclick="closeGiftModal()">← GO BACK</div>
     </div>
 
@@ -218,7 +182,6 @@
         tg.headerColor = '#0d1117';
         tg.backgroundColor = '#0d1117';
 
-        // ТВОЯ ЛОГИКА ТАРИФОВ (СОХРАНЕНА ПОЛНОСТЬЮ)
         const userPlan = {
             price: 0, 
             getLimit: function() {
@@ -254,7 +217,6 @@
 
         function changeLanguage(lang) {
             const t = i18n[lang] || i18n['en'];
-            document.getElementById('lang-select').value = lang;
             document.getElementById('label-status').innerText = t.limit;
             document.getElementById('unit-text').innerText = t.unit;
             document.getElementById('btn-try').innerText = t.try;
@@ -299,7 +261,6 @@
             const totalDeg = 3600 + (randomPrizeIndex * (360 / prizes.length));
             canvas.style.transform = `rotate(${totalDeg}deg)`;
             setTimeout(() => {
-                // Математика индекса для корректного отображения выпавшего приза
                 const prize = prizes[prizes.length - 1 - (randomPrizeIndex % prizes.length)];
                 tg.showAlert(prize.v > 0 ? `🎉 +${prize.n}!` : "Try tomorrow!");
                 btn.disabled = false;
@@ -314,13 +275,10 @@
             document.getElementById('gift-modal').style.display = 'none'; 
         }
 
-        // Инициализация при загрузке
         window.onload = () => {
             const user = tg.initDataUnsafe?.user;
             if(user) document.getElementById('user-name').innerText = user.first_name.toUpperCase();
-            
-            // Ставим язык по умолчанию
-            changeLanguage('en'); 
+            changeLanguage('ru'); // Сразу включаем русский
             tg.ready();
         };
     </script>
