@@ -3,133 +3,113 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Beast Omni Professional</title>
+    <title>Beast Omni Pro: Cinematic Edition</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <style>
         body {
-            background-color: #f8f9fa;
-            color: #111;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            margin: 0;
-            padding: 0;
+            background-color: #f1f5f9;
+            color: #1e293b;
+            font-family: -apple-system, system-ui, sans-serif;
+            margin: 0; padding: 0;
             overflow-x: hidden;
         }
 
-        /* БЛОК С ВИДЕО СВЕРХУ */
+        /* 1. КИНЕМАТОГРАФИЧНЫЙ БАННЕР (БОЛЬШЕ ВИДЕО) */
         .video-banner {
             position: relative;
             width: 100%;
-            height: 220px;
-            overflow: hidden;
+            height: 40vh; /* Занимает 40% высоты видимой области (View Height) */
             background: #000;
+            overflow: hidden;
         }
 
         .video-banner video {
-            width: 100%;
-            height: 100%;
+            width: 100%; height: 100%;
             object-fit: cover;
-            opacity: 0.8; /* Немного приглушим, чтобы было стильно */
+            opacity: 0.9;
         }
 
+        /* Позиционируем имя внизу видео-зоны */
         .video-overlay {
             position: absolute;
-            bottom: 20px;
+            bottom: 30px; /* 30px от нижнего края видео */
             left: 20px;
             color: white;
-            text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+            z-index: 2;
+            text-shadow: 0 4px 15px rgba(0,0,0,0.6); /* Мощная тень для читаемости */
         }
 
         .video-overlay h1 {
-            margin: 0;
-            font-size: 28px;
-            font-weight: 900;
-            letter-spacing: -1px;
+            margin: 0; font-size: 36px; font-weight: 900; text-transform: uppercase; letter-spacing: -1px;
         }
 
-        /* КОНТЕНТ ПОД ВИДЕО */
-        .container {
-            padding: 20px;
-            margin-top: -30px; /* Наползает на видео */
+        /* 2. КОНТЕНТНАЯ ЧАСТЬ (ТЕПЕРЬ НИЖЕ) */
+        .main-content {
             position: relative;
-            background: #f8f9fa;
-            border-radius: 30px 30px 0 0;
-        }
-
-        .stats-card {
-            background: white;
-            padding: 20px;
-            border-radius: 22px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
-            margin-bottom: 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .stats-info span {
-            display: block;
-            color: #888;
-            font-size: 11px;
-            font-weight: 700;
-            text-transform: uppercase;
-            margin-bottom: 4px;
-        }
-
-        .stats-info strong {
-            font-size: 24px;
-            color: #2563EB;
-        }
-
-        .btn-main {
-            background: #2563EB;
-            color: white;
-            border: none;
-            width: 100%;
-            padding: 18px;
-            border-radius: 18px;
-            font-size: 16px;
-            font-weight: 700;
-            margin-bottom: 12px;
-            box-shadow: 0 8px 20px rgba(37, 99, 235, 0.2);
-        }
-
-        .grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 12px;
-        }
-
-        .grid-item {
-            background: white;
-            padding: 18px;
-            border-radius: 18px;
-            text-align: center;
-            font-weight: 700;
-            font-size: 14px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.03);
-            border: 1px solid rgba(0,0,0,0.02);
-        }
-
-        /* ОКНО РЕЗУЛЬТАТА */
-        #modal {
-            display: none;
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: white;
-            z-index: 1000;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 40px;
+            /* Убрали отрицательный маргин! Контент начинается сразу после видео */
+            background: #f1f5f9;
+            border-radius: 30px 30px 0 0; /* Оставили закругление сверху */
+            padding: 25px 20px; /* Увеличили отступы */
             box-sizing: border-box;
-            text-align: center;
         }
 
-        .close-btn {
-            margin-top: 30px;
-            color: #2563EB;
-            font-weight: 800;
+        .balance-card {
+            background: white;
+            padding: 24px;
+            border-radius: 24px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.06);
+            margin-bottom: 20px;
+            display: flex; justify-content: space-between; align-items: center;
+        }
+
+        .balance-val { font-size: 30px; font-weight: 900; color: #2563eb; }
+
+        .btn-action {
+            background: #2563eb;
+            color: white; border: none;
+            width: 100%; padding: 20px;
+            border-radius: 20px; font-size: 18px; font-weight: 800;
+            margin-bottom: 20px;
+            box-shadow: 0 10px 25px rgba(37, 99, 235, 0.25);
             cursor: pointer;
+        }
+
+        .menu-grid {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 15px;
+        }
+
+        .menu-item {
+            background: white; padding: 20px;
+            border-radius: 22px; text-align: center;
+            font-weight: 700; font-size: 15px;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.03);
+            border: 1px solid rgba(0,0,0,0.01);
+            cursor: pointer;
+        }
+
+        /* РЕФЕРАЛЬНЫЙ БЛОК (ВСТРОЕН) */
+        .ref-box {
+            background: white;
+            padding: 20px; border-radius: 22px;
+            margin-top: 20px; display: none; /* Скрыт по умолчанию */
+            flex-direction: column; gap: 12px;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.03);
+        }
+
+        .ref-link {
+            background: #f8fafc; padding: 12px;
+            border-radius: 12px; font-size: 12px;
+            word-break: break-all; color: #4338ca; font-family: monospace;
+            border: 1px solid #e2e8f0;
+        }
+
+        /* МОДАЛЬНОЕ ОКНО */
+        #modal {
+            display: none; position: fixed; top: 0; left: 0; 
+            width: 100%; height: 100%; background: white;
+            z-index: 2000; flex-direction: column; 
+            align-items: center; justify-content: center; padding: 40px;
+            text-align: center; box-sizing: border-box;
         }
     </style>
 </head>
@@ -140,45 +120,56 @@
             <source src="https://www.w3schools.com/howto/rain.mp4" type="video/mp4">
         </video>
         <div class="video-overlay">
-            <h1 id="user-name">BEAST OMNI</h1>
-            <p style="margin: 5px 0 0 0; font-weight: 500; font-size: 14px; opacity: 0.9;">AI Video Revolution</p>
+            <h1 id="user-name">GORO</h1>
+            <div style="font-size: 14px; opacity: 0.9; font-weight: 500;">AI Video Revolution</div>
         </div>
     </div>
 
-    <div class="container">
-        <div class="stats-card">
-            <div class="stats-info">
-                <span>Ваш баланс</span>
-                <strong id="balance">5.00 мин.</strong>
+    <div class="main-content">
+        <div class="balance-card">
+            <div>
+                <div style="font-size: 12px; font-weight: 700; color: #64748b; text-transform: uppercase; letter-spacing: 1px;">Ваш баланс</div>
+                <div class="balance-val" id="balance-display">5.00 мин.</div>
             </div>
-            <div style="background: #EBF2FF; padding: 8px 12px; border-radius: 12px; color: #2563EB; font-weight: 800; font-size: 12px;">
-                ELITE
-            </div>
+            <div style="background: #dbeafe; color: #2563eb; padding: 8px 16px; border-radius: 12px; font-size: 13px; font-weight: 800;">ELITE</div>
         </div>
 
-        <button class="btn-main" onclick="openModal('ЗАГРУЗИТЬ', 'Отправь видео или ссылку в чат бота, и я приступлю к работе!')">ПОПРОБОВАТЬ СЕЙЧАС</button>
+        <button class="btn-action" onclick="openModal('ЗАГРУЗИТЬ', 'Просто отправь видео в чат бота, и я приступлю к магии нейросетей!')">ПОПРОБОВАТЬ СЕЙЧАС</button>
 
-        <div class="grid">
-            <div class="grid-item" onclick="openModal('СТАТИСТИКА', 'Тут будет твоя детальная история...')">📊 Статистика</div>
-            <div class="grid-item" onclick="openModal('РЕФЕРАЛЫ', 'Зови друзей и получай минуты!')">👥 Рефералы</div>
-            <div class="grid-item" onclick="openModal('ТАРИФЫ', 'Выбери подходящий план...')">💎 Тарифы</div>
-            <div class="grid-item" onclick="openModal('ПОМОЩЬ', 'Связь с админом: @SUPPORT_USER')">🆘 Помощь</div>
+        <div class="menu-grid">
+            <div class="menu-item" onclick="openModal('СТАТИСТИКА', '📊 Твоя история обработок...')">📊 Статистика</div>
+            <div class="menu-item" onclick="toggleRef()">👥 Рефералы</div>
+            <div class="menu-item" onclick="openModal('ТАРИФЫ', 'START: 15$\nBEAST: 30$\nELITE: 50$')">💎 Тарифы</div>
+            <div class="menu-item" onclick="openModal('ПОМОЩЬ', '🆘 Поддержка: @SUPPORT_USER')">🆘 Помощь</div>
+        </div>
+
+        <div id="ref-section" class="ref-box">
+            <div style="font-weight: 800; font-size: 16px;">👥 Приглашай друзей!</div>
+            <div style="font-size: 14px; color: #64748b;">За каждого друга получишь +1 минуту. Твоя ссылка:</div>
+            <div class="ref-link" id="ref-link-text">https://t.me/ViralVoice_bot?start=user</div>
+            <button onclick="copyRef()" style="background: #2563eb; color: white; border: none; padding: 12px; border-radius: 12px; font-weight: 700; cursor: pointer;">Копировать ссылку</button>
         </div>
     </div>
 
     <div id="modal">
-        <h2 id="m-title"></h2>
-        <p id="m-text"></p>
-        <div class="close-btn" onclick="closeModal()">← ВЕРНУТЬСЯ</div>
+        <h2 id="m-title" style="font-size: 28px; font-weight: 900; color: #2563eb;"></h2>
+        <p id="m-text" style="white-space: pre-wrap; font-size: 16px; color: #64748b; line-height: 1.6;"></p>
+        <div onclick="closeModal()" style="color: #2563eb; font-weight: 800; margin-top: 30px; cursor: pointer; font-size: 16px;">← НАЗАД</div>
     </div>
 
     <script>
         let tg = window.Telegram.WebApp;
         tg.expand();
-        tg.headerColor = '#000000'; // Цвет шапки в тон видео
+        // Устанавливаем цвет шапки в тон видео (черный)
+        tg.headerColor = '#000000';
+        tg.backgroundColor = '#f1f5f9'; // Цвет фона под карточкой
 
-        const user = tg.initDataUnsafe?.user;
-        if(user) document.getElementById('user-name').innerText = user.first_name.toUpperCase();
+        const userId = tg.initDataUnsafe?.user?.id || '8709223620';
+        const firstName = tg.initDataUnsafe?.user?.first_name || 'GORO';
+        
+        document.getElementById('user-name').innerText = firstName.toUpperCase();
+        // Генерируем реальную реферальную ссылку
+        document.getElementById('ref-link-text').innerText = `https://t.me/ViralVoice_bot?start=${userId}`;
 
         function openModal(title, text) {
             document.getElementById('m-title').innerText = title;
@@ -188,6 +179,27 @@
 
         function closeModal() {
             document.getElementById('modal').style.display = 'none';
+        }
+
+        function toggleRef() {
+            let section = document.getElementById('ref-section');
+            section.style.display = (section.style.display === 'flex') ? 'none' : 'flex';
+            if (section.style.display === 'flex') {
+                // Скроллим вниз, чтобы увидеть рефералку
+                section.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        function copyRef() {
+            const link = document.getElementById('ref-link-text').innerText;
+            const el = document.createElement('textarea');
+            el.value = link;
+            document.body.appendChild(el);
+            el.select();
+            document.execCommand('copy');
+            document.body.removeChild(el);
+            // Красивый системный алерт от Telegram
+            tg.showAlert('✅ Ссылка скопирована! Отправь её другу.');
         }
 
         tg.ready();
