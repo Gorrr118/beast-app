@@ -3,220 +3,173 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Beast Omni: Wheel of Fortune</title>
+    <title>Beast Omni: Gift System</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <style>
         body { background-color: #f1f5f9; color: #1e293b; font-family: -apple-system, system-ui, sans-serif; margin: 0; padding: 0; overflow-x: hidden; }
         
-        .lang-container { position: absolute; top: 20px; right: 15px; z-index: 100; }
-        #lang-select { background: rgba(255, 255, 255, 0.15); backdrop-filter: blur(10px); color: white; border: 1px solid rgba(255,255,255,0.3); padding: 8px 12px; border-radius: 12px; font-size: 13px; font-weight: 700; outline: none; }
-
+        /* Видео баннер */
         .video-banner { position: relative; width: 100%; height: 35vh; background: #000; }
         .video-banner video { width: 100%; height: 100%; object-fit: cover; opacity: 0.8; }
-
-        .video-overlay { position: absolute; bottom: 20px; left: 20px; color: white; z-index: 2; }
+        .video-overlay { position: absolute; bottom: 25px; left: 20px; color: white; z-index: 2; }
         .video-overlay h1 { margin: 0; font-size: 32px; font-weight: 900; text-transform: uppercase; }
 
-        .main-content { position: relative; background: #f1f5f9; border-radius: 30px 30px 0 0; padding: 20px; margin-top: -20px; box-sizing: border-box; }
+        .main-content { position: relative; background: #f1f5f9; border-radius: 30px 30px 0 0; padding: 25px 20px; margin-top: -30px; box-sizing: border-box; }
 
-        /* СТИЛИ РУЛЕТКИ */
-        .wheel-box {
-            background: white; padding: 20px; border-radius: 24px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05); margin-bottom: 20px;
-            display: flex; flex-direction: column; align-items: center; gap: 15px;
-        }
-        #canvas-container { position: relative; width: 220px; height: 220px; }
-        #wheel-canvas { width: 100%; height: 100%; }
-        #wheel-pointer {
-            position: absolute; top: -10px; left: 50%; transform: translateX(-50%);
-            width: 0; height: 0; border-left: 15px solid transparent; border-right: 15px solid transparent;
-            border-top: 25px solid #ef4444; z-index: 10;
-        }
-
-        .balance-card { background: white; padding: 20px; border-radius: 24px; box-shadow: 0 10px 40px rgba(0,0,0,0.06); margin-bottom: 15px; display: flex; justify-content: space-between; align-items: center; }
+        /* Баланс */
+        .balance-card { background: white; padding: 20px; border-radius: 24px; box-shadow: 0 8px 30px rgba(0,0,0,0.04); margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; }
         .balance-val { font-size: 26px; font-weight: 900; color: #2563eb; }
 
-        .btn-spin {
-            background: #2563eb; color: white; border: none; width: 100%; padding: 15px;
-            border-radius: 18px; font-size: 16px; font-weight: 800; cursor: pointer;
-            box-shadow: 0 8px 20px rgba(37, 99, 235, 0.2);
-        }
-        .btn-spin:disabled { background: #94a3b8; box-shadow: none; }
-
+        /* Сетка меню */
         .menu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-        .menu-item { background: white; padding: 18px; border-radius: 20px; text-align: center; font-weight: 700; font-size: 14px; box-shadow: 0 4px 10px rgba(0,0,0,0.03); }
+        .menu-item { 
+            background: white; padding: 20px; border-radius: 22px; text-align: center; 
+            font-weight: 700; font-size: 15px; box-shadow: 0 4px 12px rgba(0,0,0,0.03); 
+            cursor: pointer; transition: transform 0.1s;
+        }
+        .menu-item:active { transform: scale(0.95); }
+        .item-gift { background: #eff6ff; border: 2px solid #2563eb; color: #2563eb; }
 
-        #modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: white; z-index: 2000; flex-direction: column; align-items: center; justify-content: center; padding: 40px; text-align: center; box-sizing: border-box; }
+        /* ОКНО РУЛЕТКИ (GIFT MODAL) */
+        #gift-modal {
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: white; z-index: 3000; flex-direction: column; align-items: center;
+            justify-content: center; padding: 20px; box-sizing: border-box;
+        }
+        .wheel-container { position: relative; width: 280px; height: 280px; margin: 20px 0; }
+        #wheel-canvas { width: 100%; height: 100%; transition: transform 4s cubic-bezier(0.15, 0, 0.15, 1); }
+        .wheel-pointer {
+            position: absolute; top: -15px; left: 50%; transform: translateX(-50%);
+            width: 0; height: 0; border-left: 15px solid transparent; border-right: 15px solid transparent;
+            border-top: 30px solid #ef4444; z-index: 10;
+        }
+        .btn-spin {
+            background: #2563eb; color: white; border: none; width: 100%; max-width: 280px;
+            padding: 18px; border-radius: 20px; font-size: 18px; font-weight: 800; margin-top: 20px;
+        }
+        .btn-spin:disabled { background: #94a3b8; }
+        .close-gift { margin-top: 30px; color: #64748b; font-weight: 700; cursor: pointer; }
     </style>
 </head>
 <body>
-
-    <div class="lang-container">
-        <select id="lang-select" onchange="changeLanguage(this.value)">
-            <option value="ru">🇷🇺 RU</option>
-            <option value="en">🇺🇸 EN</option>
-            <option value="am">🇦🇲 AM</option>
-            <option value="kz">🇰🇿 KZ</option>
-        </select>
-    </div>
 
     <div class="video-banner">
         <video autoplay muted loop playsinline>
             <source src="https://www.w3schools.com/howto/rain.mp4" type="video/mp4">
         </video>
-        <div class="video-overlay">
-            <h1 id="user-name">GORO</h1>
-        </div>
+        <div class="video-overlay"><h1 id="user-name">GORO</h1></div>
     </div>
 
     <div class="main-content">
-        <div class="wheel-box">
-            <div id="bonus-label" style="font-weight: 800; color: #64748b; font-size: 12px; text-transform: uppercase;">Колесо Удачи</div>
-            <div id="canvas-container">
-                <div id="wheel-pointer"></div>
-                <canvas id="wheel-canvas" width="400" height="400"></canvas>
-            </div>
-            <button id="spin-button" class="btn-spin" onclick="startSpin()">КРУТИТЬ БОНУС</button>
-            <div id="bonus-timer" style="font-size: 12px; font-weight: 600; color: #2563eb;"></div>
-        </div>
-
         <div class="balance-card">
             <div>
-                <div id="label-balance" style="font-size: 11px; font-weight: 700; color: #64748b; text-transform: uppercase;">Баланс</div>
-                <div class="balance-val"><span id="balance-num">5.00</span> <small id="unit-min" style="font-size: 12px;">мин.</small></div>
+                <div style="font-size: 11px; font-weight: 700; color: #64748b;">БАЛАНС</div>
+                <div class="balance-val"><span id="balance-num">5.00</span> <small style="font-size: 12px;">мин.</small></div>
             </div>
             <div style="background: #dbeafe; color: #2563eb; padding: 6px 12px; border-radius: 10px; font-size: 12px; font-weight: 800;">ELITE</div>
         </div>
 
         <div class="menu-grid">
-            <div id="item-stats" class="menu-item" onclick="openModal('stats')">📊 Статистика</div>
-            <div id="item-ref" class="menu-item" onclick="openModal('ref')">👥 Рефералы</div>
+            <div class="menu-item item-gift" onclick="openGiftModal()">🎁 Подарки</div>
+            <div class="menu-item">📊 Статистика</div>
+            <div class="menu-item">👥 Рефералы</div>
+            <div class="menu-item">💎 Тарифы</div>
         </div>
     </div>
 
-    <div id="modal">
-        <h2 id="m-title" style="font-size: 28px; font-weight: 900; color: #2563eb;"></h2>
-        <p id="m-text" style="white-space: pre-wrap; font-size: 16px; color: #64748b;"></p>
-        <div id="m-close" onclick="closeModal()" style="color: #2563eb; font-weight: 800; margin-top: 30px; cursor: pointer;">← НАЗАД</div>
+    <div id="gift-modal">
+        <h2 style="font-size: 26px; font-weight: 900; margin: 0;">Ежедневный приз</h2>
+        <p id="timer-info" style="color: #64748b; font-size: 14px; margin-top: 5px;">Испытай удачу!</p>
+        
+        <div class="wheel-container">
+            <div class="wheel-pointer"></div>
+            <canvas id="wheel-canvas" width="500" height="500"></canvas>
+        </div>
+
+        <button id="spin-button" class="btn-spin" onclick="runWheel()">КРУТИТЬ</button>
+        <div class="close-gift" onclick="closeGiftModal()">← ЗАКРЫТЬ</div>
     </div>
 
     <script>
         let tg = window.Telegram.WebApp;
         tg.expand();
-        tg.headerColor = '#000000';
 
         const prizes = [
-            { label: "0.1", color: "#6366f1", value: 0.1 },
-            { label: "0.5", color: "#3b82f6", value: 0.5 },
-            { label: "0.1", color: "#6366f1", value: 0.1 },
-            { label: "1.0", color: "#2563eb", value: 1.0 },
-            { label: "0.1", color: "#6366f1", value: 0.1 },
-            { label: "2.0", color: "#1e40af", value: 2.0 },
-            { label: "0.1", color: "#6366f1", value: 0.1 },
-            { label: "TRY AGAIN", color: "#94a3b8", value: 0 }
+            { n: "0.1", c: "#6366f1", v: 0.1 }, { n: "0.5", c: "#3b82f6", v: 0.5 },
+            { n: "0.1", c: "#6366f1", v: 0.1 }, { n: "1.0", c: "#2563eb", v: 1.0 },
+            { n: "0.1", c: "#6366f1", v: 0.1 }, { n: "2.0", c: "#1e40af", v: 2.0 },
+            { n: "0.1", c: "#6366f1", v: 0.1 }, { n: "0.0", c: "#94a3b8", v: 0 }
         ];
 
         const canvas = document.getElementById('wheel-canvas');
         const ctx = canvas.getContext('2d');
-        let currentRotation = 0;
-        let isSpinning = false;
 
         function drawWheel() {
-            const arc = (2 * Math.PI) / prizes.length;
-            prizes.forEach((prize, i) => {
-                const angle = i * arc;
-                ctx.beginPath();
-                ctx.fillStyle = prize.color;
-                ctx.moveTo(200, 200);
-                ctx.arc(200, 200, 200, angle, angle + arc);
-                ctx.lineTo(200, 200);
+            const arc = (Math.PI * 2) / prizes.length;
+            prizes.forEach((p, i) => {
+                ctx.beginPath(); ctx.fillStyle = p.c;
+                ctx.moveTo(250, 250);
+                ctx.arc(250, 250, 250, i * arc, (i + 1) * arc);
                 ctx.fill();
-                
-                ctx.save();
-                ctx.translate(200, 200);
-                ctx.rotate(angle + arc / 2);
-                ctx.fillStyle = "white";
-                ctx.font = "bold 30px sans-serif";
-                ctx.fillText(prize.label, 100, 10);
-                ctx.restore();
+                ctx.save(); ctx.translate(250, 250); ctx.rotate(i * arc + arc/2);
+                ctx.fillStyle = "white"; ctx.font = "bold 50px sans-serif";
+                ctx.fillText(p.n, 130, 20); ctx.restore();
             });
         }
 
-        function startSpin() {
-            if (isSpinning) return;
-            
-            const lastClaim = localStorage.getItem('lastWheelClaim');
-            const now = new Date().getTime();
-            if (lastClaim && (now - parseInt(lastClaim) < 24 * 60 * 60 * 1000)) {
-                tg.showAlert("❌ Рулетка доступна раз в 24 часа!");
-                return;
-            }
-
-            isSpinning = true;
-            const extraSpins = 5 + Math.random() * 5;
-            const randomPrizeIndex = Math.floor(Math.random() * prizes.length);
-            const stopAngle = (extraSpins * 2 * Math.PI) + (randomPrizeIndex * (2 * Math.PI / prizes.length));
-            
-            let start = null;
-            const duration = 4000;
-
-            function animate(timestamp) {
-                if (!start) start = timestamp;
-                const progress = timestamp - start;
-                const easedProgress = Math.min(progress / duration, 1);
-                const currentAngle = stopAngle * (1 - Math.pow(1 - easedProgress, 3));
-                
-                canvas.style.transform = `rotate(${currentAngle - Math.PI/2}rad)`;
-
-                if (easedProgress < 1) {
-                    requestAnimationFrame(animate);
-                } else {
-                    finishSpin(randomPrizeIndex);
-                }
-            }
-            requestAnimationFrame(animate);
+        function openGiftModal() {
+            document.getElementById('gift-modal').style.display = 'flex';
+            checkSpinLimit();
         }
 
-        function finishSpin(index) {
-            isSpinning = false;
-            const prize = prizes[prizes.length - 1 - index]; // Коррекция индекса из-за направления вращения
-            localStorage.setItem('lastWheelClaim', new Date().getTime());
-            
-            if (prize.value > 0) {
-                let balanceEl = document.getElementById('balance-num');
-                balanceEl.innerText = (parseFloat(balanceEl.innerText) + prize.value).toFixed(2);
-                tg.showConfirm(`🎉 ПОЗДРАВЛЯЕМ!\nВы выиграли ${prize.label} минут!`);
-            } else {
-                tg.showAlert("😢 Упс! Попробуйте завтра.");
-            }
-            updateTimer();
+        function closeGiftModal() {
+            document.getElementById('gift-modal').style.display = 'none';
         }
 
-        function updateTimer() {
-            const lastClaim = localStorage.getItem('lastWheelClaim');
+        function runWheel() {
             const btn = document.getElementById('spin-button');
-            const timer = document.getElementById('bonus-timer');
-            if (lastClaim) {
-                const diff = new Date().getTime() - parseInt(lastClaim);
-                const day = 24 * 60 * 60 * 1000;
-                if (diff < day) {
-                    btn.disabled = true;
-                    const left = day - diff;
-                    const h = Math.floor(left / 3600000);
-                    const m = Math.floor((left % 3600000) / 60000);
-                    timer.innerText = `Доступно через: ${h}ч ${m}м`;
-                    return;
+            btn.disabled = true;
+
+            const randomPrizeIndex = Math.floor(Math.random() * prizes.length);
+            const totalDeg = 3600 + (randomPrizeIndex * (360 / prizes.length));
+            
+            canvas.style.transform = `rotate(${totalDeg}deg)`;
+
+            setTimeout(() => {
+                const prize = prizes[prizes.length - 1 - randomPrizeIndex];
+                if(prize.v > 0) {
+                    let b = document.getElementById('balance-num');
+                    b.innerText = (parseFloat(b.innerText) + prize.v).toFixed(2);
+                    tg.showAlert(`🎉 Круто! Ты выиграл ${prize.n} мин.`);
+                } else {
+                    tg.showAlert("Пусто! Повезет завтра.");
                 }
+                localStorage.setItem('beast_gift_time', Date.now());
+                checkSpinLimit();
+            }, 4100);
+        }
+
+        function checkSpinLimit() {
+            const last = localStorage.getItem('beast_gift_time');
+            const btn = document.getElementById('spin-button');
+            const info = document.getElementById('timer-info');
+            
+            if(last && (Date.now() - last < 86400000)) {
+                btn.disabled = true;
+                const left = 86400000 - (Date.now() - last);
+                const h = Math.floor(left/3600000);
+                const m = Math.floor((left%3600000)/60000);
+                info.innerText = `Доступно через ${h}ч ${m}м`;
+            } else {
+                btn.disabled = false;
+                info.innerText = "Испытай удачу!";
             }
-            btn.disabled = false;
-            timer.innerText = "КРУТИ СЕЙЧАС!";
         }
 
         const user = tg.initDataUnsafe?.user;
         if(user) document.getElementById('user-name').innerText = user.first_name.toUpperCase();
         
         drawWheel();
-        updateTimer();
         tg.ready();
     </script>
 </body>
