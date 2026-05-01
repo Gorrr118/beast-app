@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
             -webkit-user-select: none;
         }
 
-        /* ВЫБОР ЯЗЫКА */
+        /* ВЫБОР ЯЗЫКА С ЭФФЕКТАМИ СТЕКЛА */
         .lang-container {
             position: absolute; top: 25px; right: 20px; z-index: 100;
         }
@@ -33,7 +33,7 @@
             box-shadow: 0 4px 15px rgba(0,0,0,0.3);
         }
 
-        /* ВИДЕО БАННЕР */
+        /* ГИГАНТСКОЕ ВИДЕО С ГРАДИЕНТОМ */
         .video-banner {
             position: relative; width: 100%; height: 50vh; background: #000; overflow: hidden;
         }
@@ -116,26 +116,23 @@
             border: 2px solid #2563eb; color: #3b82f6; font-weight: 800;
         }
 
-        /* МОДАЛКА РУЛЕТКИ */
+        /* МОДАЛКА РУЛЕТКИ ЦЕНТРИРОВАННАЯ */
         #gift-modal {
             display: none; position: fixed; top: 0; left: 0;
             width: 100%; height: 100%; background: #0d1117;
             z-index: 5000; flex-direction: column;
-            align-items: center; justify-content: center; padding: 20px;
+            align-items: center; justify-content: center; padding: 30px;
         }
 
-        /* КОНТЕЙНЕР ДЛЯ ЦЕНТРОВКИ */
-        .wheel-wrapper {
-            position: relative;
-            display: flex;
-            justify-content: center;
+        .wheel-container { 
+            position: relative; 
+            width: 320px; 
+            height: 320px; 
+            margin: 20px 0; 
+            display: flex; 
+            justify-content: center; 
             align-items: center;
-            width: 100%;
-            max-width: 340px;
-            margin: 20px 0;
         }
-
-        .wheel-container { position: relative; width: 320px; height: 320px; }
         
         #wheel-canvas {
             width: 100%; height: 100%;
@@ -156,42 +153,18 @@
             <option value="en">🇺🇸 EN</option>
             <option value="ru">🇷🇺 RU</option>
             <option value="am">🇦🇲 AM</option>
-            <option value="es">🇪🇸 ES</option>
-            <option value="fr">🇫🇷 FR</option>
-            <option value="de">🇩🇪 DE</option>
-            <option value="it">🇮🇹 IT</option>
-            <option value="pt">🇵🇹 PT</option>
-            <option value="tr">🇹🇷 TR</option>
-            <option value="kz">🇰🇿 KZ</option>
-            <option value="ua">🇺🇦 UA</option>
-            <option value="zh">🇨🇳 ZH</option>
-            <option value="ja">🇯🇵 JA</option>
-            <option value="ko">🇰🇷 KO</option>
-            <option value="pl">🇵🇱 PL</option>
-            <option value="cz">🇨🇿 CZ</option>
-            <option value="hi">🇮🇳 HI</option>
-            <option value="ar">🇸🇦 AR</option>
-            <option value="nl">🇳🇱 NL</option>
-            <option value="sv">🇸🇪 SV</option>
-            <option value="no">🇳🇴 NO</option>
-            <option value="da">🇩🇰 DA</option>
-            <option value="fi">🇫🇮 FI</option>
-            <option value="cs">🇨🇿 CS</option>
-            <option value="hu">🇭🇺 HU</option>
-            <option value="ro">🇷🇴 RO</option>
-            <option value="bg">🇧🇬 BG</option>
-            <option value="el">🇬🇷 EL</option>
-            <option value="he">🇮🇱 HE</option>
-            <option value="th">🇹🇭 TH</option>
-            <option value="vi">🇻🇳 VI</option>
-            <option value="id">🇮🇩 ID</option>
-            <option value="ms">🇲🇾 MS</option>
-            <option value="fa">🇮🇷 FA</option>
-            <option value="ka">🇬🇪 KA</option>
-            <option value="az">🇦🇿 AZ</option>
-            <option value="uz">🇺🇿 UZ</option>
-            <option value="sr">🇷🇸 SR</option>
-            <option value="sk">🇸🇰 SK</option>
+            <option value="es">🇪🇸 ES</option><option value="fr">🇫🇷 FR</option><option value="de">🇩🇪 DE</option>
+            <option value="it">🇮🇹 IT</option><option value="pt">🇵🇹 PT</option><option value="tr">🇹🇷 TR</option>
+            <option value="kz">🇰🇿 KZ</option><option value="ua">🇺🇦 UA</option><option value="zh">🇨🇳 ZH</option>
+            <option value="ja">🇯🇵 JA</option><option value="ko">🇰🇷 KO</option><option value="pl">🇵🇱 PL</option>
+            <option value="cz">🇨🇿 CZ</option><option value="hi">🇮🇳 HI</option><option value="ar">🇸🇦 AR</option>
+            <option value="nl">🇳🇱 NL</option><option value="sv">🇸🇪 SV</option><option value="no">🇳🇴 NO</option>
+            <option value="da">🇩🇰 DA</option><option value="fi">🇫🇮 FI</option><option value="cs">🇨🇿 CS</option>
+            <option value="hu">🇭🇺 HU</option><option value="ro">🇷🇴 RO</option><option value="bg">🇧🇬 BG</option>
+            <option value="el">🇬🇷 EL</option><option value="he">🇮🇱 HE</option><option value="th">🇹🇭 TH</option>
+            <option value="vi">🇻🇳 VI</option><option value="id">🇮🇩 ID</option><option value="ms">🇲🇾 MS</option>
+            <option value="fa">🇮🇷 FA</option><option value="ka">🇬🇪 KA</option><option value="az">🇦🇿 AZ</option>
+            <option value="uz">🇺🇿 UZ</option><option value="sr">🇷🇸 SR</option><option value="sk">🇸🇰 SK</option>
             <option value="lt">🇱🇹 LT</option>
         </select>
     </div>
@@ -207,8 +180,8 @@
     <div class="main-content">
         <div class="status-card">
             <div class="status-info">
-                <div id="label-status" style="font-size:12px; font-weight:800; color:#8b949e; text-transform:uppercase;">Video Limit</div>
-                <div class="status-value"><span id="limit-val">0.5</span> <small id="unit-text" style="font-size: 16px; color:#8b949e;">min.</small></div>
+                <div id="label-status" style="font-size:12px; font-weight:800; color:#8b949e; text-transform:uppercase;">Limit</div>
+                <div class="status-value"><span id="limit-val">4</span> <small id="unit-text" style="font-size: 16px; color:#8b949e;">min.</small></div>
             </div>
             <div id="plan-badge">FREE</div>
         </div>
@@ -230,11 +203,9 @@
         <h2 id="g-title" style="font-size: 32px; font-weight: 950; color:#fff; margin:0;">Beast Luck</h2>
         <p id="timer-info" style="color:#8b949e; font-weight:600; margin-bottom:10px;">Spin and win!</p>
         
-        <div class="wheel-wrapper">
+        <div class="wheel-container">
             <div class="wheel-pointer"></div>
-            <div class="wheel-container">
-                <canvas id="wheel-canvas" width="600" height="600"></canvas>
-            </div>
+            <canvas id="wheel-canvas" width="600" height="600"></canvas>
         </div>
 
         <button id="spin-button" class="btn-action" style="max-width:300px; margin-top:20px;" onclick="runWheel()">SPIN</button>
@@ -275,13 +246,14 @@
         ];
 
         const i18n = {
-            en: { limit: "Video Limit", unit: "min.", unlim: "Unlimited", try: "CREATE VIDEO", stats: "📊 Stats", ref: "👥 Refs", tar: "💎 Plans", help: "🆘 Help", gift: "🎁 Daily Gift", profile: "👤 Profile", show: "🎬 Showcase", back: "← GO BACK", spin: "SPIN", luck: "Spin and win!" },
             ru: { limit: "Лимит видео", unit: "мин.", unlim: "Безлимит", try: "СОЗДАТЬ ВИДЕО", stats: "📊 Статистика", ref: "👥 Рефералы", tar: "💎 Тарифы", help: "🆘 Помощь", gift: "🎁 Ежедневный подарок", profile: "👤 Кабинет", show: "🎬 Примеры", back: "← ВЕРНУТЬСЯ", spin: "КРУТИТЬ", luck: "Крути и получай бонусы!" },
+            en: { limit: "Video Limit", unit: "min.", unlim: "Unlimited", try: "CREATE VIDEO", stats: "📊 Stats", ref: "👥 Refs", tar: "💎 Plans", help: "🆘 Help", gift: "🎁 Daily Gift", profile: "👤 Profile", show: "🎬 Showcase", back: "← GO BACK", spin: "SPIN", luck: "Spin and win!" },
             am: { limit: "Վիդեո սահմանաչափ", unit: "րոպե", unlim: "Անսահմանափակ", try: "ՍՏԵՂԾԵԼ ՎԻԴԵՈ", stats: "📊 Վիճակագրություն", ref: "👥 Ռեֆերալներ", tar: "💎 Սակագներ", help: "🆘 Օգնություն", gift: "🎁 Օրական նվեր", profile: "👤 Կաբինետ", show: "🎬 Օրինակներ", back: "← ՀԵՏ", spin: "ՊՏՏԵԼ", luck: "Պտտիր և շահիր" }
         };
 
         function changeLanguage(lang) {
             const t = i18n[lang] || i18n['en'];
+            document.getElementById('lang-select').value = lang;
             document.getElementById('label-status').innerText = t.limit;
             document.getElementById('unit-text').innerText = t.unit;
             document.getElementById('btn-try').innerText = t.try;
@@ -298,7 +270,7 @@
             document.getElementById('g-title').innerText = t.gift.replace('🎁 ', '');
             
             const limit = userPlan.getLimit();
-            document.getElementById('limit-val').innerText = (limit === "∞" ? (t.unlim) : limit);
+            document.getElementById('limit-val').innerText = (limit === "∞" ? (t.unlim || "∞") : limit);
             document.getElementById('unit-text').style.display = (limit === "∞" ? 'none' : 'inline');
             document.getElementById('plan-badge').innerText = userPlan.getBadge();
         }
@@ -312,21 +284,22 @@
                 ctx.beginPath(); ctx.fillStyle = p.c; ctx.moveTo(300, 300);
                 ctx.arc(300, 300, 300, i * arc, (i + 1) * arc); ctx.fill();
                 ctx.save(); ctx.translate(300, 300); ctx.rotate(i * arc + arc/2);
-                ctx.fillStyle = "white"; ctx.font = "bold 50px Poppins, sans-serif";
-                ctx.fillText(p.n, 160, 20); ctx.restore();
+                ctx.fillStyle = "white"; ctx.font = "bold 50px Poppins"; ctx.textAlign = "right";
+                ctx.fillText(p.n, 280, 15); ctx.restore();
             });
         }
 
         function runWheel() {
             const btn = document.getElementById('spin-button');
             const canvas = document.getElementById('wheel-canvas');
+            if(btn.disabled) return;
             btn.disabled = true;
             const randomPrizeIndex = Math.floor(Math.random() * prizes.length);
             const totalDeg = 3600 + (randomPrizeIndex * (360 / prizes.length));
             canvas.style.transform = `rotate(${totalDeg}deg)`;
             setTimeout(() => {
-                const prize = prizes[prizes.length - 1 - randomPrizeIndex];
-                tg.showAlert(prize.v > 0 ? `🎉 +${prize.n} min.!` : "Try again tomorrow!");
+                const prize = prizes[prizes.length - 1 - (randomPrizeIndex % prizes.length)];
+                tg.showAlert(prize.v > 0 ? `🎉 +${prize.n}!` : "Try tomorrow!");
                 btn.disabled = false;
             }, 4100);
         }
@@ -342,7 +315,6 @@
         const user = tg.initDataUnsafe?.user;
         if(user) document.getElementById('user-name').innerText = user.first_name.toUpperCase();
         
-        // СТАРТ С АНГЛИЙСКОГО
         changeLanguage('en'); 
         tg.ready();
     </script>
