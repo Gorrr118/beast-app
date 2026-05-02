@@ -74,9 +74,9 @@
         }
         .btn-main-action:active { transform: scale(0.96); }
 
-        /* КАРТОЧКИ С МНОГО ТЕКСТА */
+        /* КАРТОЧКИ ИНФО */
         .info-block { margin-bottom: 50px; }
-        .info-text { font-size: 14px; color: var(--text-dim); line-height: 1.7; margin-bottom: 15px; text-align: justify; }
+        .info-text { font-size: 14px; color: var(--text-dim); line-height: 1.7; margin-bottom: 15px; }
         .info-text b { color: #fff; display: block; font-size: 22px; margin-bottom: 10px; font-weight: 800; letter-spacing: -0.5px; }
         .info-text strong { color: var(--accent-blue); font-weight: 700; }
         .info-img { width: 100%; border-radius: 24px; border: 1px solid var(--border-soft); display: block; box-shadow: 0 10px 20px rgba(0,0,0,0.6); }
@@ -123,14 +123,14 @@
         </div>
 
         <div class="action-container">
-            <button class="btn-main-action" id="l-create-btn" onclick="tg.showAlert('Запуск нейронного движка...')">CREATE & TOOLS</button>
+            <button class="btn-main-action" id="l-create-btn" onclick="tg.showAlert('Система Beast готова к работе!')">CREATE & TOOLS</button>
         </div>
 
         <div class="info-block">
             <div class="info-text">
                 <b id="l-title-project">THE BEAST PROJECT</b>
-                <span id="l-desc-project">
-                    Добро пожаловать в будущее цифрового искусства. <strong>Beast Omni</strong> — это не просто инструмент, это синергия передовых алгоритмов машинного обучения и мощного серверного оборудования. Мы создали платформу, которая позволяет превращать текстовые запросы и статические изображения в динамические шедевры за считанные секунды. Наш движок базируется на кастомной архитектуре Python, оптимизированной специально под высокоскоростную обработку визуальных данных. Каждый пиксель проходит через многоуровневую фильтрацию, обеспечивая непревзойденную четкость и плавность анимации.
+                <span>
+                    <strong>Beast Omni</strong> — это технологическая экосистема, созданная для того, чтобы стереть границы между воображением и визуальным контентом. Используя кастомные модели нейронных сетей, мы обеспечиваем высокую скорость генерации и художественное качество рендера. Каждый проект обрабатывается на мощных графических кластерах, что позволяет достигать невероятной детализации в каждом кадре.
                 </span>
             </div>
             <img src="https://images.unsplash.com/photo-1614850523296-d8c1af93d400?q=80&w=1000" class="info-img" alt="Project">
@@ -138,12 +138,14 @@
 
         <div class="info-block">
             <div class="info-text">
-                <b id="l-title-plans">POWER LEVELS & TARIFFS</b>
-                <span id="l-desc-plans">
-                    Мы разработали три уровня доступа для любых задач. <br><br>
-                    1. <strong>FREE:</strong> Идеально для старта. Базовое разрешение, стандартная очередь рендера и лимит 0.5 мин. видео в сутки. Попробуйте магию Beast прямо сейчас.<br><br>
-                    2. <strong>PRO:</strong> Для создателей контента. Поддержка <strong>Full HD</strong>, ускоренный рендер на выделенных GPU-ядрах и отсутствие водяных знаков. Доступ к эксклюзивным фильтрам и расширенные лимиты до 10 минут.<br><br>
-                    3. <strong>ULTRA:</strong> Максимальная мощность. Генерация в <strong>4K Ultra HD</strong>, мгновенный рендер без очереди и прямой доступ к API для интеграций. Бесконечные возможности для профессионалов.
+                <b id="l-title-plans">POWER TARIFFS</b>
+                <span>
+                    Мы подготовили 5 гибких тарифов для любых целей:<br><br>
+                    • <strong>$5 (Shorts Pack):</strong> Идеально для блогеров. Обработка видео до <strong>2 минут</strong>. Включает небольшой водяной знак проекта. Базовая скорость рендера.<br><br>
+                    • <strong>$15 (Standard):</strong> Видео до 4 минут, без водяных знаков, Full HD качество и приоритетная поддержка.<br><br>
+                    • <strong>$30 (Creator):</strong> Расширенные лимиты, доступ к уникальным стилям анимации и ускоренный рендер.<br><br>
+                    • <strong>$50 (Advanced):</strong> Профессиональный уровень. Глубокая настройка нейросети под ваши задачи и видео до 7 минут.<br><br>
+                    • <strong>$100 (Unlimited Pro):</strong> Полные возможности Beast Omni. Рендер в <strong>4K</strong>, обработка видео до <strong>10 минут</strong> и рендер вне очереди на топовых GPU-серверах.
                 </span>
             </div>
             <img src="https://images.unsplash.com/photo-1639762681485-074b7f938ba0?q=80&w=1000" class="info-img" alt="Plans">
@@ -151,12 +153,25 @@
 
         <div class="info-block">
             <div class="info-text">
-                <b id="l-title-sec">ULTIMATE SECURITY</b>
-                <span id="l-desc-sec">
-                    Конфиденциальность — наш приоритет. Все ваши данные и сгенерированные медиафайлы защищены протоколом <strong>AES-256</strong>. Мы не используем ваш контент для обучения сторонних нейросетей без вашего согласия. Временные файлы хранятся в изолированных облачных контейнерах и автоматически удаляются через 24 часа. Ваша интеллектуальная собственность принадлежит только вам. Мы гарантируем полную анонимность каждой сессии внутри Telegram Web App.
+                <b id="l-title-sec">SECURITY</b>
+                <span>
+                    Ваша безопасность — наш фундамент. Мы используем алгоритмы <strong>AES-256</strong> для защиты ваших данных. Все генерации проходят через закрытые туннели, и ни одна живая душа, кроме вас, не имеет доступа к результату. Исходники удаляются сразу после скачивания или через 24 часа.
                 </span>
             </div>
             <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=1000" class="info-img" alt="Security">
+        </div>
+
+        <div class="info-block">
+            <div class="info-text">
+                <b id="l-title-pay">PAYMENT METHODS</b>
+                <span>
+                    На данный момент оплата в проекте реализована максимально удобно через встроенные инструменты Telegram:<br><br>
+                    1. <strong>Telegram Stars:</strong> Быстрая и официальная валюта мессенджера.<br>
+                    2. <strong>Telegram Wallet:</strong> Оплата напрямую через крипто-кошелек в пару кликов.<br><br>
+                    Мы постоянно работаем над расширением возможностей, и в будущем количество способов оплаты будет только увеличиваться, чтобы Beast был доступен в любой точке мира.
+                </span>
+            </div>
+            <img src="https://images.unsplash.com/photo-1621416894569-0f39ed31d247?q=80&w=1000" class="info-img" alt="Payment">
         </div>
     </div>
 
@@ -200,17 +215,13 @@
 
         const i18n = {
             ru: { 
-                home: "Главная", stats: "Статы", refs: "Рефы", tariffs: "Тарифы", gift: "Подарок", creation: "ПОСЛЕДНЯЯ ГЕНЕРАЦИЯ v2.0", create_btn: "СОЗДАТЬ & ИНСТРУМЕНТЫ", 
-                project_t: "О ПРОЕКТЕ BEAST", project_d: "Добро пожаловать в будущее. Beast Omni — это синергия алгоритмов и мощности для вашего творчества.", 
-                plans_t: "УРОВНИ МОЩНОСТИ", plans_d: "FREE: Базовый старт. PRO: Full HD и скорость. ULTRA: 4K и приоритет без очередей.", 
-                sec_t: "БЕЗОПАСНОСТЬ", sec_d: "Ваши данные защищены AES-256. Полная анонимность и удаление файлов через 24 часа.",
+                home: "Главная", stats: "Статы", refs: "Рефы", tariffs: "Тарифы", gift: "Подарок", creation: "GENERATION v2.0", create_btn: "CREATE & TOOLS", 
+                project_t: "О ПРОЕКТЕ BEAST", plans_t: "ТАРИФЫ И МОЩНОСТЬ", sec_t: "БЕЗОПАСНОСТЬ", pay_t: "СПОСОБЫ ОПЛАТЫ",
                 spin: "КРУТИТЬ", back: "← НАЗАД", lucky: "Beast Luck" 
             },
             en: { 
-                home: "Home", stats: "Stats", refs: "Refs", tariffs: "Plans", gift: "Gift", creation: "LATEST GENERATION v2.0", create_btn: "CREATE & TOOLS", 
-                project_t: "THE BEAST PROJECT", project_d: "Welcome to the future. Beast Omni is a synergy of algorithms and power for your creativity.", 
-                plans_t: "POWER LEVELS", plans_d: "FREE: Basic start. PRO: Full HD and speed. ULTRA: 4K and priority without queues.", 
-                sec_t: "SECURITY", sec_d: "Your data is secured by AES-256. Complete anonymity and 24h file deletion.",
+                home: "Home", stats: "Stats", refs: "Refs", tariffs: "Plans", gift: "Gift", creation: "GENERATION v2.0", create_btn: "CREATE & TOOLS", 
+                project_t: "THE BEAST PROJECT", plans_t: "TARIFFS & POWER", sec_t: "SECURITY", pay_t: "PAYMENT METHODS",
                 spin: "SPIN", back: "← BACK", lucky: "Beast Luck" 
             }
         };
@@ -225,9 +236,9 @@
             document.getElementById('l-creation').innerText = t.creation;
             document.getElementById('l-create-btn').innerText = t.create_btn;
             document.getElementById('l-title-project').innerText = t.project_t;
-            // Здесь можно добавить обновление полного текста, если нужно будет делать перевод для длинных описаний
             document.getElementById('l-title-plans').innerText = t.plans_t;
             document.getElementById('l-title-sec').innerText = t.sec_t;
+            document.getElementById('l-title-pay').innerText = t.pay_t;
             document.getElementById('l-spin').innerText = t.spin;
             document.getElementById('l-back').innerText = t.back;
             document.getElementById('l-lucky').innerText = t.lucky;
@@ -247,15 +258,15 @@
         }
 
         function runWheel() { 
-            const last = localStorage.getItem('spin_beast_pro'); 
+            const last = localStorage.getItem('spin_beast_final'); 
             if (last && (Date.now() - last < 86400000)) { tg.showAlert("24h cooldown."); return; } 
             const canvas = document.getElementById('wheel-canvas'); 
             const idx = Math.floor(Math.random() * prizes.length); 
             canvas.style.transform = `rotate(${3600 + (idx * 45)}deg)`; 
             setTimeout(() => { 
                 const win = prizes[prizes.length - 1 - (idx % prizes.length)];
-                tg.showAlert(`You won ${win.n} bonus!`); 
-                localStorage.setItem('spin_beast_pro', Date.now()); 
+                tg.showAlert(`You won ${win.n} min!`); 
+                localStorage.setItem('spin_beast_final', Date.now()); 
             }, 4100); 
         }
 
