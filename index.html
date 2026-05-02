@@ -54,10 +54,9 @@
             padding: 8px 12px; border-radius: 12px; font-size: 13px; font-weight: 600; outline: none;
         }
 
-        /* ЛЕНТА ГЛАВНОГО МЕНЮ */
+        /* FEED CONTENT */
         .feed { padding: 100px 20px 20px; position: relative; z-index: 10; }
 
-        /* ГЛАВНОЕ ВИДЕО */
         .main-video-card {
             width: 100%; height: 420px; background: #111; border-radius: 28px; overflow: hidden;
             position: relative; margin-bottom: 25px; border: 1px solid var(--border-soft);
@@ -65,7 +64,6 @@
         .main-video-card video { width: 100%; height: 100%; object-fit: cover; opacity: 0.8; }
         .video-label { position: absolute; bottom: 20px; left: 20px; font-weight: 700; font-size: 18px; color: #fff; text-shadow: 0 2px 10px rgba(0,0,0,0.5); }
 
-        /* ЦЕНТРАЛЬНАЯ КНОПКА ФУНКЦИЙ */
         .action-container { margin-bottom: 40px; }
         .btn-main-action {
             background: var(--accent-gradient); color: white; border: none;
@@ -76,13 +74,14 @@
         }
         .btn-main-action:active { transform: scale(0.96); }
 
-        /* ИНФО-КАРТОЧКИ */
-        .info-block { margin-bottom: 45px; }
-        .info-text { font-size: 15px; color: var(--text-dim); line-height: 1.6; margin-bottom: 15px; }
-        .info-text b { color: #fff; display: block; font-size: 20px; margin-bottom: 8px; font-weight: 700; }
-        .info-img { width: 100%; border-radius: 24px; border: 1px solid var(--border-soft); display: block; box-shadow: 0 5px 15px rgba(0,0,0,0.5); }
+        /* КАРТОЧКИ С МНОГО ТЕКСТА */
+        .info-block { margin-bottom: 50px; }
+        .info-text { font-size: 14px; color: var(--text-dim); line-height: 1.7; margin-bottom: 15px; text-align: justify; }
+        .info-text b { color: #fff; display: block; font-size: 22px; margin-bottom: 10px; font-weight: 800; letter-spacing: -0.5px; }
+        .info-text strong { color: var(--accent-blue); font-weight: 700; }
+        .info-img { width: 100%; border-radius: 24px; border: 1px solid var(--border-soft); display: block; box-shadow: 0 10px 20px rgba(0,0,0,0.6); }
 
-        /* ТАБ БАР (НИЖНЕЕ МЕНЮ) */
+        /* TAB BAR */
         .tab-bar {
             position: fixed; bottom: 0; left: 0; width: 100%; height: var(--nav-height);
             background: rgba(15, 15, 15, 0.95); backdrop-filter: blur(20px);
@@ -91,10 +90,10 @@
             justify-items: center; align-items: center;
             padding-bottom: 15px; z-index: 1000;
         }
-        .nav-item { color: var(--text-dim); font-size: 11px; font-weight: 600; text-transform: uppercase; text-decoration: none; text-align: center; transition: 0.2s; }
+        .nav-item { color: var(--text-dim); font-size: 11px; font-weight: 600; text-transform: uppercase; text-decoration: none; text-align: center; }
         .nav-item.active { color: var(--accent-blue); }
 
-        /* МОДАЛКА КОЛЕСА */
+        /* MODALS */
         #gift-modal { display: none; position: fixed; inset: 0; background: var(--bg-total); z-index: 5000; flex-direction: column; align-items: center; justify-content: center; padding: 20px; }
         .wheel-container { position: relative; width: 300px; height: 300px; margin: 30px 0; }
         #wheel-canvas { width: 100%; height: 100%; border-radius: 50%; border: 4px solid var(--bg-card); transition: transform 4s cubic-bezier(0.1, 0, 0, 1); }
@@ -111,8 +110,8 @@
     <div class="header">
         <h1 id="user-name">BEAST</h1>
         <select id="lang-select" onchange="changeLanguage(this.value)">
-            <option value="ru">🇷🇺 RU</option>
-            <option value="en" selected>🇺🇸 EN</option>
+            <option value="ru" selected>🇷🇺 RU</option>
+            <option value="en">🇺🇸 EN</option>
             <option value="am">🇦🇲 AM</option>
         </select>
     </div>
@@ -120,33 +119,42 @@
     <div class="feed">
         <div class="main-video-card">
             <video autoplay muted loop playsinline><source src="https://www.w3schools.com/howto/rain.mp4" type="video/mp4"></video>
-            <div class="video-label" id="l-creation">LATEST CREATION v1.2</div>
+            <div class="video-label" id="l-creation">LATEST GENERATION v2.0</div>
         </div>
 
         <div class="action-container">
-            <button class="btn-main-action" id="l-create-btn" onclick="tg.showAlert('Opening Tools Menu...')">CREATE & TOOLS</button>
+            <button class="btn-main-action" id="l-create-btn" onclick="tg.showAlert('Запуск нейронного движка...')">CREATE & TOOLS</button>
         </div>
 
         <div class="info-block">
             <div class="info-text">
-                <b id="l-title-project">THE PROJECT</b>
-                <span id="l-desc-project">Beast Omni — это ультимативная нейросеть для генерации видео и графики. Мы объединили мощь Python и UI нового поколения для твоего творчества.</span>
+                <b id="l-title-project">THE BEAST PROJECT</b>
+                <span id="l-desc-project">
+                    Добро пожаловать в будущее цифрового искусства. <strong>Beast Omni</strong> — это не просто инструмент, это синергия передовых алгоритмов машинного обучения и мощного серверного оборудования. Мы создали платформу, которая позволяет превращать текстовые запросы и статические изображения в динамические шедевры за считанные секунды. Наш движок базируется на кастомной архитектуре Python, оптимизированной специально под высокоскоростную обработку визуальных данных. Каждый пиксель проходит через многоуровневую фильтрацию, обеспечивая непревзойденную четкость и плавность анимации.
+                </span>
             </div>
             <img src="https://images.unsplash.com/photo-1614850523296-d8c1af93d400?q=80&w=1000" class="info-img" alt="Project">
         </div>
 
         <div class="info-block">
             <div class="info-text">
-                <b id="l-title-plans">PLANS & POWER</b>
-                <span id="l-desc-plans">Выбирай свой уровень мощности. Тарифы дают доступ к рендеру в 4K, приоритетной очереди и эксклюзивным пресетам для твоих видео.</span>
+                <b id="l-title-plans">POWER LEVELS & TARIFFS</b>
+                <span id="l-desc-plans">
+                    Мы разработали три уровня доступа для любых задач. <br><br>
+                    1. <strong>FREE:</strong> Идеально для старта. Базовое разрешение, стандартная очередь рендера и лимит 0.5 мин. видео в сутки. Попробуйте магию Beast прямо сейчас.<br><br>
+                    2. <strong>PRO:</strong> Для создателей контента. Поддержка <strong>Full HD</strong>, ускоренный рендер на выделенных GPU-ядрах и отсутствие водяных знаков. Доступ к эксклюзивным фильтрам и расширенные лимиты до 10 минут.<br><br>
+                    3. <strong>ULTRA:</strong> Максимальная мощность. Генерация в <strong>4K Ultra HD</strong>, мгновенный рендер без очереди и прямой доступ к API для интеграций. Бесконечные возможности для профессионалов.
+                </span>
             </div>
             <img src="https://images.unsplash.com/photo-1639762681485-074b7f938ba0?q=80&w=1000" class="info-img" alt="Plans">
         </div>
 
         <div class="info-block">
             <div class="info-text">
-                <b id="l-title-sec">SECURITY</b>
-                <span id="l-desc-sec">Твои данные под надежной защитой. Мы используем сквозное шифрование и удаляем временные файлы сразу после завершения генерации.</span>
+                <b id="l-title-sec">ULTIMATE SECURITY</b>
+                <span id="l-desc-sec">
+                    Конфиденциальность — наш приоритет. Все ваши данные и сгенерированные медиафайлы защищены протоколом <strong>AES-256</strong>. Мы не используем ваш контент для обучения сторонних нейросетей без вашего согласия. Временные файлы хранятся в изолированных облачных контейнерах и автоматически удаляются через 24 часа. Ваша интеллектуальная собственность принадлежит только вам. Мы гарантируем полную анонимность каждой сессии внутри Telegram Web App.
+                </span>
             </div>
             <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=1000" class="info-img" alt="Security">
         </div>
@@ -175,7 +183,6 @@
         tg.expand();
         tg.headerColor = "#000000";
 
-        // ЛОГИКА ЗАСТАВКИ
         window.addEventListener('load', () => {
             setTimeout(() => {
                 const splash = document.getElementById('splash-screen');
@@ -184,8 +191,6 @@
             }, 3000);
         });
 
-        // ДАННЫЕ ПОЛЬЗОВАТЕЛЯ И КОЛЕСА
-        let userPlan = { balance: 0.5 };
         const prizes = [
             {n: "0.1", c: "#121212", v: 0.1}, {n: "0.5", c: "#1a1a1a", v: 0.5},
             {n: "0.1", c: "#121212", v: 0.1}, {n: "1.0", c: "#007aff", v: 1.0},
@@ -193,10 +198,21 @@
             {n: "0.1", c: "#121212", v: 0.1}, {n: "0.0", c: "#000000", v: 0}
         ];
 
-        // ЛОКАЛИЗАЦИЯ
         const i18n = {
-            ru: { home: "Главная", stats: "Статы", refs: "Рефы", tariffs: "Тарифы", gift: "Подарок", creation: "ПОСЛЕДНЕЕ ВИДЕО v1.2", create_btn: "СОЗДАТЬ & ИНСТРУМЕНТЫ", project_t: "ПРОЕКТ", project_d: "Beast Omni — ультимативная нейросеть для генерации видео.", plans_t: "ТАРИФЫ", plans_d: "Выбирай мощность для рендера в 4K.", sec_t: "БЕЗОПАСНОСТЬ", sec_d: "Твои данные защищены шифрованием.", spin: "КРУТИТЬ", back: "← НАЗАД", lucky: "Beast Luck" },
-            en: { home: "Home", stats: "Stats", refs: "Refs", tariffs: "Plans", gift: "Gift", creation: "LATEST CREATION v1.2", create_btn: "CREATE & TOOLS", project_t: "THE PROJECT", project_d: "Beast Omni — the ultimate AI for video generation.", plans_t: "PLANS", plans_d: "Choose power for 4K rendering.", sec_t: "SECURITY", sec_d: "Your data is secured by encryption.", spin: "SPIN", back: "← BACK", lucky: "Beast Luck" }
+            ru: { 
+                home: "Главная", stats: "Статы", refs: "Рефы", tariffs: "Тарифы", gift: "Подарок", creation: "ПОСЛЕДНЯЯ ГЕНЕРАЦИЯ v2.0", create_btn: "СОЗДАТЬ & ИНСТРУМЕНТЫ", 
+                project_t: "О ПРОЕКТЕ BEAST", project_d: "Добро пожаловать в будущее. Beast Omni — это синергия алгоритмов и мощности для вашего творчества.", 
+                plans_t: "УРОВНИ МОЩНОСТИ", plans_d: "FREE: Базовый старт. PRO: Full HD и скорость. ULTRA: 4K и приоритет без очередей.", 
+                sec_t: "БЕЗОПАСНОСТЬ", sec_d: "Ваши данные защищены AES-256. Полная анонимность и удаление файлов через 24 часа.",
+                spin: "КРУТИТЬ", back: "← НАЗАД", lucky: "Beast Luck" 
+            },
+            en: { 
+                home: "Home", stats: "Stats", refs: "Refs", tariffs: "Plans", gift: "Gift", creation: "LATEST GENERATION v2.0", create_btn: "CREATE & TOOLS", 
+                project_t: "THE BEAST PROJECT", project_d: "Welcome to the future. Beast Omni is a synergy of algorithms and power for your creativity.", 
+                plans_t: "POWER LEVELS", plans_d: "FREE: Basic start. PRO: Full HD and speed. ULTRA: 4K and priority without queues.", 
+                sec_t: "SECURITY", sec_d: "Your data is secured by AES-256. Complete anonymity and 24h file deletion.",
+                spin: "SPIN", back: "← BACK", lucky: "Beast Luck" 
+            }
         };
 
         function changeLanguage(lang) {
@@ -209,17 +225,14 @@
             document.getElementById('l-creation').innerText = t.creation;
             document.getElementById('l-create-btn').innerText = t.create_btn;
             document.getElementById('l-title-project').innerText = t.project_t;
-            document.getElementById('l-desc-project').innerText = t.project_d;
+            // Здесь можно добавить обновление полного текста, если нужно будет делать перевод для длинных описаний
             document.getElementById('l-title-plans').innerText = t.plans_t;
-            document.getElementById('l-desc-plans').innerText = t.plans_d;
             document.getElementById('l-title-sec').innerText = t.sec_t;
-            document.getElementById('l-desc-sec').innerText = t.sec_d;
             document.getElementById('l-spin').innerText = t.spin;
             document.getElementById('l-back').innerText = t.back;
             document.getElementById('l-lucky').innerText = t.lucky;
         }
 
-        // КОЛЕСО ФОРТУНЫ
         function drawWheel() { 
             const ctx = document.getElementById('wheel-canvas').getContext('2d'); 
             ctx.clearRect(0,0,600,600); 
@@ -234,7 +247,7 @@
         }
 
         function runWheel() { 
-            const last = localStorage.getItem('spin_beast'); 
+            const last = localStorage.getItem('spin_beast_pro'); 
             if (last && (Date.now() - last < 86400000)) { tg.showAlert("24h cooldown."); return; } 
             const canvas = document.getElementById('wheel-canvas'); 
             const idx = Math.floor(Math.random() * prizes.length); 
@@ -242,7 +255,7 @@
             setTimeout(() => { 
                 const win = prizes[prizes.length - 1 - (idx % prizes.length)];
                 tg.showAlert(`You won ${win.n} bonus!`); 
-                localStorage.setItem('spin_beast', Date.now()); 
+                localStorage.setItem('spin_beast_pro', Date.now()); 
             }, 4100); 
         }
 
@@ -253,7 +266,7 @@
             if(tg.initDataUnsafe?.user) {
                 document.getElementById('user-name').innerText = tg.initDataUnsafe.user.first_name.toUpperCase();
             }
-            changeLanguage('en'); 
+            changeLanguage('ru'); 
         };
     </script>
 </body>
