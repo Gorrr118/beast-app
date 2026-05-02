@@ -74,35 +74,28 @@
         }
         .btn-main-action:active { transform: scale(0.97); }
 
+        /* INFO BLOCKS */
         .info-block { margin-bottom: 50px; }
         .info-text { font-size: 15px; color: var(--text-dim); line-height: 1.8; margin-bottom: 20px; }
         .info-text b { color: #fff; display: block; font-size: 24px; margin-bottom: 12px; font-weight: 900; letter-spacing: -0.5px; font-family: 'Montserrat'; text-transform: uppercase; }
         .info-text strong { color: var(--accent-blue); font-weight: 800; }
-        .info-img { width: 100%; border-radius: 28px; border: 1px solid var(--border-soft); display: block; }
+        .info-img { width: 100%; border-radius: 28px; border: 1px solid var(--border-soft); display: block; box-shadow: 0 15px 30px rgba(0,0,0,0.5); }
 
-        /* PAYMENT & SUPPORT CARD */
-        .beast-card {
+        /* SUPPORT CARD */
+        .support-card {
             background: linear-gradient(180deg, #1c1c1e 0%, #0a0a0a 100%);
-            border: 1px solid var(--border-soft);
+            border: 1px solid var(--accent-blue);
             padding: 25px; border-radius: 30px; margin-top: 20px;
             box-shadow: 0 20px 40px rgba(0,0,0,0.4);
         }
-        .payment-status {
-            display: flex; gap: 10px; margin-bottom: 20px;
-        }
-        .status-badge {
-            background: rgba(0, 122, 255, 0.1); color: var(--accent-blue);
-            padding: 5px 12px; border-radius: 8px; font-size: 11px; font-weight: 900; font-family: 'Montserrat';
-        }
-
         .btn-support {
             background: #ffffff; color: #000; border: none; width: 100%; padding: 18px;
             border-radius: 20px; font-weight: 900; font-family: 'Montserrat'; margin-top: 20px; 
-            cursor: pointer; font-size: 14px; letter-spacing: 0.5px; transition: 0.2s;
+            cursor: pointer; font-size: 14px; letter-spacing: 0.5px; transition: 0.2s; text-transform: uppercase;
         }
         .btn-support:active { transform: translateY(2px); opacity: 0.9; }
 
-        /* TAB BAR - MONSTER FONT STYLE */
+        /* TAB BAR - ULTRA BOLD FONT */
         .tab-bar {
             position: fixed; bottom: 0; left: 0; width: 100%; height: var(--nav-height);
             background: rgba(10, 10, 10, 0.98); backdrop-filter: blur(35px);
@@ -114,12 +107,12 @@
         .nav-item { 
             color: var(--text-dim); 
             font-size: 10px; 
-            font-weight: 900; /* Ultra жирный как ты просил */
+            font-weight: 900; 
             text-transform: uppercase; 
             text-decoration: none; 
             text-align: center;
             font-family: 'Montserrat', sans-serif;
-            letter-spacing: 1.5px; /* Широкий отступ для стиля */
+            letter-spacing: 1.5px; 
             transition: 0.3s;
         }
         .nav-item.active { color: var(--accent-blue); }
@@ -151,13 +144,13 @@
             <div class="video-label" id="l-creation">ULTIMATE GENERATION 2.0</div>
         </div>
 
-        <button class="btn-main-action" id="l-create-btn" onclick="tg.showAlert('Accessing Neural Clusters...')">CREATE VIDEO</button>
+        <button class="btn-main-action" id="l-create-btn" onclick="tg.showAlert('Accessing Neural Clusters...')">CREATE & TOOLS</button>
 
         <div class="info-block" style="margin-top:50px;">
             <div class="info-text">
-                <b id="l-title-project">THE BEAST ECOSYSTEM</b>
+                <b id="l-title-project">THE BEAST PROJECT</b>
                 <span id="l-desc-project">
-                    <strong>Beast Omni</strong> is a next-gen technological ecosystem designed to erase the boundaries between imagination and visual reality. We use custom-tuned clusters to provide top-tier cinematic quality.
+                    <strong>Beast Omni</strong> — это технологическая экосистема, созданная для того, чтобы стереть границы между воображением и визуальным контентом. Используя кастомные модели нейронных сетей, мы обеспечиваем высокую скорость генерации и художественное качество рендера.
                 </span>
             </div>
             <img src="https://images.unsplash.com/photo-1614850523296-d8c1af93d400?q=80&w=1000" class="info-img">
@@ -165,28 +158,44 @@
 
         <div class="info-block">
             <div class="info-text">
-                <b id="l-title-pay">BEAST BILLING & HELP</b>
-            </div>
-            
-            <div class="beast-card">
-                <div class="payment-status">
-                    <div class="status-badge">STARS READY</div>
-                    <div class="status-badge">CRYPTO ACTIVE</div>
-                </div>
-                
-                <span id="l-desc-pay-full" style="font-size: 14px; line-height: 1.6; color: var(--text-dim); display: block; margin-bottom: 15px;">
-                    Мы принимаем <strong>Telegram Stars</strong> и <strong>Crypto Wallet</strong>. Все транзакции защищены сквозным шифрованием. Активация тарифа происходит мгновенно после подтверждения сетью.
+                <b id="l-title-plans">POWER TARIFFS</b>
+                <span id="l-desc-plans">
+                    • <strong>$5 (Shorts):</strong> Идеально для Reels. Видео до 2 минут.<br><br>
+                    • <strong>$15 (Standard):</strong> Видео до 4 минут, без водяных знаков.<br><br>
+                    • <strong>$100 (Unlimited Pro):</strong> Рендер в 4K, обработка видео до 10 минут.
                 </span>
+            </div>
+            <img src="https://images.unsplash.com/photo-1639762681485-074b7f938ba0?q=80&w=1000" class="info-img">
+        </div>
 
-                <div style="height: 1px; background: var(--border-soft); margin: 20px 0;"></div>
+        <div class="info-block">
+            <div class="info-text">
+                <b id="l-title-sec">SECURITY</b>
+                <span id="l-desc-sec">
+                    Ваша безопасность — наш фундамент. Мы используем алгоритмы <strong>AES-256</strong> для защиты ваших данных. Ни одна живая душа, кроме вас, не имеет доступа к результату.
+                </span>
+            </div>
+            <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=1000" class="info-img">
+        </div>
 
-                <b id="l-title-supp" style="font-size: 18px; color:#fff; font-family:'Montserrat'; display: block;">ELITE SUPPORT 24/7</b>
-                <p id="l-desc-supp" style="font-size: 13px; color: var(--text-dim); margin: 10px 0; line-height: 1.5;">
-                    Наш саппорт работает без выходных и перерывов. Есть вопрос по оплате или баг? Жми кнопку ниже. 
-                    <span style="color: #ff3b30; font-weight: 800;">Не пиши админу в личку — береги его время и свои нервы.</span>
+        <div class="info-block">
+            <div class="info-text">
+                <b id="l-title-pay">PAYMENT METHODS</b>
+                <span id="l-desc-pay">
+                    Оплата в проекте реализована максимально удобно через встроенные инструменты Telegram: <strong>Telegram Stars</strong> и <strong>Telegram Wallet</strong>.
+                </span>
+            </div>
+            <img src="https://images.unsplash.com/photo-1621416894569-0f39ed31d247?q=80&w=1000" class="info-img">
+        </div>
+
+        <div class="info-block">
+            <div class="support-card">
+                <b id="l-title-supp" style="font-size: 20px; color:#fff; font-family:'Montserrat';">24/7 ELITE SUPPORT</b>
+                <p id="l-desc-supp" style="font-size: 14px; color: var(--text-dim); margin: 15px 0; line-height: 1.6;">
+                    Наша команда работает круглосуточно, чтобы твои генерации были идеальными. Возникла проблема или вопрос по оплате? 
+                    <span style="color: #ff3b30; font-weight: 800;">Не забивай личку владельцу — используй нашего бота.</span> Там всё опишем и поможем в считанные минуты.
                 </p>
-                
-                <button class="btn-support" id="l-btn-supp" onclick="tg.openTelegramLink('https://t.me/your_support_bot')">LAUNCH SUPPORT BOT</button>
+                <button class="btn-support" id="l-btn-supp" onclick="tg.openTelegramLink('https://t.me/your_support_bot')">CONTACT SUPPORT BOT</button>
             </div>
         </div>
     </div>
@@ -217,21 +226,23 @@
         const i18n = {
             en: { 
                 home: "Home", stats: "Stats", refs: "Refs", tariffs: "Plans", gift: "Gift", 
-                creation: "ULTIMATE GENERATION 2.0", create_btn: "CREATE VIDEO", 
-                project_t: "THE BEAST ECOSYSTEM", pay_t: "BEAST BILLING & HELP",
-                pay_d: "We accept <strong>Telegram Stars</strong> and <strong>Crypto Wallet</strong>. High-speed transactions, fully encrypted. Your plan activates immediately after payment.",
-                supp_t: "ELITE SUPPORT 24/7", 
-                supp_d: "Our pro-tier agents are online 24/7. Having issues? Launch the bot. <span style='color:#ff3b30;'>Do not DM the owner personally.</span>",
-                supp_b: "LAUNCH SUPPORT BOT", spin: "SPIN NOW", back: "← GO BACK", lucky: "BEAST LUCK"
+                creation: "ULTIMATE GENERATION 2.0", create_btn: "CREATE & TOOLS", 
+                project_t: "THE BEAST PROJECT", plans_t: "POWER TARIFFS", sec_t: "SECURITY", pay_t: "PAYMENT METHODS",
+                supp_t: "24/7 ELITE SUPPORT", 
+                supp_d: "Our support team is online 24/7 to ensure your experience is flawless. <span style='color:#ff3b30;'>Do not DM the owner.</span> Use the support bot for rapid assistance.",
+                supp_b: "CONTACT SUPPORT BOT", spin: "SPIN NOW", back: "← GO BACK", lucky: "BEAST LUCK",
+                d_proj: "<strong>Beast Omni</strong> — is a tech ecosystem designed to erase boundaries between imagination and visual content. We provide high speed and cinematic quality.",
+                d_plans: "• <strong>$5 (Shorts):</strong> Up to 2 min.<br><br>• <strong>$15 (Standard):</strong> Up to 4 min, no watermarks.<br><br>• <strong>$100 (Unlimited):</strong> 4K Render, 10 min limit."
             },
             ru: { 
                 home: "Главная", stats: "Статы", refs: "Рефы", tariffs: "Тарифы", gift: "Подарок", 
-                creation: "ULTIMATE ГЕНЕРАЦИЯ 2.0", create_btn: "СОЗДАТЬ ВИДЕО", 
-                project_t: "ЭКОСИСТЕМА BEAST", pay_t: "ОПЛАТА И ПОДДЕРЖКА",
-                pay_d: "Мы принимаем <strong>Telegram Stars</strong> и <strong>Crypto</strong>. Мгновенное пополнение и полная анонимность. Тариф активируется сразу.",
+                creation: "ULTIMATE ГЕНЕРАЦИЯ 2.0", create_btn: "СОЗДАТЬ И ИНСТРУМЕНТЫ", 
+                project_t: "О ПРОЕКТЕ BEAST", plans_t: "ТАРИФЫ И МОЩНОСТЬ", sec_t: "БЕЗОПАСНОСТЬ", pay_t: "СПОСОБЫ ОПЛАТЫ",
                 supp_t: "ЭЛИТНАЯ ПОДДЕРЖКА 24/7", 
-                supp_d: "Команда на связи 24/7. Есть вопрос? Используй бота. <span style='color:#ff3b30;'>В личку админу не писать — бан без предупреждения.</span>",
-                supp_b: "ЗАПУСТИТЬ БОТА", spin: "КРУТИТЬ", back: "← НАЗАД", lucky: "УДАЧА BEAST"
+                supp_d: "Наша команда на связи 24/7. По любым вопросам используй бота. <span style='color:#ff3b30;'>В личку владельцу не писать — бан.</span> Бот решит твой вопрос моментально.",
+                supp_b: "СВЯЗАТЬСЯ С БОТОМ", spin: "КРУТИТЬ", back: "← НАЗАД", lucky: "УДАЧА BEAST",
+                d_proj: "<strong>Beast Omni</strong> — это технологическая экосистема, созданная для того, чтобы стереть границы между воображением и контентом.",
+                d_plans: "• <strong>$5 (Shorts):</strong> Видео до 2 минут.<br><br>• <strong>$15 (Standard):</strong> Видео до 4 минут, без лого.<br><br>• <strong>$100 (Unlimited):</strong> 4K рендер, до 10 минут."
             }
         };
 
@@ -245,8 +256,11 @@
             document.getElementById('l-creation').innerText = t.creation;
             document.getElementById('l-create-btn').innerText = t.create_btn;
             document.getElementById('l-title-project').innerText = t.project_t;
+            document.getElementById('l-desc-project').innerHTML = t.d_proj;
+            document.getElementById('l-title-plans').innerText = t.plans_t;
+            document.getElementById('l-desc-plans').innerHTML = t.d_plans;
+            document.getElementById('l-title-sec').innerText = t.sec_t;
             document.getElementById('l-title-pay').innerText = t.pay_t;
-            document.getElementById('l-desc-pay-full').innerHTML = t.pay_d;
             document.getElementById('l-title-supp').innerText = t.supp_t;
             document.getElementById('l-desc-supp').innerHTML = t.supp_d;
             document.getElementById('l-btn-supp').innerText = t.supp_b;
@@ -274,7 +288,7 @@
             const canvas = document.getElementById('wheel-canvas'); 
             const idx = Math.floor(Math.random()*prizes.length); 
             canvas.style.transform = `rotate(${3600+(idx*45)}deg)`; 
-            setTimeout(() => { tg.showAlert("Jackpot!"); }, 4100); 
+            setTimeout(() => { tg.showAlert("Win!"); }, 4100); 
         }
 
         function openGiftModal() { document.getElementById('gift-modal').style.display='flex'; drawWheel(); }
