@@ -8,7 +8,6 @@
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <style>
         :root {
-            /* Палитра True Black Modern */
             --bg-total: #000000;
             --bg-surface: #121212;
             --bg-card: #1c1c1e;
@@ -17,148 +16,96 @@
             --accent-blue: #007aff;
             --accent-gradient: linear-gradient(135deg, #007aff 0%, #0040ff 100%);
             --border-soft: rgba(255, 255, 255, 0.08);
-            --nav-height: 70px;
+            --nav-height: 75px;
         }
 
         body {
             background-color: var(--bg-total);
             color: var(--text-main);
-            /* ТВОЙ СИСТЕМНЫЙ ШРИФТ КАК В BEGY */
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             margin: 0; padding: 0;
             overflow-x: hidden; -webkit-user-select: none;
-            padding-bottom: calc(var(--nav-height) + 30px); /* Место под навигацию */
+            padding-bottom: calc(var(--nav-height) + 40px);
         }
 
-        /* --- ЗАСТАВКА ЗАГРУЗКИ (SPLASH SCREEN) --- */
+        /* --- ЗАСТАВКА (SPLASH SCREEN) --- */
         #splash-screen {
             position: fixed; inset: 0;
-            background: radial-gradient(circle at center, #1b3a24 0%, #000000 100%); /* Зеленый градиент BEGY */
-            z-index: 10000;
-            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            background: radial-gradient(circle at center, #1b3a24 0%, #000000 100%);
+            z-index: 10000; display: flex; flex-direction: column; align-items: center; justify-content: center;
             opacity: 1; transition: opacity 0.5s ease;
         }
-
-        #splash-logo {
-            font-size: 42px; font-weight: 900; text-transform: uppercase;
-            color: #fff; letter-spacing: -1px; margin-bottom: 30px;
-            font-family: 'Poppins', sans-serif;
-        }
-
-        .progress-bar {
-            width: 70%; max-width: 250px; height: 4px;
-            background: rgba(255, 255, 255, 0.1); border-radius: 2px; overflow: hidden;
-        }
-
-        .progress-fill {
-            height: 100%; width: 0%;
-            background: var(--accent-blue);
-            animation: fillProgress 3s forwards;
-        }
-
-        @keyframes fillProgress {
-            0% { width: 0%; }
-            100% { width: 100%; }
-        }
+        #splash-logo { font-size: 42px; font-weight: 900; color: #fff; margin-bottom: 30px; font-family: 'Poppins', sans-serif; }
+        .progress-bar { width: 70%; max-width: 250px; height: 4px; background: rgba(255, 255, 255, 0.1); border-radius: 2px; overflow: hidden; }
+        .progress-fill { height: 100%; width: 0%; background: var(--accent-blue); animation: fillProgress 3s forwards; }
+        @keyframes fillProgress { 0% { width: 0%; } 100% { width: 100%; } }
 
         /* HEADER */
         .header {
             padding: 40px 20px 20px;
-            display: flex; justify-content: space-between; align-items: flex-end;
-            background: linear-gradient(to bottom, #000 60%, transparent);
+            display: flex; justify-content: space-between; align-items: center;
+            background: rgba(0, 0, 0, 0.8); backdrop-filter: blur(15px);
             position: fixed; top: 0; width: 100%; z-index: 100; box-sizing: border-box;
         }
+        .header h1 { margin: 0; font-size: 26px; font-weight: 800; letter-spacing: -1px; }
 
-        .header h1 { margin: 0; font-size: 30px; font-weight: 800; letter-spacing: -1px; }
-
-        /* LANG SELECT */
         #lang-select {
             background: var(--bg-surface); color: white; border: 1px solid var(--border-soft);
             padding: 8px 12px; border-radius: 12px; font-size: 13px; font-weight: 600; outline: none;
         }
 
-        /* BANNER */
-        .hero {
-            position: relative; width: 100%; height: 35vh; background: #000; overflow: hidden;
-            margin-top: 80px; /* Чтобы не заходить под хедер */
+        /* ЛЕНТА ГЛАВНОГО МЕНЮ */
+        .feed { padding: 100px 20px 20px; position: relative; z-index: 10; }
+
+        /* ГЛАВНОЕ ВИДЕО */
+        .main-video-card {
+            width: 100%; height: 420px; background: #111; border-radius: 28px; overflow: hidden;
+            position: relative; margin-bottom: 25px; border: 1px solid var(--border-soft);
         }
-        .hero video { width: 100%; height: 100%; object-fit: cover; opacity: 0.6; }
-        .hero::after {
-            content: ''; position: absolute; bottom: 0; width: 100%; height: 70%;
-            background: linear-gradient(to top, var(--bg-total), transparent);
-        }
+        .main-video-card video { width: 100%; height: 100%; object-fit: cover; opacity: 0.8; }
+        .video-label { position: absolute; bottom: 20px; left: 20px; font-weight: 700; font-size: 18px; color: #fff; text-shadow: 0 2px 10px rgba(0,0,0,0.5); }
 
-        /* MAIN CONTENT */
-        .main-content { padding: 0 20px; margin-top: -30px; position: relative; z-index: 10; }
-
-        .status-card {
-            background: var(--bg-card); border: 1px solid var(--border-soft);
-            border-radius: 20px; padding: 20px; margin-bottom: 20px;
-            display: flex; justify-content: space-between; align-items: center;
-        }
-
-        /* УБРАЛ НАХУЙ ЖИРНОСТЬ */
-        .stat-label { font-size: 13px; font-weight: 500; color: var(--text-dim); text-transform: uppercase; }
-        .stat-value { font-size: 32px; font-weight: 700; color: var(--text-main); }
-        .stat-value span { color: var(--accent-blue); font-size: 16px; opacity: 0.7; }
-
-        .badge {
-            background: rgba(0, 122, 255, 0.1); color: var(--accent-blue);
-            padding: 6px 12px; border-radius: 10px; font-size: 11px; font-weight: 800; text-transform: uppercase;
-        }
-
-        /* CREATE BUTTON */
-        .btn-create {
+        /* ЦЕНТРАЛЬНАЯ КНОПКА ФУНКЦИЙ */
+        .action-container { margin-bottom: 40px; }
+        .btn-main-action {
             background: var(--accent-gradient); color: white; border: none;
-            width: 100%; padding: 20px; border-radius: 18px;
-            font-size: 16px; font-weight: 700; margin-bottom: 20px;
-            box-shadow: 0 8px 16px rgba(0, 122, 255, 0.15);
-            transition: transform 0.1s; cursor: pointer;
+            width: 100%; padding: 22px; border-radius: 24px;
+            font-size: 17px; font-weight: 800; letter-spacing: 0.5px;
+            box-shadow: 0 10px 25px rgba(0, 122, 255, 0.25);
+            transition: 0.2s; cursor: pointer;
         }
-        .btn-create:active { transform: scale(0.97); opacity: 0.9; }
+        .btn-main-action:active { transform: scale(0.96); }
 
-        /* BOTTOM NAV BAR (TAB BAR) - ТОЧЬ-В-ТОЧЬ КАК НА РЕФЕРЕНСЕ, БЕЗ ИКОНОК */
+        /* ИНФО-КАРТОЧКИ */
+        .info-block { margin-bottom: 45px; }
+        .info-text { font-size: 15px; color: var(--text-dim); line-height: 1.6; margin-bottom: 15px; }
+        .info-text b { color: #fff; display: block; font-size: 20px; margin-bottom: 8px; font-weight: 700; }
+        .info-img { width: 100%; border-radius: 24px; border: 1px solid var(--border-soft); display: block; box-shadow: 0 5px 15px rgba(0,0,0,0.5); }
+
+        /* ТАБ БАР (НИЖНЕЕ МЕНЮ) */
         .tab-bar {
             position: fixed; bottom: 0; left: 0; width: 100%; height: var(--nav-height);
-            background: rgba(20, 20, 20, 0.95); backdrop-filter: blur(20px);
+            background: rgba(15, 15, 15, 0.95); backdrop-filter: blur(20px);
             border-top: 1px solid var(--border-soft);
             display: grid; grid-template-columns: repeat(5, 1fr);
             justify-items: center; align-items: center;
-            padding-bottom: 15px; /* Для айфонов */
-            z-index: 1000;
+            padding-bottom: 15px; z-index: 1000;
         }
+        .nav-item { color: var(--text-dim); font-size: 11px; font-weight: 600; text-transform: uppercase; text-decoration: none; text-align: center; transition: 0.2s; }
+        .nav-item.active { color: var(--accent-blue); }
 
-        .nav-item {
-            color: var(--text-dim); font-size: 11px; font-weight: 600;
-            text-transform: uppercase; text-decoration: none;
-            transition: color 0.2s;
-            text-align: center;
-        }
-
-        .nav-item.active { color: var(--accent-blue); font-weight: 700; }
-
-        /* MODAL */
-        #gift-modal {
-            display: none; position: fixed; inset: 0;
-            background: var(--bg-total); z-index: 5000;
-            flex-direction: column; align-items: center; justify-content: center; padding: 20px;
-        }
-
+        /* МОДАЛКА КОЛЕСА */
+        #gift-modal { display: none; position: fixed; inset: 0; background: var(--bg-total); z-index: 5000; flex-direction: column; align-items: center; justify-content: center; padding: 20px; }
         .wheel-container { position: relative; width: 300px; height: 300px; margin: 30px 0; }
         #wheel-canvas { width: 100%; height: 100%; border-radius: 50%; border: 4px solid var(--bg-card); transition: transform 4s cubic-bezier(0.1, 0, 0, 1); }
-        .wheel-pointer {
-            position: absolute; top: -15px; left: 50%; transform: translateX(-50%);
-            width: 2px; height: 35px; background: #ff3b30; z-index: 100;
-        }
+        .wheel-pointer { position: absolute; top: -15px; left: 50%; transform: translateX(-50%); width: 2px; height: 35px; background: #ff3b30; z-index: 100; }
     </style>
 </head>
 <body>
 
     <div id="splash-screen">
         <div id="splash-logo">BEAST OMNI</div>
-        <div class="progress-bar">
-            <div class="progress-fill"></div>
-        </div>
+        <div class="progress-bar"><div class="progress-fill"></div></div>
     </div>
 
     <div class="header">
@@ -170,20 +117,39 @@
         </select>
     </div>
 
-    <div class="hero">
-        <video autoplay muted loop playsinline><source src="https://www.w3schools.com/howto/rain.mp4" type="video/mp4"></video>
-    </div>
-
-    <div class="main-content">
-        <div class="status-card">
-            <div>
-                <div class="stat-label" id="l-limit">Лимит видео</div>
-                <div class="stat-value" id="limit-val">0.5 <span>мин.</span></div>
-            </div>
-            <div class="badge" id="plan-badge">FREE</div>
+    <div class="feed">
+        <div class="main-video-card">
+            <video autoplay muted loop playsinline><source src="https://www.w3schools.com/howto/rain.mp4" type="video/mp4"></video>
+            <div class="video-label" id="l-creation">LATEST CREATION v1.2</div>
         </div>
 
-        <button class="btn-create" id="l-create">СОЗДАТЬ ВИДЕО</button>
+        <div class="action-container">
+            <button class="btn-main-action" id="l-create-btn" onclick="tg.showAlert('Opening Tools Menu...')">CREATE & TOOLS</button>
+        </div>
+
+        <div class="info-block">
+            <div class="info-text">
+                <b id="l-title-project">THE PROJECT</b>
+                <span id="l-desc-project">Beast Omni — это ультимативная нейросеть для генерации видео и графики. Мы объединили мощь Python и UI нового поколения для твоего творчества.</span>
+            </div>
+            <img src="https://images.unsplash.com/photo-1614850523296-d8c1af93d400?q=80&w=1000" class="info-img" alt="Project">
+        </div>
+
+        <div class="info-block">
+            <div class="info-text">
+                <b id="l-title-plans">PLANS & POWER</b>
+                <span id="l-desc-plans">Выбирай свой уровень мощности. Тарифы дают доступ к рендеру в 4K, приоритетной очереди и эксклюзивным пресетам для твоих видео.</span>
+            </div>
+            <img src="https://images.unsplash.com/photo-1639762681485-074b7f938ba0?q=80&w=1000" class="info-img" alt="Plans">
+        </div>
+
+        <div class="info-block">
+            <div class="info-text">
+                <b id="l-title-sec">SECURITY</b>
+                <span id="l-desc-sec">Твои данные под надежной защитой. Мы используем сквозное шифрование и удаляем временные файлы сразу после завершения генерации.</span>
+            </div>
+            <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=1000" class="info-img" alt="Security">
+        </div>
     </div>
 
     <div class="tab-bar">
@@ -200,7 +166,7 @@
             <div class="wheel-pointer"></div>
             <canvas id="wheel-canvas" width="600" height="600"></canvas>
         </div>
-        <button class="btn-create" style="max-width: 280px;" onclick="runWheel()" id="l-spin">КРУТИТЬ</button>
+        <button class="btn-main-action" style="max-width: 280px;" onclick="runWheel()" id="l-spin">КРУТИТЬ</button>
         <div style="margin-top: 20px; color: var(--text-dim); font-weight: 700; cursor: pointer;" onclick="closeGiftModal()" id="l-back">← НАЗАД</div>
     </div>
 
@@ -209,18 +175,16 @@
         tg.expand();
         tg.headerColor = "#000000";
 
-        // ЛОГИКА ИСЧЕЗНОВЕНИЯ ЗАСТАВКИ
+        // ЛОГИКА ЗАСТАВКИ
         window.addEventListener('load', () => {
             setTimeout(() => {
                 const splash = document.getElementById('splash-screen');
                 splash.style.opacity = '0';
-                setTimeout(() => {
-                    splash.style.display = 'none';
-                }, 500);
-            }, 3000); // 3 секунды загрузки
+                setTimeout(() => splash.style.display = 'none', 500);
+            }, 3000);
         });
 
-        // ТВОЯ ЛОГИКА
+        // ДАННЫЕ ПОЛЬЗОВАТЕЛЯ И КОЛЕСА
         let userPlan = { balance: 0.5 };
         const prizes = [
             {n: "0.1", c: "#121212", v: 0.1}, {n: "0.5", c: "#1a1a1a", v: 0.5},
@@ -229,31 +193,68 @@
             {n: "0.1", c: "#121212", v: 0.1}, {n: "0.0", c: "#000000", v: 0}
         ];
 
+        // ЛОКАЛИЗАЦИЯ
         const i18n = {
-            ru: { limit: "Лимит видео", unit: "мин.", create: "СОЗДАТЬ ВИДЕО", home: "Главная", stats: "Статы", refs: "Рефы", tariffs: "Тарифы", gift: "Подарок", spin: "КРУТИТЬ", back: "← НАЗАД", lucky: "Beast Luck" },
-            en: { limit: "Video Limit", unit: "min.", create: "CREATE VIDEO", home: "Home", stats: "Stats", refs: "Refs", tariffs: "Plans", gift: "Gift", spin: "SPIN", back: "← BACK", lucky: "Beast Luck" }
+            ru: { home: "Главная", stats: "Статы", refs: "Рефы", tariffs: "Тарифы", gift: "Подарок", creation: "ПОСЛЕДНЕЕ ВИДЕО v1.2", create_btn: "СОЗДАТЬ & ИНСТРУМЕНТЫ", project_t: "ПРОЕКТ", project_d: "Beast Omni — ультимативная нейросеть для генерации видео.", plans_t: "ТАРИФЫ", plans_d: "Выбирай мощность для рендера в 4K.", sec_t: "БЕЗОПАСНОСТЬ", sec_d: "Твои данные защищены шифрованием.", spin: "КРУТИТЬ", back: "← НАЗАД", lucky: "Beast Luck" },
+            en: { home: "Home", stats: "Stats", refs: "Refs", tariffs: "Plans", gift: "Gift", creation: "LATEST CREATION v1.2", create_btn: "CREATE & TOOLS", project_t: "THE PROJECT", project_d: "Beast Omni — the ultimate AI for video generation.", plans_t: "PLANS", plans_d: "Choose power for 4K rendering.", sec_t: "SECURITY", sec_d: "Your data is secured by encryption.", spin: "SPIN", back: "← BACK", lucky: "Beast Luck" }
         };
 
         function changeLanguage(lang) {
             const t = i18n[lang] || i18n.en;
-            document.getElementById('l-limit').innerText = t.limit;
-            document.getElementById('l-create').innerText = t.create;
             document.getElementById('tab-home').innerText = t.home;
             document.getElementById('tab-stats').innerText = t.stats;
             document.getElementById('tab-refs').innerText = t.refs;
             document.getElementById('tab-plans').innerText = t.tariffs;
             document.getElementById('tab-gift').innerText = t.gift;
+            document.getElementById('l-creation').innerText = t.creation;
+            document.getElementById('l-create-btn').innerText = t.create_btn;
+            document.getElementById('l-title-project').innerText = t.project_t;
+            document.getElementById('l-desc-project').innerText = t.project_d;
+            document.getElementById('l-title-plans').innerText = t.plans_t;
+            document.getElementById('l-desc-plans').innerText = t.plans_d;
+            document.getElementById('l-title-sec').innerText = t.sec_t;
+            document.getElementById('l-desc-sec').innerText = t.sec_d;
             document.getElementById('l-spin').innerText = t.spin;
             document.getElementById('l-back').innerText = t.back;
             document.getElementById('l-lucky').innerText = t.lucky;
         }
 
-        // ТВОЯ ОСТАЛЬНАЯ ЛОГИКА
-        function drawWheel() { const ctx = document.getElementById('wheel-canvas').getContext('2d'); ctx.clearRect(0,0,600,600); prizes.forEach((p, i) => { ctx.beginPath(); ctx.fillStyle = p.c; ctx.moveTo(300, 300); ctx.arc(300, 300, 300, i * (Math.PI/4), (i+1) * (Math.PI/4)); ctx.fill(); ctx.save(); ctx.translate(300, 300); ctx.rotate(i * (Math.PI/4) + (Math.PI/8)); ctx.fillStyle = "#fff"; ctx.font = "bold 46px sans-serif"; ctx.textAlign = "right"; ctx.fillText(p.n, 280, 15); ctx.restore(); }); }
-        function runWheel() { const last = localStorage.getItem('spin_true_black'); if (last && (Date.now() - last < 86400000)) { tg.showAlert("24h cooldown."); return; } const canvas = document.getElementById('wheel-canvas'); const idx = Math.floor(Math.random() * prizes.length); canvas.style.transform = `rotate(${3600 + (idx * 45)}deg)`; setTimeout(() => { const win = prizes[prizes.length - 1 - (idx % prizes.length)]; userPlan.balance += win.v; document.getElementById('limit-val').innerHTML = `${userPlan.balance.toFixed(1)} <span>мин.</span>`; localStorage.setItem('spin_true_black', Date.now()); tg.showAlert(`+${win.n} min`); }, 4100); }
+        // КОЛЕСО ФОРТУНЫ
+        function drawWheel() { 
+            const ctx = document.getElementById('wheel-canvas').getContext('2d'); 
+            ctx.clearRect(0,0,600,600); 
+            prizes.forEach((p, i) => { 
+                ctx.beginPath(); ctx.fillStyle = p.c; ctx.moveTo(300, 300); 
+                ctx.arc(300, 300, 300, i * (Math.PI/4), (i+1) * (Math.PI/4)); 
+                ctx.fill(); ctx.save(); ctx.translate(300, 300); 
+                ctx.rotate(i * (Math.PI/4) + (Math.PI/8)); ctx.fillStyle = "#fff"; 
+                ctx.font = "bold 46px sans-serif"; ctx.textAlign = "right"; 
+                ctx.fillText(p.n, 280, 15); ctx.restore(); 
+            }); 
+        }
+
+        function runWheel() { 
+            const last = localStorage.getItem('spin_beast'); 
+            if (last && (Date.now() - last < 86400000)) { tg.showAlert("24h cooldown."); return; } 
+            const canvas = document.getElementById('wheel-canvas'); 
+            const idx = Math.floor(Math.random() * prizes.length); 
+            canvas.style.transform = `rotate(${3600 + (idx * 45)}deg)`; 
+            setTimeout(() => { 
+                const win = prizes[prizes.length - 1 - (idx % prizes.length)];
+                tg.showAlert(`You won ${win.n} bonus!`); 
+                localStorage.setItem('spin_beast', Date.now()); 
+            }, 4100); 
+        }
+
         function openGiftModal() { document.getElementById('gift-modal').style.display = 'flex'; drawWheel(); }
         function closeGiftModal() { document.getElementById('gift-modal').style.display = 'none'; }
-        window.onload = () => { if(tg.initDataUnsafe?.user) document.getElementById('user-name').innerText = tg.initDataUnsafe.user.first_name.toUpperCase(); changeLanguage('en'); };
+
+        window.onload = () => { 
+            if(tg.initDataUnsafe?.user) {
+                document.getElementById('user-name').innerText = tg.initDataUnsafe.user.first_name.toUpperCase();
+            }
+            changeLanguage('en'); 
+        };
     </script>
 </body>
 </html>
