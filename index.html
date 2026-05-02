@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Beast Omni Ultimate</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;900&family=Montserrat:wght@700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;900&family=Montserrat:wght@700;800;900&display=swap" rel="stylesheet">
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <style>
         :root {
@@ -16,7 +16,7 @@
             --accent-blue: #007aff;
             --accent-gradient: linear-gradient(135deg, #007aff 0%, #0040ff 100%);
             --border-soft: rgba(255, 255, 255, 0.08);
-            --nav-height: 75px;
+            --nav-height: 80px;
         }
 
         body {
@@ -25,88 +25,97 @@
             font-family: 'Poppins', -apple-system, sans-serif;
             margin: 0; padding: 0;
             overflow-x: hidden; -webkit-user-select: none;
-            padding-bottom: calc(var(--nav-height) + 40px);
+            padding-bottom: calc(var(--nav-height) + 50px);
         }
 
-        /* --- ЗАСТАВКА --- */
+        /* --- SPLASH --- */
         #splash-screen {
             position: fixed; inset: 0;
             background: radial-gradient(circle at center, #1b3a24 0%, #000000 100%);
             z-index: 10000; display: flex; flex-direction: column; align-items: center; justify-content: center;
             opacity: 1; transition: opacity 0.5s ease;
         }
-        #splash-logo { font-size: 42px; font-weight: 900; color: #fff; margin-bottom: 30px; font-family: 'Poppins', sans-serif; }
+        #splash-logo { font-size: 42px; font-weight: 900; color: #fff; margin-bottom: 30px; font-family: 'Montserrat'; letter-spacing: -2px; }
         .progress-bar { width: 70%; max-width: 250px; height: 4px; background: rgba(255, 255, 255, 0.1); border-radius: 2px; overflow: hidden; }
         .progress-fill { height: 100%; width: 0%; background: var(--accent-blue); animation: fillProgress 3s forwards; }
         @keyframes fillProgress { 0% { width: 0%; } 100% { width: 100%; } }
 
         /* HEADER */
         .header {
-            padding: 40px 20px 20px;
+            padding: 45px 20px 20px;
             display: flex; justify-content: space-between; align-items: center;
-            background: rgba(0, 0, 0, 0.8); backdrop-filter: blur(15px);
+            background: rgba(0, 0, 0, 0.85); backdrop-filter: blur(20px);
             position: fixed; top: 0; width: 100%; z-index: 100; box-sizing: border-box;
+            border-bottom: 1px solid var(--border-soft);
         }
-        .header h1 { margin: 0; font-size: 26px; font-weight: 800; letter-spacing: -1px; font-family: 'Montserrat'; }
+        .header h1 { margin: 0; font-size: 24px; font-weight: 900; letter-spacing: -1px; font-family: 'Montserrat'; text-transform: uppercase; }
 
         #lang-select {
             background: var(--bg-surface); color: white; border: 1px solid var(--border-soft);
-            padding: 8px 12px; border-radius: 12px; font-size: 13px; font-weight: 600; outline: none;
+            padding: 8px 12px; border-radius: 12px; font-size: 13px; font-weight: 700; outline: none; font-family: 'Montserrat';
         }
 
-        /* FEED CONTENT */
-        .feed { padding: 120px 20px 20px; position: relative; z-index: 10; }
+        /* FEED */
+        .feed { padding: 130px 20px 20px; position: relative; z-index: 10; }
 
         .main-video-card {
-            width: 100%; height: 420px; background: #111; border-radius: 28px; overflow: hidden;
+            width: 100%; height: 420px; background: #111; border-radius: 30px; overflow: hidden;
             position: relative; margin-bottom: 25px; border: 1px solid var(--border-soft);
         }
-        .main-video-card video { width: 100%; height: 100%; object-fit: cover; opacity: 0.8; }
-        .video-label { position: absolute; bottom: 20px; left: 20px; font-weight: 700; font-size: 18px; color: #fff; text-shadow: 0 2px 10px rgba(0,0,0,0.5); }
+        .main-video-card video { width: 100%; height: 100%; object-fit: cover; opacity: 0.7; }
+        .video-label { position: absolute; bottom: 25px; left: 25px; font-weight: 900; font-size: 20px; color: #fff; font-family: 'Montserrat'; text-transform: uppercase; }
 
-        .action-container { margin-bottom: 40px; }
         .btn-main-action {
             background: var(--accent-gradient); color: white; border: none;
             width: 100%; padding: 22px; border-radius: 24px;
-            font-size: 17px; font-weight: 800; letter-spacing: 0.5px;
-            box-shadow: 0 10px 25px rgba(0, 122, 255, 0.25);
-            transition: 0.2s; cursor: pointer; font-family: 'Montserrat';
+            font-size: 16px; font-weight: 900; letter-spacing: 1px;
+            box-shadow: 0 12px 30px rgba(0, 122, 255, 0.3);
+            transition: 0.3s; cursor: pointer; font-family: 'Montserrat'; text-transform: uppercase;
         }
-        .btn-main-action:active { transform: scale(0.96); }
+        .btn-main-action:active { transform: scale(0.97); }
 
-        /* КАРТОЧКИ ИНФО */
         .info-block { margin-bottom: 50px; }
-        .info-text { font-size: 14px; color: var(--text-dim); line-height: 1.7; margin-bottom: 15px; }
-        .info-text b { color: #fff; display: block; font-size: 22px; margin-bottom: 10px; font-weight: 800; letter-spacing: -0.5px; font-family: 'Montserrat'; }
-        .info-text strong { color: var(--accent-blue); font-weight: 700; }
-        .info-img { width: 100%; border-radius: 24px; border: 1px solid var(--border-soft); display: block; box-shadow: 0 10px 20px rgba(0,0,0,0.6); }
+        .info-text { font-size: 15px; color: var(--text-dim); line-height: 1.8; margin-bottom: 20px; }
+        .info-text b { color: #fff; display: block; font-size: 24px; margin-bottom: 12px; font-weight: 900; letter-spacing: -0.5px; font-family: 'Montserrat'; text-transform: uppercase; }
+        .info-text strong { color: var(--accent-blue); font-weight: 800; }
+        .info-img { width: 100%; border-radius: 28px; border: 1px solid var(--border-soft); display: block; }
 
-        /* TAB BAR (КНОПКИ СНИЗУ) */
+        /* SUPPORT SECTION */
+        .support-card {
+            background: var(--bg-card); border: 1px solid var(--accent-blue);
+            padding: 25px; border-radius: 28px; margin-top: 20px;
+        }
+        .btn-support {
+            background: #ffffff; color: #000; border: none; width: 100%; padding: 15px;
+            border-radius: 18px; font-weight: 900; font-family: 'Montserrat'; margin-top: 15px; cursor: pointer;
+        }
+
+        /* TAB BAR - IMPROVED FONTS */
         .tab-bar {
             position: fixed; bottom: 0; left: 0; width: 100%; height: var(--nav-height);
-            background: rgba(10, 10, 10, 0.98); backdrop-filter: blur(25px);
+            background: rgba(10, 10, 10, 0.98); backdrop-filter: blur(30px);
             border-top: 1px solid var(--border-soft);
             display: grid; grid-template-columns: repeat(5, 1fr);
             justify-items: center; align-items: center;
-            padding-bottom: 15px; z-index: 1000;
+            padding-bottom: 20px; z-index: 1000;
         }
         .nav-item { 
             color: var(--text-dim); 
-            font-size: 10px; 
-            font-weight: 700; 
+            font-size: 9px; 
+            font-weight: 900; 
             text-transform: uppercase; 
             text-decoration: none; 
             text-align: center;
             font-family: 'Montserrat', sans-serif;
-            letter-spacing: 0.5px;
+            letter-spacing: 1.2px; /* Увеличен для стиля */
+            transition: 0.2s;
         }
         .nav-item.active { color: var(--accent-blue); }
 
-        /* MODALS */
         #gift-modal { display: none; position: fixed; inset: 0; background: var(--bg-total); z-index: 5000; flex-direction: column; align-items: center; justify-content: center; padding: 20px; }
         .wheel-container { position: relative; width: 300px; height: 300px; margin: 30px 0; }
         #wheel-canvas { width: 100%; height: 100%; border-radius: 50%; border: 4px solid var(--bg-card); transition: transform 4s cubic-bezier(0.1, 0, 0, 1); }
-        .wheel-pointer { position: absolute; top: -15px; left: 50%; transform: translateX(-50%); width: 2px; height: 35px; background: #ff3b30; z-index: 100; }
+        .wheel-pointer { position: absolute; top: -15px; left: 50%; transform: translateX(-50%); width: 4px; height: 35px; background: #ff3b30; z-index: 100; border-radius: 2px; }
     </style>
 </head>
 <body>
@@ -119,34 +128,24 @@
     <div class="header">
         <h1 id="user-name">BEAST</h1>
         <select id="lang-select" onchange="changeLanguage(this.value)">
-            <option value="ru" selected>🇷🇺 RU</option>
-            <option value="en">🇺🇸 EN</option>
-            <option value="am">🇦🇲 AM</option>
-            <option value="es">🇪🇸 ES</option>
-            <option value="it">🇮🇹 IT</option>
-            <option value="ar">🇸🇦 AR</option>
-            <option value="zh">🇨🇳 ZH</option>
-            <option value="hi">🇮🇳 HI</option>
-            <option value="ca">🇨🇦 CA</option>
-            <option value="br">🇧🇷 BR</option>
+            <option value="en" selected>🇺🇸 ENGLISH</option>
+            <option value="ru">🇷🇺 RUSSIAN</option>
         </select>
     </div>
 
     <div class="feed">
         <div class="main-video-card">
             <video autoplay muted loop playsinline><source src="https://www.w3schools.com/howto/rain.mp4" type="video/mp4"></video>
-            <div class="video-label" id="l-creation">LATEST GENERATION v2.0</div>
+            <div class="video-label" id="l-creation">ULTIMATE GENERATION 2.0</div>
         </div>
 
-        <div class="action-container">
-            <button class="btn-main-action" id="l-create-btn" onclick="tg.showAlert('System ready!')">CREATE & TOOLS</button>
-        </div>
+        <button class="btn-main-action" id="l-create-btn" onclick="tg.showAlert('Interface Loading...')">CREATE & TOOLS</button>
 
-        <div class="info-block">
+        <div class="info-block" style="margin-top:50px;">
             <div class="info-text">
-                <b id="l-title-project">THE BEAST PROJECT</b>
+                <b id="l-title-project">THE BEAST ECOSYSTEM</b>
                 <span id="l-desc-project">
-                    <strong>Beast Omni</strong> — это технологическая экосистема, созданная для того, чтобы стереть границы между воображением и визуальным контентом. Используя кастомные модели нейронных сетей, мы обеспечиваем высокую скорость генерации и художественное качество рендера. Каждый проект обрабатывается на мощных графических кластерах, что позволяет достигать невероятной детализации в каждом кадре.
+                    <strong>Beast Omni</strong> is a next-gen technological ecosystem designed to erase the boundaries between imagination and visual reality. By leveraging custom-tuned neural architectures, we deliver extreme generation speeds and cinematic rendering quality.
                 </span>
             </div>
             <img src="https://images.unsplash.com/photo-1614850523296-d8c1af93d400?q=80&w=1000" class="info-img">
@@ -156,12 +155,9 @@
             <div class="info-text">
                 <b id="l-title-plans">POWER TARIFFS</b>
                 <span id="l-desc-plans">
-                    Мы подготовили 5 гибких тарифов для любых целей:<br><br>
-                    • <strong>$5 (Shorts Pack):</strong> Идеально для блогеров. Обработка видео до <strong>2 минут</strong>. Включает небольшой водяной знак проекта. Базовая скорость рендера.<br><br>
-                    • <strong>$15 (Standard):</strong> Видео до 4 минут, без водяных знаков, Full HD качество и приоритетная поддержка.<br><br>
-                    • <strong>$30 (Creator):</strong> Расширенные лимиты, доступ к уникальным стилям анимации и ускоренный рендер.<br><br>
-                    • <strong>$50 (Advanced):</strong> Профессиональный уровень. Глубокая настройка нейросети под ваши задачи и видео до 7 минут.<br><br>
-                    • <strong>$100 (Unlimited Pro):</strong> Полные возможности Beast Omni. Рендер в <strong>4K</strong>, обработка видео до <strong>10 минут</strong> и рендер вне очереди на топовых GPU-серверах.
+                    • <strong>$5 (Shorts):</strong> 2 min limit. Great for TikTok/Reels.<br><br>
+                    • <strong>$15 (Standard):</strong> 4 min limit. No Watermark. Full HD.<br><br>
+                    • <strong>$100 (Ultra Pro):</strong> 10 min limit. 4K HDR. Top-tier GPU Priority.
                 </span>
             </div>
             <img src="https://images.unsplash.com/photo-1639762681485-074b7f938ba0?q=80&w=1000" class="info-img">
@@ -169,44 +165,39 @@
 
         <div class="info-block">
             <div class="info-text">
-                <b id="l-title-sec">SECURITY</b>
-                <span id="l-desc-sec">
-                    Ваша безопасность — наш фундамент. Мы используем алгоритмы <strong>AES-256</strong> для защиты ваших данных. Все генерации проходят через закрытые туннели, и ни одна живая душа, кроме вас, не имеет доступа к результату. Исходники удаляются сразу после скачивания или через 24 часа.
-                </span>
-            </div>
-            <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=1000" class="info-img">
-        </div>
-
-        <div class="info-block">
-            <div class="info-text">
                 <b id="l-title-pay">PAYMENT METHODS</b>
                 <span id="l-desc-pay">
-                    На данный момент оплата в проекте реализована максимально удобно через встроенные инструменты Telegram:<br><br>
-                    1. <strong>Telegram Stars:</strong> Быстрая и официальная валюта мессенджера.<br>
-                    2. <strong>Telegram Wallet:</strong> Оплата напрямую через крипто-кошелек в пару кликов.<br><br>
-                    Мы постоянно работаем над расширением возможностей.
+                    Safe & Instant payments via <strong>Telegram Stars</strong> and <strong>Crypto Wallet</strong>.
                 </span>
             </div>
-            <img src="https://images.unsplash.com/photo-1621416894569-0f39ed31d247?q=80&w=1000" class="info-img">
+            
+            <div class="support-card">
+                <b id="l-title-supp" style="font-size: 18px; color:#fff; font-family:'Montserrat';">24/7 ELITE SUPPORT</b>
+                <p id="l-desc-supp" style="font-size: 13px; color: var(--text-dim); margin: 10px 0;">
+                    Our support team works around the clock. If you have any issues with your generation or payment, please use our dedicated support bot. 
+                    <strong>Don't DM the owner!</strong>
+                </p>
+                <button class="btn-support" id="l-btn-supp" onclick="tg.openTelegramLink('https://t.me/your_support_bot')">CONTACT SUPPORT BOT</button>
+            </div>
         </div>
     </div>
 
     <div class="tab-bar">
-        <a href="#" class="nav-item active"><span id="tab-home">Главная</span></a>
-        <a href="#" class="nav-item"><span id="tab-stats">Статы</span></a>
-        <a href="#" class="nav-item"><span id="tab-refs">Рефы</span></a>
-        <a href="#" class="nav-item"><span id="tab-plans">Тарифы</span></a>
-        <a href="#" class="nav-item" onclick="openGiftModal()"><span id="tab-gift">Подарок</span></a>
+        <a href="#" class="nav-item active"><span id="tab-home">Home</span></a>
+        <a href="#" class="nav-item"><span id="tab-stats">Stats</span></a>
+        <a href="#" class="nav-item"><span id="tab-refs">Refs</span></a>
+        <a href="#" class="nav-item"><span id="tab-plans">Plans</span></a>
+        <a href="#" class="nav-item" onclick="openGiftModal()"><span id="tab-gift">Gift</span></a>
     </div>
 
     <div id="gift-modal">
-        <h2 style="font-size: 28px; font-weight: 800; color:var(--text-main); margin:0; font-family:'Montserrat';" id="l-lucky">Beast Luck</h2>
+        <h2 style="font-size: 32px; font-weight: 900; color:var(--text-main); margin:0; font-family:'Montserrat';" id="l-lucky">BEAST LUCK</h2>
         <div class="wheel-container">
             <div class="wheel-pointer"></div>
             <canvas id="wheel-canvas" width="600" height="600"></canvas>
         </div>
-        <button class="btn-main-action" style="max-width: 280px;" onclick="runWheel()" id="l-spin">КРУТИТЬ</button>
-        <div style="margin-top: 20px; color: var(--text-dim); font-weight: 700; cursor: pointer; font-family:'Montserrat';" onclick="closeGiftModal()" id="l-back">← НАЗАД</div>
+        <button class="btn-main-action" style="max-width: 280px;" onclick="runWheel()" id="l-spin">SPIN NOW</button>
+        <div style="margin-top: 25px; color: var(--text-dim); font-weight: 900; cursor: pointer; font-family:'Montserrat'; letter-spacing: 1px;" onclick="closeGiftModal()" id="l-back">← GO BACK</div>
     </div>
 
     <script>
@@ -215,28 +206,24 @@
         tg.headerColor = "#000000";
 
         const i18n = {
-            ru: { 
-                home: "Главная", stats: "Статы", refs: "Рефы", tariffs: "Тарифы", gift: "Подарок", creation: "ГЕНЕРАЦИЯ v2.0", create_btn: "СОЗДАТЬ И ИНСТРУМЕНТЫ", 
-                project_t: "О ПРОЕКТЕ BEAST", plans_t: "ТАРИФЫ И МОЩНОСТЬ", sec_t: "БЕЗОПАСНОСТЬ", pay_t: "СПОСОБЫ ОПЛАТЫ",
-                spin: "КРУТИТЬ", back: "← НАЗАД", lucky: "Beast Luck",
-                d_proj: "<strong>Beast Omni</strong> — это технологическая экосистема... (полный текст)",
-                d_plans: "Мы подготовили 5 гибких тарифов... (полный текст)"
-            },
             en: { 
-                home: "Home", stats: "Stats", refs: "Refs", tariffs: "Plans", gift: "Gift", creation: "GENERATION v2.0", create_btn: "CREATE & TOOLS", 
-                project_t: "THE BEAST PROJECT", plans_t: "TARIFFS & POWER", sec_t: "SECURITY", pay_t: "PAYMENT METHODS",
-                spin: "SPIN", back: "← BACK", lucky: "Beast Luck"
+                home: "Home", stats: "Stats", refs: "Refs", tariffs: "Plans", gift: "Gift", 
+                creation: "ULTIMATE GENERATION 2.0", create_btn: "CREATE & TOOLS", 
+                project_t: "THE BEAST ECOSYSTEM", plans_t: "POWER TARIFFS", pay_t: "PAYMENT METHODS",
+                supp_t: "24/7 ELITE SUPPORT", supp_d: "Our support team works around the clock. Use the bot for any issues. Do not spam personal messages.",
+                supp_b: "OPEN SUPPORT BOT", spin: "SPIN NOW", back: "← GO BACK", lucky: "BEAST LUCK"
             },
-            am: {
-                home: "Գլխավոր", stats: "Վիճակ", refs: "Ռեֆեր", tariffs: "Պլաններ", gift: "Նվեր", creation: "ԳԵՆԵՐԱՑՈՒՄ v2.0", create_btn: "ՍՏԵՂԾԵԼ", 
-                project_t: "BEAST ՆԱԽԱԳԻԾ", plans_t: "ՍԱԿԱԳՆԵՐ", sec_t: "ԱՆՎՏԱՆԳՈՒԹՅՈՒՆ", pay_t: "ՎՃԱՐՈՒՄ",
-                spin: "ՊՏՏԵԼ", back: "← ՀԵՏ", lucky: "Հաջողություն"
+            ru: { 
+                home: "Главная", stats: "Статы", refs: "Рефы", tariffs: "Тарифы", gift: "Подарок", 
+                creation: "ULTIMATE ГЕНЕРАЦИЯ 2.0", create_btn: "СОЗДАТЬ И ИНСТРУМЕНТЫ", 
+                project_t: "ЭКОСИСТЕМА BEAST", plans_t: "МОЩНОСТЬ И ТАРИФЫ", pay_t: "СПОСОБЫ ОПЛАТЫ",
+                supp_t: "ЭЛИТНАЯ ПОДДЕРЖКА 24/7", supp_d: "Наша команда работает круглосуточно. По любым вопросам используйте бота поддержки. Не пишите в личку!",
+                supp_b: "ОТКРЫТЬ БОТА ПОДДЕРЖКИ", spin: "КРУТИТЬ", back: "← НАЗАД", lucky: "УДАЧА BEAST"
             }
-            // Сюда добавлены остальные языки (ES, IT, AR, ZH, HI, CA, BR) по аналогии
         };
 
         function changeLanguage(lang) {
-            const t = i18n[lang] || i18n.en;
+            const t = i18n[lang];
             document.getElementById('tab-home').innerText = t.home;
             document.getElementById('tab-stats').innerText = t.stats;
             document.getElementById('tab-refs').innerText = t.refs;
@@ -246,8 +233,10 @@
             document.getElementById('l-create-btn').innerText = t.create_btn;
             document.getElementById('l-title-project').innerText = t.project_t;
             document.getElementById('l-title-plans').innerText = t.plans_t;
-            document.getElementById('l-title-sec').innerText = t.sec_t;
             document.getElementById('l-title-pay').innerText = t.pay_t;
+            document.getElementById('l-title-supp').innerText = t.supp_t;
+            document.getElementById('l-desc-supp').innerText = t.supp_d;
+            document.getElementById('l-btn-supp').innerText = t.supp_b;
             document.getElementById('l-spin').innerText = t.spin;
             document.getElementById('l-back').innerText = t.back;
             document.getElementById('l-lucky').innerText = t.lucky;
@@ -263,7 +252,7 @@
                 ctx.arc(300, 300, 300, i*(Math.PI/4), (i+1)*(Math.PI/4)); 
                 ctx.fill(); ctx.save(); ctx.translate(300,300); 
                 ctx.rotate(i*(Math.PI/4)+Math.PI/8); ctx.fillStyle="#fff"; 
-                ctx.font="bold 46px Montserrat"; ctx.textAlign="right"; 
+                ctx.font="900 46px Montserrat"; ctx.textAlign="right"; 
                 ctx.fillText(p.n, 280, 15); ctx.restore(); 
             }); 
         }
@@ -272,16 +261,19 @@
             const canvas = document.getElementById('wheel-canvas'); 
             const idx = Math.floor(Math.random()*prizes.length); 
             canvas.style.transform = `rotate(${3600+(idx*45)}deg)`; 
-            setTimeout(() => { tg.showAlert("Done!"); }, 4100); 
+            setTimeout(() => { tg.showAlert("Wheel Stopped!"); }, 4100); 
         }
 
         function openGiftModal() { document.getElementById('gift-modal').style.display='flex'; drawWheel(); }
         function closeGiftModal() { document.getElementById('gift-modal').style.display='none'; }
 
         window.onload = () => { 
-            setTimeout(() => { document.getElementById('splash-screen').style.opacity='0'; setTimeout(()=>document.getElementById('splash-screen').style.display='none',500); }, 3000);
+            setTimeout(() => { 
+                document.getElementById('splash-screen').style.opacity='0'; 
+                setTimeout(()=>document.getElementById('splash-screen').style.display='none',500); 
+            }, 3000);
             if(tg.initDataUnsafe?.user) document.getElementById('user-name').innerText = tg.initDataUnsafe.user.first_name.toUpperCase();
-            changeLanguage('ru'); 
+            changeLanguage('en'); 
         };
     </script>
 </body>
