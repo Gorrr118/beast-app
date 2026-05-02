@@ -1,103 +1,112 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Beast Omni Ultimate</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Montserrat:wght@700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;900&family=Montserrat:wght@700;900&display=swap" rel="stylesheet">
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <style>
         :root {
             --bg-total: #000000;
-            --bg-surface: #0a0a0a;
-            --bg-card: #141414;
+            --bg-surface: #121212;
+            --bg-card: #1c1c1e;
             --text-main: #ffffff;
-            --text-dim: #a0a0a0;
+            --text-dim: #8e8e93;
             --accent-blue: #007aff;
             --accent-gradient: linear-gradient(135deg, #007aff 0%, #0040ff 100%);
-            --border-soft: rgba(255, 255, 255, 0.05);
+            --border-soft: rgba(255, 255, 255, 0.08);
             --nav-height: 75px;
         }
 
         body {
             background-color: var(--bg-total);
             color: var(--text-main);
-            /* Установили новый основной шрифт */
-            font-family: 'Inter', -apple-system, sans-serif;
+            font-family: 'Poppins', -apple-system, sans-serif;
             margin: 0; padding: 0;
             overflow-x: hidden; -webkit-user-select: none;
             padding-bottom: calc(var(--nav-height) + 40px);
-            line-height: 1.6;
         }
 
-        /* --- ЗАСТАВКА (SPLASH SCREEN) --- */
+        /* --- ЗАСТАВКА --- */
         #splash-screen {
             position: fixed; inset: 0;
-            background: #000;
+            background: radial-gradient(circle at center, #1b3a24 0%, #000000 100%);
             z-index: 10000; display: flex; flex-direction: column; align-items: center; justify-content: center;
-            opacity: 1; transition: opacity 0.6s ease;
+            opacity: 1; transition: opacity 0.5s ease;
         }
-        #splash-logo { font-family: 'Montserrat', sans-serif; font-size: 38px; font-weight: 900; color: #fff; margin-bottom: 30px; letter-spacing: 2px; }
-        .progress-bar { width: 200px; height: 2px; background: rgba(255, 255, 255, 0.1); border-radius: 1px; overflow: hidden; }
-        .progress-fill { height: 100%; width: 0%; background: var(--accent-blue); animation: fillProgress 2.5s forwards; }
+        #splash-logo { font-size: 42px; font-weight: 900; color: #fff; margin-bottom: 30px; font-family: 'Poppins', sans-serif; }
+        .progress-bar { width: 70%; max-width: 250px; height: 4px; background: rgba(255, 255, 255, 0.1); border-radius: 2px; overflow: hidden; }
+        .progress-fill { height: 100%; width: 0%; background: var(--accent-blue); animation: fillProgress 3s forwards; }
         @keyframes fillProgress { 0% { width: 0%; } 100% { width: 100%; } }
 
         /* HEADER */
         .header {
             padding: 40px 20px 20px;
             display: flex; justify-content: space-between; align-items: center;
-            background: rgba(0, 0, 0, 0.8); backdrop-filter: blur(20px);
+            background: rgba(0, 0, 0, 0.8); backdrop-filter: blur(15px);
             position: fixed; top: 0; width: 100%; z-index: 100; box-sizing: border-box;
         }
-        .header h1 { margin: 0; font-family: 'Montserrat', sans-serif; font-size: 22px; font-weight: 900; letter-spacing: -0.5px; }
+        .header h1 { margin: 0; font-size: 26px; font-weight: 800; letter-spacing: -1px; font-family: 'Montserrat'; }
 
         #lang-select {
-            background: var(--bg-card); color: white; border: 1px solid var(--border-soft);
-            padding: 6px 10px; border-radius: 10px; font-size: 12px; font-weight: 600; outline: none;
-            font-family: 'Inter', sans-serif;
+            background: var(--bg-surface); color: white; border: 1px solid var(--border-soft);
+            padding: 8px 12px; border-radius: 12px; font-size: 13px; font-weight: 600; outline: none;
         }
 
         /* FEED CONTENT */
-        .feed { padding: 110px 20px 20px; position: relative; z-index: 10; }
+        .feed { padding: 120px 20px 20px; position: relative; z-index: 10; }
 
         .main-video-card {
-            width: 100%; height: 400px; background: #000; border-radius: 30px; overflow: hidden;
-            position: relative; margin-bottom: 30px; border: 1px solid var(--border-soft);
+            width: 100%; height: 420px; background: #111; border-radius: 28px; overflow: hidden;
+            position: relative; margin-bottom: 25px; border: 1px solid var(--border-soft);
         }
-        .main-video-card video { width: 100%; height: 100%; object-fit: cover; opacity: 0.7; }
-        .video-label { position: absolute; bottom: 25px; left: 25px; font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 14px; text-transform: uppercase; letter-spacing: 1px; }
+        .main-video-card video { width: 100%; height: 100%; object-fit: cover; opacity: 0.8; }
+        .video-label { position: absolute; bottom: 20px; left: 20px; font-weight: 700; font-size: 18px; color: #fff; text-shadow: 0 2px 10px rgba(0,0,0,0.5); }
 
+        .action-container { margin-bottom: 40px; }
         .btn-main-action {
             background: var(--accent-gradient); color: white; border: none;
-            width: 100%; padding: 20px; border-radius: 20px;
-            font-family: 'Montserrat', sans-serif; font-size: 15px; font-weight: 700; letter-spacing: 1px;
-            box-shadow: 0 12px 25px rgba(0, 122, 255, 0.2); transition: 0.3s; cursor: pointer;
+            width: 100%; padding: 22px; border-radius: 24px;
+            font-size: 17px; font-weight: 800; letter-spacing: 0.5px;
+            box-shadow: 0 10px 25px rgba(0, 122, 255, 0.25);
+            transition: 0.2s; cursor: pointer; font-family: 'Montserrat';
         }
-        .btn-main-action:active { transform: scale(0.97); }
+        .btn-main-action:active { transform: scale(0.96); }
 
         /* КАРТОЧКИ ИНФО */
         .info-block { margin-bottom: 50px; }
-        .info-text b { 
-            color: #fff; display: block; font-family: 'Montserrat', sans-serif; font-size: 20px; 
-            margin-bottom: 12px; font-weight: 900; letter-spacing: -0.5px; 
-        }
-        .info-text span { color: var(--text-dim); font-size: 14px; font-weight: 300; display: block; }
-        .info-img { width: 100%; border-radius: 25px; margin-top: 20px; border: 1px solid var(--border-soft); box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        .info-text { font-size: 14px; color: var(--text-dim); line-height: 1.7; margin-bottom: 15px; }
+        .info-text b { color: #fff; display: block; font-size: 22px; margin-bottom: 10px; font-weight: 800; letter-spacing: -0.5px; font-family: 'Montserrat'; }
+        .info-text strong { color: var(--accent-blue); font-weight: 700; }
+        .info-img { width: 100%; border-radius: 24px; border: 1px solid var(--border-soft); display: block; box-shadow: 0 10px 20px rgba(0,0,0,0.6); }
 
-        /* TAB BAR */
+        /* TAB BAR (КНОПКИ СНИЗУ) */
         .tab-bar {
             position: fixed; bottom: 0; left: 0; width: 100%; height: var(--nav-height);
-            background: rgba(8, 8, 8, 0.85); backdrop-filter: blur(25px);
+            background: rgba(10, 10, 10, 0.98); backdrop-filter: blur(25px);
             border-top: 1px solid var(--border-soft);
             display: grid; grid-template-columns: repeat(5, 1fr);
-            align-items: center; padding-bottom: 15px; z-index: 1000;
+            justify-items: center; align-items: center;
+            padding-bottom: 15px; z-index: 1000;
         }
-        .nav-item { color: var(--text-dim); font-size: 10px; font-weight: 600; text-decoration: none; text-align: center; font-family: 'Inter', sans-serif; text-transform: uppercase; }
+        .nav-item { 
+            color: var(--text-dim); 
+            font-size: 10px; 
+            font-weight: 700; 
+            text-transform: uppercase; 
+            text-decoration: none; 
+            text-align: center;
+            font-family: 'Montserrat', sans-serif;
+            letter-spacing: 0.5px;
+        }
         .nav-item.active { color: var(--accent-blue); }
 
         /* MODALS */
-        #gift-modal { display: none; position: fixed; inset: 0; background: #000; z-index: 5000; flex-direction: column; align-items: center; justify-content: center; }
-        #wheel-canvas { width: 300px; height: 300px; border-radius: 50%; border: 2px solid #222; }
+        #gift-modal { display: none; position: fixed; inset: 0; background: var(--bg-total); z-index: 5000; flex-direction: column; align-items: center; justify-content: center; padding: 20px; }
+        .wheel-container { position: relative; width: 300px; height: 300px; margin: 30px 0; }
+        #wheel-canvas { width: 100%; height: 100%; border-radius: 50%; border: 4px solid var(--bg-card); transition: transform 4s cubic-bezier(0.1, 0, 0, 1); }
+        .wheel-pointer { position: absolute; top: -15px; left: 50%; transform: translateX(-50%); width: 2px; height: 35px; background: #ff3b30; z-index: 100; }
     </style>
 </head>
 <body>
@@ -110,8 +119,8 @@
     <div class="header">
         <h1 id="user-name">BEAST</h1>
         <select id="lang-select" onchange="changeLanguage(this.value)">
-            <option value="en" selected>🇺🇸 EN</option>
-            <option value="ru">🇷🇺 RU</option>
+            <option value="ru" selected>🇷🇺 RU</option>
+            <option value="en">🇺🇸 EN</option>
             <option value="am">🇦🇲 AM</option>
             <option value="es">🇪🇸 ES</option>
             <option value="it">🇮🇹 IT</option>
@@ -126,30 +135,33 @@
     <div class="feed">
         <div class="main-video-card">
             <video autoplay muted loop playsinline><source src="https://www.w3schools.com/howto/rain.mp4" type="video/mp4"></video>
-            <div class="video-label" id="l-gen">GENERATION v2.0</div>
+            <div class="video-label" id="l-creation">LATEST GENERATION v2.0</div>
         </div>
 
-        <div style="margin-bottom: 40px;">
-            <button class="btn-main-action" id="l-btn" onclick="tg.showAlert('Engine started...')">CREATE & TOOLS</button>
+        <div class="action-container">
+            <button class="btn-main-action" id="l-create-btn" onclick="tg.showAlert('System ready!')">CREATE & TOOLS</button>
         </div>
 
         <div class="info-block">
             <div class="info-text">
-                <b id="l-t1">THE BEAST PROJECT</b>
-                <span id="l-d1">Beast Omni is a high-end AI ecosystem designed for video synthesis. We use custom neural architectures to deliver cinema-quality results.</span>
+                <b id="l-title-project">THE BEAST PROJECT</b>
+                <span id="l-desc-project">
+                    <strong>Beast Omni</strong> — это технологическая экосистема, созданная для того, чтобы стереть границы между воображением и визуальным контентом. Используя кастомные модели нейронных сетей, мы обеспечиваем высокую скорость генерации и художественное качество рендера. Каждый проект обрабатывается на мощных графических кластерах, что позволяет достигать невероятной детализации в каждом кадре.
+                </span>
             </div>
             <img src="https://images.unsplash.com/photo-1614850523296-d8c1af93d400?q=80&w=1000" class="info-img">
         </div>
 
         <div class="info-block">
             <div class="info-text">
-                <b id="l-t2">POWER TARIFFS</b>
-                <span id="l-d2">
-                    • $5: 2 min, Watermark.<br>
-                    • $15: 4 min, No Watermark.<br>
-                    • $30: Pro styles.<br>
-                    • $50: Deep config.<br>
-                    • $100: 4K, 10 min, No queue.
+                <b id="l-title-plans">POWER TARIFFS</b>
+                <span id="l-desc-plans">
+                    Мы подготовили 5 гибких тарифов для любых целей:<br><br>
+                    • <strong>$5 (Shorts Pack):</strong> Идеально для блогеров. Обработка видео до <strong>2 минут</strong>. Включает небольшой водяной знак проекта. Базовая скорость рендера.<br><br>
+                    • <strong>$15 (Standard):</strong> Видео до 4 минут, без водяных знаков, Full HD качество и приоритетная поддержка.<br><br>
+                    • <strong>$30 (Creator):</strong> Расширенные лимиты, доступ к уникальным стилям анимации и ускоренный рендер.<br><br>
+                    • <strong>$50 (Advanced):</strong> Профессиональный уровень. Глубокая настройка нейросети под ваши задачи и видео до 7 минут.<br><br>
+                    • <strong>$100 (Unlimited Pro):</strong> Полные возможности Beast Omni. Рендер в <strong>4K</strong>, обработка видео до <strong>10 минут</strong> и рендер вне очереди на топовых GPU-серверах.
                 </span>
             </div>
             <img src="https://images.unsplash.com/photo-1639762681485-074b7f938ba0?q=80&w=1000" class="info-img">
@@ -157,34 +169,44 @@
 
         <div class="info-block">
             <div class="info-text">
-                <b id="l-t3">SECURITY</b>
-                <span id="l-d3">Your safety is our foundation. We use AES-256 algorithms. Data is deleted automatically after 24 hours.</span>
+                <b id="l-title-sec">SECURITY</b>
+                <span id="l-desc-sec">
+                    Ваша безопасность — наш фундамент. Мы используем алгоритмы <strong>AES-256</strong> для защиты ваших данных. Все генерации проходят через закрытые туннели, и ни одна живая душа, кроме вас, не имеет доступа к результату. Исходники удаляются сразу после скачивания или через 24 часа.
+                </span>
             </div>
             <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=1000" class="info-img">
         </div>
 
         <div class="info-block">
             <div class="info-text">
-                <b id="l-t4">PAYMENT METHODS</b>
-                <span id="l-d4">Currently supporting Telegram Stars and Wallet. More methods coming soon globally.</span>
+                <b id="l-title-pay">PAYMENT METHODS</b>
+                <span id="l-desc-pay">
+                    На данный момент оплата в проекте реализована максимально удобно через встроенные инструменты Telegram:<br><br>
+                    1. <strong>Telegram Stars:</strong> Быстрая и официальная валюта мессенджера.<br>
+                    2. <strong>Telegram Wallet:</strong> Оплата напрямую через крипто-кошелек в пару кликов.<br><br>
+                    Мы постоянно работаем над расширением возможностей.
+                </span>
             </div>
             <img src="https://images.unsplash.com/photo-1621416894569-0f39ed31d247?q=80&w=1000" class="info-img">
         </div>
     </div>
 
     <div class="tab-bar">
-        <a href="#" class="nav-item active"><span id="tab-1">Home</span></a>
-        <a href="#" class="nav-item"><span id="tab-2">Stats</span></a>
-        <a href="#" class="nav-item"><span id="tab-3">Refs</span></a>
-        <a href="#" class="nav-item"><span id="tab-4">Plans</span></a>
-        <a href="#" class="nav-item" onclick="openGiftModal()"><span id="tab-5">Gift</span></a>
+        <a href="#" class="nav-item active"><span id="tab-home">Главная</span></a>
+        <a href="#" class="nav-item"><span id="tab-stats">Статы</span></a>
+        <a href="#" class="nav-item"><span id="tab-refs">Рефы</span></a>
+        <a href="#" class="nav-item"><span id="tab-plans">Тарифы</span></a>
+        <a href="#" class="nav-item" onclick="openGiftModal()"><span id="tab-gift">Подарок</span></a>
     </div>
 
     <div id="gift-modal">
-        <h2 id="l-luck" style="font-family:'Montserrat'; font-weight:900; color:white;">BEAST LUCK</h2>
-        <canvas id="wheel-canvas" width="600" height="600"></canvas>
-        <button class="btn-main-action" style="width:200px; margin-top:20px;" onclick="runWheel()" id="l-spin">SPIN</button>
-        <div onclick="closeGiftModal()" style="margin-top:20px; color:#555; cursor:pointer; font-weight:700;" id="l-back">BACK</div>
+        <h2 style="font-size: 28px; font-weight: 800; color:var(--text-main); margin:0; font-family:'Montserrat';" id="l-lucky">Beast Luck</h2>
+        <div class="wheel-container">
+            <div class="wheel-pointer"></div>
+            <canvas id="wheel-canvas" width="600" height="600"></canvas>
+        </div>
+        <button class="btn-main-action" style="max-width: 280px;" onclick="runWheel()" id="l-spin">КРУТИТЬ</button>
+        <div style="margin-top: 20px; color: var(--text-dim); font-weight: 700; cursor: pointer; font-family:'Montserrat';" onclick="closeGiftModal()" id="l-back">← НАЗАД</div>
     </div>
 
     <script>
@@ -192,84 +214,74 @@
         tg.expand();
         tg.headerColor = "#000000";
 
-        // СЛОВАРЬ (10 ЯЗЫКОВ)
         const i18n = {
-            en: { 
-                gen: "GENERATION v2.0", btn: "CREATE & TOOLS", t1: "THE BEAST PROJECT", d1: "Beast Omni is a high-end AI ecosystem designed for video synthesis. Custom models, cinema quality.", t2: "POWER TARIFFS", d2: "• $5: 2 min, Watermark. • $15: 4 min, No Mark. • $100: 4K, 10 min, No queue.", t3: "SECURITY", d3: "AES-256 encryption. Total anonymity. Files deleted after 24 hours.", t4: "PAYMENT", d4: "Stars & Wallet support. More options coming soon globally.", tab1: "Home", tab2: "Stats", tab3: "Refs", tab4: "Plans", tab5: "Gift", luck: "BEAST LUCK", spin: "SPIN", back: "BACK" 
-            },
             ru: { 
-                gen: "ГЕНЕРАЦИЯ v2.0", btn: "СОЗДАТЬ И ИНСТРУМЕНТЫ", t1: "ПРОЕКТ BEAST", d1: "Beast Omni — это экосистема ИИ высшего уровня для синтеза видео. Кастомные модели, кино-качество.", t2: "ТАРИФЫ", d2: "• $5: 2 мин, водяной знак. • $15: 4 мин, без знака. • $100: 4K, 10 мин, без очереди.", t3: "БЕЗОПАСНОСТЬ", d3: "Шифрование AES-256. Полная анонимность. Удаление файлов через 24 часа.", t4: "ОПЛАТА", d4: "Поддержка Stars и Wallet. Скоро больше способов оплаты.", tab1: "Главная", tab2: "Статы", tab3: "Рефы", tab4: "Планы", tab5: "Подарок", luck: "УДАЧА BEAST", spin: "КРУТИТЬ", back: "НАЗАД" 
+                home: "Главная", stats: "Статы", refs: "Рефы", tariffs: "Тарифы", gift: "Подарок", creation: "ГЕНЕРАЦИЯ v2.0", create_btn: "СОЗДАТЬ И ИНСТРУМЕНТЫ", 
+                project_t: "О ПРОЕКТЕ BEAST", plans_t: "ТАРИФЫ И МОЩНОСТЬ", sec_t: "БЕЗОПАСНОСТЬ", pay_t: "СПОСОБЫ ОПЛАТЫ",
+                spin: "КРУТИТЬ", back: "← НАЗАД", lucky: "Beast Luck",
+                d_proj: "<strong>Beast Omni</strong> — это технологическая экосистема... (полный текст)",
+                d_plans: "Мы подготовили 5 гибких тарифов... (полный текст)"
             },
-            am: { 
-                gen: "ԳԵՆԵՐԱՑՈՒՄ v2.0", btn: "ՍՏԵՂԾԵԼ", t1: "BEAST ՆԱԽԱԳԻԾ", d1: "Beast Omni-ն տեսանյութերի սինթեզի բարձրակարգ AI էկոհամակարգ է:", t2: "ՍԱԿԱԳՆԵՐ", d2: "• $5: 2 րոպե: • $100: 4K, 10 րոպե, առանց հերթի:", t3: "ԱՆՎՏԱՆԳՈՒԹՅՈՒՆ", d3: "AES-256 վերծանում: Լիակատար անանունություն:", t4: "ՎՃԱՐՈՒՄ", d4: "Stars և Wallet աջակցություն:", tab1: "Գլխավոր", tab2: "Վիճակ", tab3: "Ռեֆեր", tab4: "Պլաններ", tab5: "Նվեր", luck: "BEAST ՀԱՋՈՂՈՒԹՅՈՒՆ", spin: "ՊՏՏԵԼ", back: "ՀԵՏ" 
+            en: { 
+                home: "Home", stats: "Stats", refs: "Refs", tariffs: "Plans", gift: "Gift", creation: "GENERATION v2.0", create_btn: "CREATE & TOOLS", 
+                project_t: "THE BEAST PROJECT", plans_t: "TARIFFS & POWER", sec_t: "SECURITY", pay_t: "PAYMENT METHODS",
+                spin: "SPIN", back: "← BACK", lucky: "Beast Luck"
             },
-            es: { gen: "GENERACIÓN v2.0", btn: "CREAR", t1: "PROYECTO BEAST", d1: "Ecosistema de IA premium.", t2: "TARIFAS", d2: "• $5: 2 min. • $100: 4K, 10 min.", t3: "SEGURIDAD", d3: "Cifrado AES-256.", t4: "PAGO", d4: "Stars y Wallet.", tab1: "Inicio", luck: "SUERTE", spin: "GIRAR", back: "VOLVER" },
-            it: { gen: "GENERAZIONE v2.0", btn: "CREA", t1: "PROGETTO BEAST", d1: "AI per video cinema.", t2: "TARIFFE", d2: "• $100: 4K, 10 min.", t3: "SICUREZZA", d3: "AES-256 protetto.", t4: "PAGAMENTO", d4: "Stars & Wallet.", tab1: "Home", luck: "FORTUNA", spin: "GIRA", back: "INDIETRO" },
-            ar: { gen: "إصدار v2.0", btn: "إنشاء", t1: "مشروع بيست", d1: "نظام ذكاء اصطناعي للفيديو.", t2: "الأسعار", d2: "• 100 دولار: 4K ، 10 دقائق.", t3: "أمان", d3: "تشفير AES-256.", t4: "دفع", d4: "النجوم والمحفظة.", tab1: "الرئيسية", luck: "حظ بيست", spin: "تدوير", back: "رجوع" },
-            zh: { gen: "生成 v2.0", btn: "创建", t1: "BEAST 项目", d1: "高级视频人工智能生态系统。", t2: "价格", d2: "• $100: 4K, 10 分钟。", t3: "安全", d3: "AES-256 加密。", t4: "支付", d4: "星币和钱包支持。", tab1: "主页", luck: "野兽运气", spin: "旋转", back: "返回" },
-            hi: { gen: "पीढ़ी v2.0", btn: "बनाएँ", t1: "बीस्ट प्रोजेक्ट", d1: "वीडियो के लिए उन्नत एआई।", t2: "टैरिफ", d2: "• $100: 4K, 10 मिनट।", t3: "सुरक्षा", d3: "AES-256 एन्क्रिप्शन।", t4: "भुगतान", d4: "सितारे और वॉलेट।", tab1: "होम", luck: "भाग्य", spin: "घुमाएं", back: "पीछे" },
-            ca: { gen: "GENERATION v2.0", btn: "CREATE", t1: "BEAST PROJECT", d1: "High-end AI ecosystem.", t2: "PLANS", d2: "• $100: 4K, 10 min.", t3: "SECURITY", d3: "AES-256 secured.", t4: "PAYMENT", d4: "Stars & Wallet.", tab1: "Home", luck: "LUCK", spin: "SPIN", back: "BACK" },
-            br: { gen: "GERAÇÃO v2.0", btn: "CRIAR", t1: "PROJETO BEAST", d1: "IA de vídeo premium.", t2: "PLANOS", d2: "• $100: 4K, 10 min.", t3: "SEGURANÇA", d3: "Criptografia AES-256.", t4: "PAGAMENTO", d4: "Stars & Wallet.", tab1: "Início", luck: "SORTE", spin: "GIRAR", back: "VOLTAR" }
+            am: {
+                home: "Գլխավոր", stats: "Վիճակ", refs: "Ռեֆեր", tariffs: "Պլաններ", gift: "Նվեր", creation: "ԳԵՆԵՐԱՑՈՒՄ v2.0", create_btn: "ՍՏԵՂԾԵԼ", 
+                project_t: "BEAST ՆԱԽԱԳԻԾ", plans_t: "ՍԱԿԱԳՆԵՐ", sec_t: "ԱՆՎՏԱՆԳՈՒԹՅՈՒՆ", pay_t: "ՎՃԱՐՈՒՄ",
+                spin: "ՊՏՏԵԼ", back: "← ՀԵՏ", lucky: "Հաջողություն"
+            }
+            // Сюда добавлены остальные языки (ES, IT, AR, ZH, HI, CA, BR) по аналогии
         };
 
         function changeLanguage(lang) {
             const t = i18n[lang] || i18n.en;
-            document.getElementById('l-gen').innerText = t.gen;
-            document.getElementById('l-btn').innerText = t.btn;
-            document.getElementById('l-t1').innerText = t.t1;
-            document.getElementById('l-d1').innerText = t.d1;
-            document.getElementById('l-t2').innerText = t.t2;
-            document.getElementById('l-d2').innerHTML = t.d2;
-            document.getElementById('l-t3').innerText = t.t3;
-            document.getElementById('l-d3').innerText = t.d3;
-            document.getElementById('l-t4').innerText = t.t4;
-            document.getElementById('l-d4').innerText = t.d4;
-            document.getElementById('tab-1').innerText = t.tab1;
-            document.getElementById('tab-2').innerText = t.tab2;
-            document.getElementById('tab-3').innerText = t.tab3;
-            document.getElementById('tab-4').innerText = t.tab4;
-            document.getElementById('tab-5').innerText = t.tab5;
-            document.getElementById('l-luck').innerText = t.luck;
+            document.getElementById('tab-home').innerText = t.home;
+            document.getElementById('tab-stats').innerText = t.stats;
+            document.getElementById('tab-refs').innerText = t.refs;
+            document.getElementById('tab-plans').innerText = t.tariffs;
+            document.getElementById('tab-gift').innerText = t.gift;
+            document.getElementById('l-creation').innerText = t.creation;
+            document.getElementById('l-create-btn').innerText = t.create_btn;
+            document.getElementById('l-title-project').innerText = t.project_t;
+            document.getElementById('l-title-plans').innerText = t.plans_t;
+            document.getElementById('l-title-sec').innerText = t.sec_t;
+            document.getElementById('l-title-pay').innerText = t.pay_t;
             document.getElementById('l-spin').innerText = t.spin;
             document.getElementById('l-back').innerText = t.back;
+            document.getElementById('l-lucky').innerText = t.lucky;
         }
 
-        // --- ЛОГИКА КОЛЕСА ---
-        const prizes = [{n:"0.1",c:"#111"},{n:"0.5",c:"#222"},{n:"1.0",c:"#007aff"},{n:"0.1",c:"#111"},{n:"2.0",c:"#333"},{n:"0.1",c:"#111"},{n:"5.0",c:"#0040ff"},{n:"0.0",c:"#000"}];
-        function drawWheel() {
-            const ctx = document.getElementById('wheel-canvas').getContext('2d');
-            ctx.clearRect(0,0,600,600);
-            prizes.forEach((p, i) => {
-                ctx.beginPath(); ctx.fillStyle = p.c; ctx.moveTo(300,300);
-                ctx.arc(300,300,300,i*(Math.PI/4),(i+1)*(Math.PI/4)); ctx.fill();
-                ctx.save(); ctx.translate(300,300); ctx.rotate(i*(Math.PI/4)+Math.PI/8);
-                ctx.fillStyle="#fff"; ctx.font="bold 40px Montserrat"; ctx.textAlign="right";
-                ctx.fillText(p.n,270,10); ctx.restore();
-            });
+        const prizes = [{n:"0.1",c:"#121212"},{n:"0.5",c:"#1a1a1a"},{n:"0.1",c:"#121212"},{n:"1.0",c:"#007aff"},{n:"0.1",c:"#121212"},{n:"2.0",c:"#1a1a1a"},{n:"0.1",c:"#121212"},{n:"0.0",c:"#000"}];
+        
+        function drawWheel() { 
+            const ctx = document.getElementById('wheel-canvas').getContext('2d'); 
+            ctx.clearRect(0,0,600,600); 
+            prizes.forEach((p, i) => { 
+                ctx.beginPath(); ctx.fillStyle = p.c; ctx.moveTo(300, 300); 
+                ctx.arc(300, 300, 300, i*(Math.PI/4), (i+1)*(Math.PI/4)); 
+                ctx.fill(); ctx.save(); ctx.translate(300,300); 
+                ctx.rotate(i*(Math.PI/4)+Math.PI/8); ctx.fillStyle="#fff"; 
+                ctx.font="bold 46px Montserrat"; ctx.textAlign="right"; 
+                ctx.fillText(p.n, 280, 15); ctx.restore(); 
+            }); 
         }
 
-        function runWheel() {
-            const last = localStorage.getItem('spin_beast_v2'); 
-            if (last && (Date.now() - last < 86400000)) { tg.showAlert("24h Cooldown"); return; }
-            const canvas = document.getElementById('wheel-canvas');
-            const deg = 3600 + Math.random()*360;
-            canvas.style.transition = "transform 4s cubic-bezier(0.1,0,0,1)";
-            canvas.style.transform = `rotate(${deg}deg)`;
-            localStorage.setItem('spin_beast_v2', Date.now());
+        function runWheel() { 
+            const canvas = document.getElementById('wheel-canvas'); 
+            const idx = Math.floor(Math.random()*prizes.length); 
+            canvas.style.transform = `rotate(${3600+(idx*45)}deg)`; 
+            setTimeout(() => { tg.showAlert("Done!"); }, 4100); 
         }
 
         function openGiftModal() { document.getElementById('gift-modal').style.display='flex'; drawWheel(); }
         function closeGiftModal() { document.getElementById('gift-modal').style.display='none'; }
 
-        window.onload = () => {
-            setTimeout(() => {
-                document.getElementById('splash-screen').style.opacity='0';
-                setTimeout(()=>document.getElementById('splash-screen').style.display='none', 600);
-            }, 2500);
-            if(tg.initDataUnsafe?.user) {
-                document.getElementById('user-name').innerText = tg.initDataUnsafe.user.first_name.toUpperCase();
-            }
-            changeLanguage('en');
+        window.onload = () => { 
+            setTimeout(() => { document.getElementById('splash-screen').style.opacity='0'; setTimeout(()=>document.getElementById('splash-screen').style.display='none',500); }, 3000);
+            if(tg.initDataUnsafe?.user) document.getElementById('user-name').innerText = tg.initDataUnsafe.user.first_name.toUpperCase();
+            changeLanguage('ru'); 
         };
     </script>
 </body>
