@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Beast Omni Pro</title>
+    <title>Beast Omni Ultimate</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;900&display=swap" rel="stylesheet">
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <style>
@@ -23,16 +23,17 @@
         body {
             background-color: var(--bg-total);
             color: var(--text-main);
+            /* ТВОЙ СИСТЕМНЫЙ ШРИФТ КАК В BEGY */
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             margin: 0; padding: 0;
             overflow-x: hidden; -webkit-user-select: none;
             padding-bottom: calc(var(--nav-height) + 30px); /* Место под навигацию */
         }
 
-        /* --- НОВАЯ СЕКЦИЯ: ЗАСТАВКА (SPLASH SCREEN) --- */
+        /* --- ЗАСТАВКА ЗАГРУЗКИ (SPLASH SCREEN) --- */
         #splash-screen {
             position: fixed; inset: 0;
-            background: radial-gradient(circle at center, #1b3a24 0%, #000000 100%); /* Зеленый градиент как в BEGY */
+            background: radial-gradient(circle at center, #1b3a24 0%, #000000 100%); /* Зеленый градиент BEGY */
             z-index: 10000;
             display: flex; flex-direction: column; align-items: center; justify-content: center;
             opacity: 1; transition: opacity 0.5s ease;
@@ -96,8 +97,9 @@
             display: flex; justify-content: space-between; align-items: center;
         }
 
-        .stat-label { font-size: 13px; font-weight: 600; color: var(--text-dim); text-transform: uppercase; }
-        .stat-value { font-size: 32px; font-weight: 800; color: var(--text-main); }
+        /* УБРАЛ НАХУЙ ЖИРНОСТЬ */
+        .stat-label { font-size: 13px; font-weight: 500; color: var(--text-dim); text-transform: uppercase; }
+        .stat-value { font-size: 32px; font-weight: 700; color: var(--text-main); }
         .stat-value span { color: var(--accent-blue); font-size: 16px; opacity: 0.7; }
 
         .badge {
@@ -115,7 +117,7 @@
         }
         .btn-create:active { transform: scale(0.97); opacity: 0.9; }
 
-        /* BOTTOM NAV BAR (TAB BAR) - ТОЧЬ-В-ТОЧЬ КАК НА РЕФЕРЕНСЕ */
+        /* BOTTOM NAV BAR (TAB BAR) - ТОЧЬ-В-ТОЧЬ КАК НА РЕФЕРЕНСЕ, БЕЗ ИКОНОК */
         .tab-bar {
             position: fixed; bottom: 0; left: 0; width: 100%; height: var(--nav-height);
             background: rgba(20, 20, 20, 0.95); backdrop-filter: blur(20px);
@@ -127,14 +129,13 @@
         }
 
         .nav-item {
-            display: flex; flex-direction: column; align-items: center;
-            color: var(--text-dim); font-size: 10px; font-weight: 600;
+            color: var(--text-dim); font-size: 11px; font-weight: 600;
             text-transform: uppercase; text-decoration: none;
             transition: color 0.2s;
+            text-align: center;
         }
 
-        .nav-item.active { color: var(--accent-blue); }
-        .nav-item span { font-size: 22px; margin-bottom: 3px; }
+        .nav-item.active { color: var(--accent-blue); font-weight: 700; }
 
         /* MODAL */
         #gift-modal {
@@ -186,11 +187,11 @@
     </div>
 
     <div class="tab-bar">
-        <a href="#" class="nav-item active"><span>📊</span><span id="tab-stats">Stats</span></a>
-        <a href="#" class="nav-item"><span>👥</span><span id="tab-refs">Refs</span></a>
-        <a href="#" class="nav-item"><span>💎</span><span id="tab-plans">Plans</span></a>
-        <a href="#" class="nav-item" onclick="openGiftModal()"><span>🎁</span><span id="tab-gift">Gift</span></a>
-        <a href="#" class="nav-item"><span>👤</span><span id="tab-profile">User</span></a>
+        <a href="#" class="nav-item active"><span id="tab-home">Главная</span></a>
+        <a href="#" class="nav-item"><span id="tab-stats">Статы</span></a>
+        <a href="#" class="nav-item"><span id="tab-refs">Рефы</span></a>
+        <a href="#" class="nav-item"><span id="tab-plans">Тарифы</span></a>
+        <a href="#" class="nav-item" onclick="openGiftModal()"><span id="tab-gift">Подарок</span></a>
     </div>
 
     <div id="gift-modal">
@@ -216,9 +217,10 @@
                 setTimeout(() => {
                     splash.style.display = 'none';
                 }, 500);
-            }, 3000); // 3 секунды на анимацию полосы
+            }, 3000); // 3 секунды загрузки
         });
 
+        // ТВОЯ ЛОГИКА
         let userPlan = { balance: 0.5 };
         const prizes = [
             {n: "0.1", c: "#121212", v: 0.1}, {n: "0.5", c: "#1a1a1a", v: 0.5},
@@ -228,53 +230,30 @@
         ];
 
         const i18n = {
-            ru: { limit: "Лимит видео", unit: "мин.", create: "СОЗДАТЬ ВИДЕО", t_stats: "Статы", t_refs: "Рефы", t_plans: "Plans", t_gift: "Gift", t_profile: "User", spin: "КРУТИТЬ", back: "← НАЗАД", lucky: "Beast Luck" },
-            en: { limit: "Video Limit", unit: "min.", create: "CREATE VIDEO", t_stats: "Stats", t_refs: "Refs", t_plans: "Plans", t_gift: "Gift", t_profile: "User", spin: "SPIN", back: "← BACK", lucky: "Beast Luck" }
+            ru: { limit: "Лимит видео", unit: "мин.", create: "СОЗДАТЬ ВИДЕО", home: "Главная", stats: "Статы", refs: "Рефы", tariffs: "Тарифы", gift: "Подарок", spin: "КРУТИТЬ", back: "← НАЗАД", lucky: "Beast Luck" },
+            en: { limit: "Video Limit", unit: "min.", create: "CREATE VIDEO", home: "Home", stats: "Stats", refs: "Refs", tariffs: "Plans", gift: "Gift", spin: "SPIN", back: "← BACK", lucky: "Beast Luck" }
         };
 
         function changeLanguage(lang) {
             const t = i18n[lang] || i18n.en;
             document.getElementById('l-limit').innerText = t.limit;
             document.getElementById('l-create').innerText = t.create;
-            document.getElementById('tab-stats').innerText = t.t_stats;
-            document.getElementById('tab-refs').innerText = t.t_refs;
+            document.getElementById('tab-home').innerText = t.home;
+            document.getElementById('tab-stats').innerText = t.stats;
+            document.getElementById('tab-refs').innerText = t.refs;
+            document.getElementById('tab-plans').innerText = t.tariffs;
+            document.getElementById('tab-gift').innerText = t.gift;
             document.getElementById('l-spin').innerText = t.spin;
             document.getElementById('l-back').innerText = t.back;
             document.getElementById('l-lucky').innerText = t.lucky;
         }
 
-        function drawWheel() {
-            const ctx = document.getElementById('wheel-canvas').getContext('2d');
-            ctx.clearRect(0,0,600,600);
-            prizes.forEach((p, i) => {
-                ctx.beginPath(); ctx.fillStyle = p.c; ctx.moveTo(300, 300); ctx.arc(300, 300, 300, i * (Math.PI/4), (i+1) * (Math.PI/4)); ctx.fill();
-                ctx.save(); ctx.translate(300, 300); ctx.rotate(i * (Math.PI/4) + (Math.PI/8));
-                ctx.fillStyle = "#fff"; ctx.font = "bold 46px sans-serif"; ctx.textAlign = "right"; ctx.fillText(p.n, 280, 15); ctx.restore();
-            });
-        }
-
-        function runWheel() {
-            const last = localStorage.getItem('spin_true_black');
-            if (last && (Date.now() - last < 86400000)) { tg.showAlert("24h cooldown."); return; }
-            const canvas = document.getElementById('wheel-canvas');
-            const idx = Math.floor(Math.random() * prizes.length);
-            canvas.style.transform = `rotate(${3600 + (idx * 45)}deg)`;
-            setTimeout(() => {
-                const win = prizes[prizes.length - 1 - (idx % prizes.length)];
-                userPlan.balance += win.v;
-                document.getElementById('limit-val').innerHTML = `${userPlan.balance.toFixed(1)} <span>мин.</span>`;
-                localStorage.setItem('spin_true_black', Date.now());
-                tg.showAlert(`+${win.n} min`);
-            }, 4100);
-        }
-
+        // ТВОЯ ОСТАЛЬНАЯ ЛОГИКА
+        function drawWheel() { const ctx = document.getElementById('wheel-canvas').getContext('2d'); ctx.clearRect(0,0,600,600); prizes.forEach((p, i) => { ctx.beginPath(); ctx.fillStyle = p.c; ctx.moveTo(300, 300); ctx.arc(300, 300, 300, i * (Math.PI/4), (i+1) * (Math.PI/4)); ctx.fill(); ctx.save(); ctx.translate(300, 300); ctx.rotate(i * (Math.PI/4) + (Math.PI/8)); ctx.fillStyle = "#fff"; ctx.font = "bold 46px sans-serif"; ctx.textAlign = "right"; ctx.fillText(p.n, 280, 15); ctx.restore(); }); }
+        function runWheel() { const last = localStorage.getItem('spin_true_black'); if (last && (Date.now() - last < 86400000)) { tg.showAlert("24h cooldown."); return; } const canvas = document.getElementById('wheel-canvas'); const idx = Math.floor(Math.random() * prizes.length); canvas.style.transform = `rotate(${3600 + (idx * 45)}deg)`; setTimeout(() => { const win = prizes[prizes.length - 1 - (idx % prizes.length)]; userPlan.balance += win.v; document.getElementById('limit-val').innerHTML = `${userPlan.balance.toFixed(1)} <span>мин.</span>`; localStorage.setItem('spin_true_black', Date.now()); tg.showAlert(`+${win.n} min`); }, 4100); }
         function openGiftModal() { document.getElementById('gift-modal').style.display = 'flex'; drawWheel(); }
         function closeGiftModal() { document.getElementById('gift-modal').style.display = 'none'; }
-
-        window.onload = () => {
-            if(tg.initDataUnsafe?.user) document.getElementById('user-name').innerText = tg.initDataUnsafe.user.first_name.toUpperCase();
-            changeLanguage('en');
-        };
+        window.onload = () => { if(tg.initDataUnsafe?.user) document.getElementById('user-name').innerText = tg.initDataUnsafe.user.first_name.toUpperCase(); changeLanguage('en'); };
     </script>
 </body>
 </html>
