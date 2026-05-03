@@ -122,44 +122,77 @@
         padding-bottom: calc(var(--nav-height) + 40px);
     }
 
-   /* --- ОБНОВЛЕННЫЙ SPLASH SCREEN (Neon Edition) --- */
+   /* --- SPLASH SCREEN (Чистый черный + Неоновый Лого) --- */
     #splash-screen {
         position: fixed; inset: 0;
         background: #000000; /* Глубокий черный фон */
         z-index: 10000; display: flex; flex-direction: column; align-items: center; justify-content: center;
         transition: opacity 0.5s ease;
     }
-
     #splash-logo { 
         font-family: 'Montserrat'; font-weight: 900; font-size: 42px; color: #fff; 
         letter-spacing: 2px; margin-bottom: 25px; text-transform: uppercase;
-        /* Та самая синяя обводка-свечение для лого */
+        /* Та самая синяя обводка-свечение на черном */
         text-shadow: 0 0 15px rgba(0, 122, 255, 0.7), 0 0 30px rgba(0, 122, 255, 0.4);
     }
-
     .progress-bar { width: 240px; height: 4px; background: rgba(255,255,255,0.1); border-radius: 10px; overflow: hidden; }
     .progress-fill { height: 100%; width: 0%; background: var(--accent-blue); animation: fillProgress 2.5s ease-in-out forwards; }
     @keyframes fillProgress { to { width: 100%; } }
 
-    /* --- ЭФФЕКТ СИНЕЙ ОБВОДКИ ПРИ НАЖАТИИ --- */
-    /* Добавляем ко всем кнопкам и интерактивным элементам */
+    /* --- ШАПКА (HEADER) - ВОЗВРАТ КАК НА ФОТО 2 --- */
+    .header {
+        padding: 45px 20px 15px; /* Аккуратные отступы */
+        display: flex; justify-content: space-between; align-items: center;
+        background: rgba(0, 0, 0, 0.9); /* Глубокий темный фон */
+        backdrop-filter: blur(20px);
+        position: fixed; top: 0; width: 100%; z-index: 1000;
+        border-bottom: 1px solid var(--border-soft);
+    }
+    
+    /* Никнейм (GORO) - крупно и жирно */
+    .header h1 { 
+        margin: 0; 
+        font-family: 'Montserrat'; 
+        font-weight: 900; 
+        font-size: 26px; /* Крупный размер */
+        letter-spacing: -1px; 
+        text-transform: uppercase;
+        color: #ffffff;
+    }
+
+    /* Селектор языка - аккуратная кнопка справа */
+    #lang-select { 
+        background: #1a1a1a; /* Темный фон кнопки */
+        color: white; 
+        border: 1px solid var(--border-soft);
+        padding: 10px 14px; 
+        border-radius: 14px; /* Закругленные углы */
+        font-size: 13px; 
+        font-weight: 800; 
+        font-family: 'Montserrat';
+        outline: none;
+        appearance: none; /* Убираем стандартную стрелочку */
+        -webkit-appearance: none;
+    }
+
+    /* --- ЭФФЕКТ СИНЕЙ ОБВОДКИ ПРИ НАЖАТИИ (АКТИВ) --- */
+    /* Добавляем ко всем кнопкам, тарифам и селектору */
     .btn-main-action, .btn-support, .package-item, #lang-select, .nav-item {
         transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
         outline: 2px solid transparent;
         outline-offset: 2px;
     }
 
-    /* Когда нажимаешь пальцем или мышкой */
+    /* Синий контур при клике */
     .btn-main-action:active, 
     .btn-support:active, 
     .package-item:active, 
     #lang-select:active,
     .nav-item:active {
-        outline: 2px solid var(--accent-blue) !important; /* Яркий синий контур */
-        box-shadow: 0 0 15px rgba(0, 122, 255, 0.5); /* Внутреннее сияние */
-        transform: scale(0.97); /* Легкий отклик нажатия */
+        outline: 2px solid var(--accent-blue) !important; 
+        box-shadow: 0 0 15px rgba(0, 122, 255, 0.5);
+        transform: scale(0.97); /* Легкий тактильный отклик */
     }
-
     /* --- CONTENT --- */
     .feed { padding: 130px 20px 20px; }
     
