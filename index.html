@@ -355,7 +355,7 @@
             <video autoplay muted loop playsinline poster="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe">
                 <source src="https://www.w3schools.com/howto/rain.mp4" type="video/mp4">
             </video>
-            <div class="video-label" id="l-creation">ULTIMATE GENERATION 2.0</div>
+            <div class="video-label" id="l-creation">ULTIMATE ГЕНЕРАЦИЯ 2.0</div>
         </div>
 
         <button class="btn-main-action" id="l-create-btn" onclick="tg.showAlert('Инициализация нейронного ядра...')">ЗАПУСТИТЬ ТЕРМИНАЛ</button>
@@ -380,50 +380,11 @@
                     <span class="package-name">STARTER</span>
                     <span class="package-price">$5</span>
                 </div>
-                <div class="package-features">
+                <div class="package-features" id="feat-starter">
                     • 5 высокоскоростных генераций в сутки<br>
                     • Стандартное HD качество (720p)<br>
                     • Доступ к базовой библиотеке стилей<br>
                     • Общая очередь обработки данных
-                </div>
-            </div>
-
-            <div class="package-item">
-                <div class="package-header">
-                    <span class="package-name">STANDARD</span>
-                    <span class="package-price">$15</span>
-                </div>
-                <div class="package-features">
-                    • 15 генераций в сутки без ограничений<br>
-                    • Качество Full HD (1080p)<br>
-                    • Полное отсутствие водяных знаков<br>
-                    • Приоритетный доступ к серверу
-                </div>
-            </div>
-
-            <div class="package-item">
-                <div class="package-header">
-                    <span class="package-name">ADVANCED</span>
-                    <span class="package-price">$30</span>
-                </div>
-                <div class="package-features">
-                    • 40 мощных генераций в месяц<br>
-                    • Расширенная настройка параметров нейросети<br>
-                    • Доступ к уникальным Cinematic-фильтрам<br>
-                    • Ускоренный рендер сложных сцен
-                </div>
-            </div>
-
-            <div class="package-item">
-                <div class="package-header">
-                    <span class="package-name">ELITE</span>
-                    <span class="package-price">$50</span>
-                </div>
-                <div class="package-features">
-                    • 80 генераций с максимальным приоритетом<br>
-                    • Поддержка разрешения 2K Ultra High<br>
-                    • Доступ к бета-тестированию новых функций<br>
-                    • Выделенный поток данных для обработки
                 </div>
             </div>
 
@@ -432,7 +393,7 @@
                     <span class="package-name">ULTIMATE</span>
                     <span class="package-price">$100</span>
                 </div>
-                <div class="package-features">
+                <div class="package-features" id="feat-ultimate">
                     • ПОЛНЫЙ БЕЗЛИМИТ на генерации<br>
                     • Максимальное качество 4K Cinematic<br>
                     • Персональная настройка весов модели под вас<br>
@@ -465,10 +426,10 @@
 
         <div class="info-block">
             <div class="beast-card">
-                <b id="l-title-supp" style="font-size: 20px; color:#fff; font-family:'Montserrat'; display: block; text-transform: uppercase;">ЭЛИТНАЯ ПОДДЕРЖКА 24/7</b>
+                <b id="l-title-supp">ЭЛИТНАЯ ПОДДЕРЖКА 24/7</b>
                 <p id="l-desc-supp" style="font-size: 14px; color: var(--text-dim); margin: 15px 0; line-height: 1.6;">
                     Наша команда специалистов находится на связи в режиме реального времени, чтобы решить любой ваш технический или финансовый вопрос. 
-                    <span style="color: #ff3b30; font-weight: 900;">ВАЖНО: Пожалуйста, не пишите владельцу проекта в личные сообщения.</span> Это замедляет процесс обработки заявок. Используйте официального бота поддержки ниже — там ваш вопрос будет решен в приоритетном порядке.
+                    <span style="color: #ff3b30; font-weight: 900;">ВАЖНО: Пожалуйста, не пишите владельцу проекта в личные сообщения.</span> Используйте официального бота поддержки ниже.
                 </p>
                 <button class="btn-support" id="l-btn-supp" onclick="tg.openTelegramLink('https://t.me/your_support_bot')">СВЯЗАТЬСЯ С ПОДДЕРЖКОЙ</button>
             </div>
@@ -502,14 +463,28 @@
             ru: { 
                 home: "ГЛАВНАЯ", stats: "СТАТЫ", refs: "РЕФЫ", tariffs: "ТАРИФЫ", gift: "БОНУС", 
                 creation: "ULTIMATE ГЕНЕРАЦИЯ 2.0", create_btn: "ЗАПУСТИТЬ ТЕРМИНАЛ", 
-                project_t: "ЭКОСИСТЕМА BEAST OMNI", plans_t: "ТАРИФНЫЕ ПЛАНЫ", sec_t: "БЕЗОПАСНОСТЬ ДАННЫХ", pay_t: "СПОСОБЫ ОПЛАТЫ",
-                supp_t: "ЭЛИТНАЯ ПОДДЕРЖКА 24/7", supp_b: "СВЯЗАТЬСЯ С ПОДДЕРЖКОЙ", spin: "КРУТИТЬ КОЛЕСО", back: "← НАЗАД", lucky: "BEAST LUCK"
+                project_t: "ЭКОСИСТЕМА BEAST OMNI", 
+                project_d: "<strong>Beast Omni</strong> — это технологический прорыв в мире генеративного искусства. Мы создали среду, где мощнейшие серверные кластеры работают в унисоне с кастомными нейронными моделями...",
+                plans_t: "ТАРИФНЫЕ ПЛАНЫ", sec_t: "БЕЗОПАСНОСТЬ ДАННЫХ", 
+                sec_d: "Конфиденциальность в Beast Omni возведена в абсолют. Мы используем многоуровневое шифрование <strong>AES-256</strong> для защиты каждого байта вашей информации...",
+                pay_t: "СПОСОБЫ ОПЛАТЫ", 
+                pay_d: "Для обеспечения бескомпромиссной безопасности и прозрачности платежей, на данном этапе мы принимаем оплату исключительно через внутренние инструменты Telegram...",
+                supp_t: "ЭЛИТНАЯ ПОДДЕРЖКА 24/7", 
+                supp_d: "Наша команда специалистов находится на связи в режиме реального времени. <span style='color: #ff3b30; font-weight: 900;'>ВАЖНО: Пожалуйста, не пишите владельцу проекта в ЛС.</span> Используйте бота.",
+                supp_b: "СВЯЗАТЬСЯ С ПОДДЕРЖКОЙ", spin: "КРУТИТЬ КОЛЕСО", back: "← НАЗАД", lucky: "BEAST LUCK"
             },
             en: { 
                 home: "MAIN", stats: "STATS", refs: "REFS", tariffs: "PLANS", gift: "BONUS", 
                 creation: "ULTIMATE GENERATION 2.0", create_btn: "LAUNCH TERMINAL", 
-                project_t: "BEAST OMNI ECOSYSTEM", plans_t: "TARIFF PLANS", sec_t: "DATA SECURITY", pay_t: "PAYMENT METHODS",
-                supp_t: "24/7 ELITE SUPPORT", supp_b: "CONTACT SUPPORT", spin: "SPIN WHEEL", back: "← GO BACK", lucky: "BEAST LUCK"
+                project_t: "BEAST OMNI ECOSYSTEM", 
+                project_d: "<strong>Beast Omni</strong> is a technological breakthrough in generative art. We created an environment where powerful server clusters work in unison with custom models...",
+                plans_t: "TARIFF PLANS", sec_t: "DATA SECURITY", 
+                sec_d: "Privacy at Beast Omni is absolute. We use multi-level <strong>AES-256</strong> encryption to protect every byte of your information...",
+                pay_t: "PAYMENT METHODS", 
+                pay_d: "To ensure uncompromising security and payment transparency, at this stage we exclusively accept payments through Telegram internal tools...",
+                supp_t: "24/7 ELITE SUPPORT", 
+                supp_d: "Our team of specialists is online in real-time. <span style='color: #ff3b30; font-weight: 900;'>IMPORTANT: Please do not DM the owner.</span> Use the official support bot.",
+                supp_b: "CONTACT SUPPORT", spin: "SPIN WHEEL", back: "← GO BACK", lucky: "BEAST LUCK"
             }
         };
 
@@ -523,10 +498,14 @@
             document.getElementById('l-creation').innerText = t.creation;
             document.getElementById('l-create-btn').innerText = t.create_btn;
             document.getElementById('l-title-project').innerText = t.project_t;
+            document.getElementById('l-desc-project').innerHTML = t.project_d;
             document.getElementById('l-title-plans').innerText = t.plans_t;
             document.getElementById('l-title-sec').innerText = t.sec_t;
+            document.getElementById('l-desc-sec').innerHTML = t.sec_d;
             document.getElementById('l-title-pay').innerText = t.pay_t;
+            document.getElementById('l-desc-pay').innerHTML = t.pay_d;
             document.getElementById('l-title-supp').innerText = t.supp_t;
+            document.getElementById('l-desc-supp').innerHTML = t.supp_d;
             document.getElementById('l-btn-supp').innerText = t.supp_b;
             document.getElementById('l-spin').innerText = t.spin;
             document.getElementById('l-back').innerText = t.back;
