@@ -227,45 +227,7 @@
     let tg = window.Telegram.WebApp;
     tg.expand();
 
-    const i18n = {
-        ru: {
-            home: "ГЛАВНАЯ", stats: "СТАТЫ", refs: "РЕФЫ", tariffs: "ТАРИФЫ", gift: "БОНУС",
-            creation: "ULTIMATE GENERATION 2.0", create_btn: "ЗАПУСТИТЬ ТЕРМИНАЛ",
-            project_t: "ЭКОСИСТЕМА BEAST OMNI", plans_t: "ТАРИФНЫЕ ПЛАНЫ", sec_t: "БЕЗОПАСНОСТЬ ДАННЫХ", pay_t: "СПОСОБЫ ОПЛАТЫ",
-            supp_t: "ЭЛИТНАЯ ПОДДЕРЖКА 24/7", supp_b: "СВЯЗАТЬСЯ С ПОДДЕРЖКОЙ", spin: "КРУТИТЬ КОЛЕСО", back: "← НАЗАД", lucky: "BEAST LUCK",
-            desc_p: "<strong>Beast Omni</strong> — это технологический прорыв. Мы объединили мощнейшие серверные кластеры с кастомными нейронными моделями для безупречной детализации. Мы не просто генерируем контент — мы создаем визуальный опыт уровня топовых киностудий.",
-            desc_s: "Конфиденциальность возведена в абсолют. Шифрование <strong>AES-256</strong> защищает каждый байт. После завершения сессии все временные данные уничтожаются без возможности восстановления. Никаких логов и слежки.",
-            desc_pay: "Мы используем только безопасные инструменты: <strong>Telegram Stars</strong> и <strong>Wallet (Crypto)</strong>. Ваши данные не передаются третьим лицам. Это фундамент нашего взаимного доверия.",
-            desc_supp: "Инженеры на связи в реальном времени. <span style='color:#ff3b30'>ВАЖНО: Не пишите владельцу в личку.</span> Используйте официального бота для мгновенного решения вопросов.",
-            plans: [
-                {n:"STARTER", p:"$5", f:"• 5 генераций в сутки<br>• HD Качество<br>• Базовые стили"},
-                {n:"STANDARD", p:"$15", f:"• 15 генераций в сутки<br>• Full HD качество<br>• Без ватермарок"},
-                {n:"ADVANCED", p:"$30", f:"• 40 генераций в месяц<br>• Cinematic фильтры<br>• Ускоренный рендер"},
-                {n:"ELITE", p:"$50", f:"• 80 приоритетных сессий<br>• 2K Ultra High<br>• Бета-функции"},
-                {n:"ULTIMATE", p:"$100", f:"• ПОЛНЫЙ БЕЗЛИМИТ<br>• 4K Cinematic<br>• Личный тюнинг модели"}
-            ]
-        },
-        en: {
-            home: "HOME", stats: "STATS", refs: "REFS", tariffs: "PLANS", gift: "BONUS",
-            creation: "ULTIMATE GENERATION 2.0", create_btn: "LAUNCH TERMINAL",
-            project_t: "BEAST OMNI ECOSYSTEM", plans_t: "TARIFF PLANS", sec_t: "DATA SECURITY", pay_t: "PAYMENT METHODS",
-            supp_t: "24/7 ELITE SUPPORT", supp_b: "CONTACT SUPPORT", spin: "SPIN WHEEL", back: "← BACK", lucky: "BEAST LUCK",
-            desc_p: "<strong>Beast Omni</strong> is a tech breakthrough. We've combined powerful server clusters with custom neural models for flawless detail. We create visual experiences on par with top movie studios.",
-            desc_s: "Privacy is absolute. <strong>AES-256</strong> encryption protects every byte. Temporary data is wiped immediately after the session. No logs, no tracking, just pure creativity.",
-            desc_pay: "We use secure tools only: <strong>Telegram Stars</strong> and <strong>Wallet (Crypto)</strong>. Your data is never shared with third parties. This is the foundation of our trust.",
-            desc_supp: "Engineers are online 24/7. <span style='color:#ff3b30'>IMPORTANT: Do not DM the owner.</span> Use the official bot for priority assistance.",
-            plans: [
-                {n:"STARTER", p:"$5", f:"• 5 gens per day<br>• HD Quality<br>• Basic styles"},
-                {n:"STANDARD", p:"$15", f:"• 15 gens per day<br>• Full HD quality<br>• No watermarks"},
-                {n:"ADVANCED", p:"$30", f:"• 40 gens per month<br>• Cinematic filters<br>• Fast render"},
-                {n:"ELITE", p:"$50", f:"• 80 priority gens<br>• 2K Ultra High<br>• Beta access"},
-                {n:"ULTIMATE", p:"$100", f:"• UNLIMITED GENS<br>• 4K Cinematic<br>• Personal model tuning"}
-            ]
-        }
-    };
-
-    function changeLanguage(lang) {
- const i18n = {
+   const i18n = {
     ru: {
         home: "ГЛАВНАЯ", stats: "СТАТЫ", refs: "РЕФЫ", tariffs: "ТАРИФЫ", gift: "БОНУС",
         creation: "ULTIMATE GENERATION 2.0", create_btn: "ЗАПУСТИТЬ ТЕРМИНАЛ",
@@ -311,6 +273,37 @@
         ]
     }
 };
+    function changeLanguage(lang) {
+        const t = i18n[lang];
+        document.getElementById('tab-home').innerText = t.home;
+        document.getElementById('tab-stats').innerText = t.stats;
+        document.getElementById('tab-refs').innerText = t.refs;
+        document.getElementById('tab-plans').innerText = t.tariffs;
+        document.getElementById('tab-gift').innerText = t.gift;
+        document.getElementById('l-creation').innerText = t.creation;
+        document.getElementById('l-create-btn').innerText = t.create_btn;
+        document.getElementById('l-title-project').innerText = t.project_t;
+        document.getElementById('l-title-plans').innerText = t.plans_t;
+        document.getElementById('l-title-sec').innerText = t.sec_t;
+        document.getElementById('l-title-pay').innerText = t.pay_t;
+        document.getElementById('l-title-supp').innerText = t.supp_t;
+        document.getElementById('l-btn-supp').innerText = t.supp_b;
+        document.getElementById('l-spin').innerText = t.spin;
+        document.getElementById('l-back').innerText = t.back;
+        document.getElementById('l-lucky').innerText = t.lucky;
+        document.getElementById('l-desc-project').innerHTML = t.desc_p;
+        document.getElementById('l-desc-sec').innerHTML = t.desc_s;
+        document.getElementById('l-desc-pay').innerHTML = t.desc_pay;
+        document.getElementById('l-desc-supp').innerHTML = t.desc_supp;
+
+        const container = document.getElementById('packages-container');
+        container.innerHTML = t.plans.map(p => `
+            <div class="package-item" style="${p.n === 'ULTIMATE' ? 'border-color:var(--accent-blue)' : ''}">
+                <div class="package-header"><span class="package-name">${p.n}</span><span class="package-price">${p.p}</span></div>
+                <div class="package-features">${p.f}</div>
+            </div>
+        `).join('');
+    }
 
     const prizes = [{n:"0.1",c:"#121212"},{n:"0.5",c:"#1a1a1a"},{n:"0.1",c:"#121212"},{n:"1.0",c:"#007aff"},{n:"0.1",c:"#121212"},{n:"2.0",c:"#1a1a1a"},{n:"0.1",c:"#121212"},{n:"0.0",c:"#000"}];
     
