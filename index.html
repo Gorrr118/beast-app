@@ -103,7 +103,7 @@
     </body>
 </html>
 <style>
-    :root {
+   :root {
         --bg-total: #000000;
         --bg-surface: #050505;
         --bg-card: #121214;
@@ -127,143 +127,126 @@
         padding-bottom: calc(var(--nav-height) + 40px);
     }
 
-    /* --- АНИМАЦИИ (KEYFRAMES) --- */
+    /* --- АНИМАЦИИ ПОЯВЛЕНИЯ КОНТЕНТА --- */
     @keyframes fadeInUp {
         from { opacity: 0; transform: translateY(20px); }
         to { opacity: 1; transform: translateY(0); }
     }
 
     @keyframes scaleIn {
-        from { opacity: 0; transform: scale(0.9); }
+        from { opacity: 0; transform: scale(0.95); }
         to { opacity: 1; transform: scale(1); }
     }
 
-    @keyframes pulseBlue {
-        0% { box-shadow: 0 0 5px rgba(0, 122, 255, 0.2); }
-        50% { box-shadow: 0 0 20px rgba(0, 122, 255, 0.5); }
-        100% { box-shadow: 0 0 5px rgba(0, 122, 255, 0.2); }
-    }
-
-    /* Применяем анимацию к элементам контента */
     .main-video-card { animation: scaleIn 0.8s ease forwards; }
     .info-text b { animation: fadeInUp 0.6s ease forwards; }
     .info-text span { animation: fadeInUp 0.8s ease forwards; }
     .package-item { animation: fadeInUp 0.5s ease forwards; animation-fill-mode: both; }
     
-    /* Задержка появления для каждого тарифа (чтобы выплывали по очереди) */
     .package-item:nth-child(1) { animation-delay: 0.1s; }
     .package-item:nth-child(2) { animation-delay: 0.2s; }
     .package-item:nth-child(3) { animation-delay: 0.3s; }
     .package-item:nth-child(4) { animation-delay: 0.4s; }
-    .package-item:nth-child(5) { animation-delay: 0.5s; }
 
-   /* --- КИБЕРПАНК SPLASH SCREEN (АНИМИРОВАННЫЙ) --- */
-#splash-screen {
-    position: fixed; inset: 0;
-    background: radial-gradient(circle at center, #000814 0%, #000000 100%);
-    z-index: 10000; display: flex; flex-direction: column; align-items: center; justify-content: center;
-    overflow: hidden;
-}
+    /* --- ОБНОВЛЕННЫЙ SPLASH SCREEN (СИНЯЯ ОБОЛОЧКА) --- */
+    #splash-screen {
+        position: fixed; inset: 0;
+        background: #000;
+        z-index: 10000; display: flex; flex-direction: column; align-items: center; justify-content: center;
+    }
 
-/* Эффект глитча для логотипа */
-#splash-logo { 
-    font-family: 'Montserrat'; font-weight: 900; font-size: 46px; color: #fff; 
-    letter-spacing: 5px; margin-bottom: 30px; text-transform: uppercase;
-    position: relative;
-    text-shadow: 0 0 15px rgba(0, 122, 255, 0.8);
-    animation: logo-glow 2s infinite alternate;
-}
+    #splash-logo { 
+        font-family: 'Montserrat'; font-weight: 900; font-size: 42px; color: #fff; 
+        letter-spacing: 2px; margin-bottom: 30px; text-transform: uppercase;
+        position: relative;
+        z-index: 2;
+    }
 
-#splash-logo::before, #splash-logo::after {
-    content: attr(data-text); position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0.8;
-}
+    /* Та самая синяя оболочка сзади текста */
+    #splash-logo::after {
+        content: '';
+        position: absolute;
+        top: 50%; left: 50%;
+        transform: translate(-50%, -50%);
+        width: 120%; height: 100%;
+        background: var(--accent-blue);
+        filter: blur(50px); /* Мягкое свечение */
+        opacity: 0.4;
+        z-index: -1;
+        border-radius: 50%;
+    }
 
-#splash-logo::before { color: #007aff; z-index: -1; animation: glitch 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) infinite; }
-#splash-logo::after { color: #ff00c1; z-index: -2; animation: glitch 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) reverse infinite; }
+    .progress-bar { 
+        width: 220px; height: 3px; 
+        background: rgba(255,255,255,0.1); 
+        border-radius: 10px; overflow: hidden; 
+        position: relative;
+    }
 
-@keyframes glitch {
-    0% { transform: translate(0); }
-    20% { transform: translate(-3px, 3px); }
-    40% { transform: translate(-3px, -3px); }
-    60% { transform: translate(3px, 3px); }
-    80% { transform: translate(3px, -3px); }
-    100% { transform: translate(0); }
-}
+    .progress-fill { 
+        height: 100%; width: 0%; 
+        background: var(--accent-blue); 
+        box-shadow: 0 0 15px var(--accent-blue);
+        animation: fillProgress 2.5s ease-in-out forwards; 
+    }
 
-@keyframes logo-glow {
-    from { text-shadow: 0 0 10px rgba(0, 122, 255, 0.5); }
-    to { text-shadow: 0 0 30px rgba(0, 122, 255, 1), 0 0 50px rgba(0, 122, 255, 0.4); }
-}
+    @keyframes fillProgress { to { width: 100%; } }
 
-/* Терминальные логи под полоской */
-.loader-wrapper { width: 280px; text-align: center; }
-.terminal-loader-text {
-    font-family: monospace; font-size: 10px; color: #007aff;
-    margin-top: 15px; text-transform: uppercase; letter-spacing: 1px;
-    height: 15px; overflow: hidden; opacity: 0.8;
-}
+    /* --- ШАПКА (ВОЗВРАТ GORO) --- */
+    .header {
+        padding: 45px 20px 15px;
+        display: flex; justify-content: space-between; align-items: center;
+        background: rgba(0, 0, 0, 0.9);
+        backdrop-filter: blur(20px);
+        position: fixed; top: 0; width: 100%; z-index: 1000;
+        border-bottom: 1px solid var(--border-soft);
+    }
+    
+    .header h1 { 
+        margin: 0; font-family: 'Montserrat'; font-weight: 900; font-size: 26px;
+        letter-spacing: -1px; text-transform: uppercase; color: #fff;
+    }
 
-/* Линия сканирования (CRT эффект) */
-.scan-line {
-    width: 100%; height: 100px; z-index: 10001; position: absolute; top: -100px;
-    background: linear-gradient(0deg, rgba(0, 122, 255, 0.05) 0%, transparent 100%);
-    pointer-events: none; animation: scan 3s linear infinite;
-}
+    #lang-select { 
+        background: #1a1a1a; color: #fff; border: 1px solid var(--border-soft);
+        padding: 10px 14px; border-radius: 14px; font-size: 13px; font-weight: 800;
+        font-family: 'Montserrat'; outline: none; appearance: none; -webkit-appearance: none;
+    }
 
-@keyframes scan {
-    0% { top: -100px; }
-    100% { top: 100%; }
-}
-
-/* --- СИНЯЯ ОБВОДКА ДЛЯ ВСЕХ КНОПОК --- */
-.btn-main-action, .btn-support, .package-item, #lang-select, .nav-item {
-    transition: all 0.2s ease;
-    border: 1px solid transparent;
-}
-
-.btn-main-action:active, .btn-support:active, .package-item:active, .nav-item:active {
-    border-color: #007aff !important;
-    box-shadow: 0 0 15px rgba(0, 122, 255, 0.6) !important;
-    transform: scale(0.97);
-}
-
-    /* --- ЭФФЕКТ СИНЕЙ ОБВОДКИ ПРИ НАЖАТИИ --- */
+    /* --- ИНТЕРАКТИВ И СИНЯЯ ОБВОДКА --- */
     .btn-main-action, .btn-support, .package-item, #lang-select, .nav-item {
         transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
         outline: 2px solid transparent;
         outline-offset: 2px;
     }
 
-    .btn-main-action:active, 
-    .btn-support:active, 
-    .package-item:active, 
-    #lang-select:active,
-    .nav-item:active {
+    .btn-main-action:active, .btn-support:active, .package-item:active, 
+    #lang-select:active, .nav-item:active {
         outline: 2px solid var(--accent-blue) !important; 
         box-shadow: 0 0 15px rgba(0, 122, 255, 0.5);
-        transform: scale(0.97);
+        transform: scale(0.98);
     }
 
-    /* --- CONTENT --- */
+    /* --- КОНТЕНТ --- */
     .feed { padding: 130px 20px 20px; }
     
     .main-video-card {
         width: 100%; height: 420px; border-radius: 30px; overflow: hidden; position: relative;
         margin-bottom: 25px; border: 1px solid var(--border-soft);
+        background: #000;
     }
-    .main-video-card video { width: 100%; height: 100%; object-fit: cover; opacity: 0.7; }
+    .main-video-card video { width: 100%; height: 100%; object-fit: cover; opacity: 0.8; }
     .video-label { 
         position: absolute; bottom: 25px; left: 25px; font-family: 'Montserrat'; 
-        font-weight: 900; font-size: 20px; text-transform: uppercase; 
+        font-weight: 900; font-size: 20px; text-transform: uppercase; color: #fff;
     }
 
     .btn-main-action {
         background: var(--accent-gradient); color: #fff; border: none; width: 100%;
         padding: 22px; border-radius: 24px; font-family: 'Montserrat'; font-weight: 900;
-        font-size: 16px; text-transform: uppercase; cursor: pointer; transition: 0.2s;
+        font-size: 16px; text-transform: uppercase; cursor: pointer;
     }
 
-    /* --- INFO BLOCKS --- */
     .info-block { margin-bottom: 50px; }
     .info-text b { 
         display: block; font-family: 'Montserrat'; font-weight: 900; font-size: 26px;
@@ -271,9 +254,7 @@
     }
     .info-text span { font-size: 15px; color: var(--text-dim); line-height: 1.7; display: block; }
     .info-text strong { color: var(--accent-blue); }
-    .info-img { width: 100%; border-radius: 28px; margin-top: 20px; border: 1px solid var(--border-soft); animation: scaleIn 0.8s ease; }
 
-    /* --- PACKAGES --- */
     .package-item { 
         background: var(--bg-card); border: 1px solid var(--border-soft); 
         border-radius: 22px; padding: 20px; margin-bottom: 12px; 
@@ -283,20 +264,16 @@
     .package-price { font-size: 19px; }
     .package-features { font-size: 13px; color: var(--text-dim); line-height: 1.5; }
 
-    /* --- SUPPORT --- */
     .beast-card {
-        background: linear-gradient(180deg, #111, #000); border: 1px solid var(--accent-blue);
-        padding: 25px; border-radius: 30px; text-align: center;
-        animation: pulseBlue 3s infinite ease-in-out; /* Карточка поддержки медленно пульсирует */
+        background: #080808; border: 1px solid var(--accent-blue);
+        padding: 25px; border-radius: 30px; text-align: center; margin-top: 20px;
     }
     .beast-card b { font-family: 'Montserrat'; font-weight: 900; font-size: 18px; color: #fff; }
-    .beast-card p { font-size: 13px; color: var(--text-dim); margin: 15px 0; line-height: 1.5; }
     .btn-support {
         background: #fff; color: #000; border: none; width: 100%; padding: 18px;
-        border-radius: 18px; font-family: 'Montserrat'; font-weight: 900; text-transform: uppercase;
+        border-radius: 18px; font-family: 'Montserrat'; font-weight: 900; text-transform: uppercase; margin-top: 15px;
     }
 
-    /* --- TAB BAR --- */
     .tab-bar {
         position: fixed; bottom: 0; left: 0; width: 100%; height: var(--nav-height);
         background: rgba(10, 10, 10, 0.9); backdrop-filter: blur(25px);
@@ -305,18 +282,9 @@
     }
     .nav-item {
         color: var(--text-dim); text-decoration: none; font-family: 'Montserrat';
-        font-weight: 900; font-size: 10px; text-transform: uppercase; letter-spacing: 1px;
+        font-weight: 900; font-size: 10px; text-transform: uppercase;
     }
-    .nav-item.active { color: var(--accent-blue); }
-
-    /* --- MODAL --- */
-    #gift-modal { 
-        display: none; position: fixed; inset: 0; background: #000; z-index: 9999;
-        flex-direction: column; align-items: center; justify-content: center; padding: 20px;
-    }
-    #gift-modal h2 { font-family: 'Montserrat'; font-weight: 900; font-size: 32px; margin-bottom: 30px; animation: scaleIn 0.5s ease; }
-    .back-btn { margin-top: 30px; color: var(--text-dim); font-family: 'Montserrat'; font-weight: 900; cursor: pointer; text-transform: uppercase; }
-</style>
+    .nav-item.active { color: var(--accent-blue); }</style>
 
 <script>
     let tg = window.Telegram.WebApp;
