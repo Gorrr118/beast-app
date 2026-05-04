@@ -50,6 +50,7 @@
         </div>
 
         <div class="info-block">
+
             <div class="info-text">
                 <b id="l-title-sec">БЕЗОПАСНОСТЬ ДАННЫХ</b>
                 <span id="l-desc-sec">
@@ -115,75 +116,101 @@
     body {
         background-color: var(--bg-total);
         color: var(--text-main);
-        font-family: 'Inter', sans-serif; /* Основной чистый шрифт */
+        font-family: 'Inter', sans-serif;
         margin: 0; padding: 0;
         overflow-x: hidden;
         -webkit-user-select: none;
         padding-bottom: calc(var(--nav-height) + 40px);
     }
 
-   /* --- SPLASH SCREEN (Чистый черный + Неоновый Лого) --- */
+    /* --- АНИМАЦИИ (KEYFRAMES) --- */
+    @keyframes fadeInUp {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes scaleIn {
+        from { opacity: 0; transform: scale(0.9); }
+        to { opacity: 1; transform: scale(1); }
+    }
+
+    @keyframes pulseBlue {
+        0% { box-shadow: 0 0 5px rgba(0, 122, 255, 0.2); }
+        50% { box-shadow: 0 0 20px rgba(0, 122, 255, 0.5); }
+        100% { box-shadow: 0 0 5px rgba(0, 122, 255, 0.2); }
+    }
+
+    /* Применяем анимацию к элементам контента */
+    .main-video-card { animation: scaleIn 0.8s ease forwards; }
+    .info-text b { animation: fadeInUp 0.6s ease forwards; }
+    .info-text span { animation: fadeInUp 0.8s ease forwards; }
+    .package-item { animation: fadeInUp 0.5s ease forwards; animation-fill-mode: both; }
+    
+    /* Задержка появления для каждого тарифа (чтобы выплывали по очереди) */
+    .package-item:nth-child(1) { animation-delay: 0.1s; }
+    .package-item:nth-child(2) { animation-delay: 0.2s; }
+    .package-item:nth-child(3) { animation-delay: 0.3s; }
+    .package-item:nth-child(4) { animation-delay: 0.4s; }
+    .package-item:nth-child(5) { animation-delay: 0.5s; }
+
+    /* --- SPLASH SCREEN --- */
     #splash-screen {
         position: fixed; inset: 0;
-        background: #000000; /* Глубокий черный фон */
+        background: #000000;
         z-index: 10000; display: flex; flex-direction: column; align-items: center; justify-content: center;
         transition: opacity 0.5s ease;
     }
     #splash-logo { 
         font-family: 'Montserrat'; font-weight: 900; font-size: 42px; color: #fff; 
         letter-spacing: 2px; margin-bottom: 25px; text-transform: uppercase;
-        /* Та самая синяя обводка-свечение на черном */
         text-shadow: 0 0 15px rgba(0, 122, 255, 0.7), 0 0 30px rgba(0, 122, 255, 0.4);
+        animation: scaleIn 1s ease;
     }
     .progress-bar { width: 240px; height: 4px; background: rgba(255,255,255,0.1); border-radius: 10px; overflow: hidden; }
     .progress-fill { height: 100%; width: 0%; background: var(--accent-blue); animation: fillProgress 2.5s ease-in-out forwards; }
     @keyframes fillProgress { to { width: 100%; } }
 
-    /* --- ШАПКА (HEADER) - ВОЗВРАТ КАК НА ФОТО 2 --- */
+    /* --- ШАПКА (HEADER) --- */
     .header {
-        padding: 45px 20px 15px; /* Аккуратные отступы */
+        padding: 45px 20px 15px;
         display: flex; justify-content: space-between; align-items: center;
-        background: rgba(0, 0, 0, 0.9); /* Глубокий темный фон */
+        background: rgba(0, 0, 0, 0.9);
         backdrop-filter: blur(20px);
         position: fixed; top: 0; width: 100%; z-index: 1000;
         border-bottom: 1px solid var(--border-soft);
     }
     
-    /* Никнейм (GORO) - крупно и жирно */
     .header h1 { 
         margin: 0; 
         font-family: 'Montserrat'; 
         font-weight: 900; 
-        font-size: 26px; /* Крупный размер */
+        font-size: 26px;
         letter-spacing: -1px; 
         text-transform: uppercase;
         color: #ffffff;
     }
 
-    /* Селектор языка - аккуратная кнопка справа */
     #lang-select { 
-        background: #1a1a1a; /* Темный фон кнопки */
+        background: #1a1a1a;
         color: white; 
         border: 1px solid var(--border-soft);
         padding: 10px 14px; 
-        border-radius: 14px; /* Закругленные углы */
+        border-radius: 14px;
         font-size: 13px; 
         font-weight: 800; 
         font-family: 'Montserrat';
         outline: none;
-        appearance: none; /* Убираем стандартную стрелочку */
+        appearance: none;
         -webkit-appearance: none;
     }
 
-    /* --- ЭФФЕКТ СИНЕЙ ОБВОДКИ ПРИ НАЖАТИИ (АКТИВ) --- */
-    /* Добавляем ко всем кнопкам, тарифам и селектору */
+    /* --- ЭФФЕКТ СИНЕЙ ОБВОДКИ ПРИ НАЖАТИИ --- */
     .btn-main-action, .btn-support, .package-item, #lang-select, .nav-item {
         transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
         outline: 2px solid transparent;
         outline-offset: 2px;
     }
 
-    /* Синий контур при клике */
     .btn-main-action:active, 
     .btn-support:active, 
     .package-item:active, 
@@ -191,8 +218,9 @@
     .nav-item:active {
         outline: 2px solid var(--accent-blue) !important; 
         box-shadow: 0 0 15px rgba(0, 122, 255, 0.5);
-        transform: scale(0.97); /* Легкий тактильный отклик */
+        transform: scale(0.97);
     }
+
     /* --- CONTENT --- */
     .feed { padding: 130px 20px 20px; }
     
@@ -211,7 +239,6 @@
         padding: 22px; border-radius: 24px; font-family: 'Montserrat'; font-weight: 900;
         font-size: 16px; text-transform: uppercase; cursor: pointer; transition: 0.2s;
     }
-    .btn-main-action:active { transform: scale(0.97); }
 
     /* --- INFO BLOCKS --- */
     .info-block { margin-bottom: 50px; }
@@ -221,7 +248,7 @@
     }
     .info-text span { font-size: 15px; color: var(--text-dim); line-height: 1.7; display: block; }
     .info-text strong { color: var(--accent-blue); }
-    .info-img { width: 100%; border-radius: 28px; margin-top: 20px; border: 1px solid var(--border-soft); }
+    .info-img { width: 100%; border-radius: 28px; margin-top: 20px; border: 1px solid var(--border-soft); animation: scaleIn 0.8s ease; }
 
     /* --- PACKAGES --- */
     .package-item { 
@@ -237,6 +264,7 @@
     .beast-card {
         background: linear-gradient(180deg, #111, #000); border: 1px solid var(--accent-blue);
         padding: 25px; border-radius: 30px; text-align: center;
+        animation: pulseBlue 3s infinite ease-in-out; /* Карточка поддержки медленно пульсирует */
     }
     .beast-card b { font-family: 'Montserrat'; font-weight: 900; font-size: 18px; color: #fff; }
     .beast-card p { font-size: 13px; color: var(--text-dim); margin: 15px 0; line-height: 1.5; }
@@ -245,7 +273,7 @@
         border-radius: 18px; font-family: 'Montserrat'; font-weight: 900; text-transform: uppercase;
     }
 
-    /* --- TAB BAR (Glass Style) --- */
+    /* --- TAB BAR --- */
     .tab-bar {
         position: fixed; bottom: 0; left: 0; width: 100%; height: var(--nav-height);
         background: rgba(10, 10, 10, 0.9); backdrop-filter: blur(25px);
@@ -263,7 +291,7 @@
         display: none; position: fixed; inset: 0; background: #000; z-index: 9999;
         flex-direction: column; align-items: center; justify-content: center; padding: 20px;
     }
-    #gift-modal h2 { font-family: 'Montserrat'; font-weight: 900; font-size: 32px; margin-bottom: 30px; }
+    #gift-modal h2 { font-family: 'Montserrat'; font-weight: 900; font-size: 32px; margin-bottom: 30px; animation: scaleIn 0.5s ease; }
     .back-btn { margin-top: 30px; color: var(--text-dim); font-family: 'Montserrat'; font-weight: 900; cursor: pointer; text-transform: uppercase; }
 </style>
 
