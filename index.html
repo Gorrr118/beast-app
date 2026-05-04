@@ -77,15 +77,15 @@
             </div>
         </div>
     </div>
-<div id="main-feed">
+
     <div class="tab-bar">
-    <a href="#" class="nav-item active" onclick="showScreen('main-feed', this)">Главная</a>
-    
-    <a href="#" class="nav-item" onclick="showScreen('referrals-screen', this)">Рефы</a>
-    
-    <a href="#" class="nav-item">Статы</a>
-    <a href="#" class="nav-item">Бонус</a>
-</div>
+        <a href="#" class="nav-item active" id="tab-home">ГЛАВНАЯ</a>
+        <a href="#" class="nav-item" id="tab-stats">СТАТЫ</a>
+        <a href="#" class="nav-item" id="tab-refs">РЕФЫ</a>
+        <a href="#" class="nav-item" id="tab-plans">ТАРИФЫ</a>
+        <a href="#" class="nav-item" id="tab-gift" onclick="openGiftModal()">БОНУС</a>
+    </div>
+
     <div id="gift-modal">
         <h2 id="l-lucky">BEAST LUCK</h2>
         <div class="wheel-container">
@@ -95,32 +95,6 @@
         <button class="btn-main-action" style="max-width: 280px;" onclick="runWheel()" id="l-spin">КРУТИТЬ КОЛЕСО</button>
         <div class="back-btn" onclick="closeGiftModal()" id="l-back">← НАЗАД</div>
     </div>
-    <div id="referrals-screen" style="display: none; padding: 130px 20px 100px;">
-    <div class="info-text">
-        <b>Твоя Сеть <span>Omni</span></b>
-        <span>Приглашай друзей и получай <strong>+15%</strong> от каждой их пополнения на свой баланс.</span>
-    </div>
-
-    <div class="package-item" style="margin-top: 25px; text-align: center;">
-        <div class="package-name" style="margin-bottom: 15px;">Ваша реферальная ссылка</div>
-        <div id="ref-link" style="background: #000; padding: 15px; border-radius: 12px; font-size: 12px; color: var(--text-dim); border: 1px dashed var(--accent-blue); margin-bottom: 15px;">
-            t.me/BeastOmniBot?start=user777
-        </div>
-        <button class="btn-main-action" onclick="copyLink()" style="padding: 15px; font-size: 14px;">Копировать ссылку</button>
-    </div>
-
-    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 15px;">
-        <div class="package-item" style="text-align: center;">
-            <div class="package-features">Приглашено</div>
-            <div class="package-price" style="color: #fff;">12</div>
-        </div>
-        <div class="package-item" style="text-align: center;">
-            <div class="package-features">Заработано</div>
-            <div class="package-price" style="color: var(--accent-blue);">450 ★</div>
-        </div>
-    </div>
-</div>
-</div>
 
     </body>
 </html>
@@ -435,22 +409,4 @@
         if(tg.initDataUnsafe?.user) document.getElementById('user-name').innerText = tg.initDataUnsafe.user.first_name.toUpperCase();
         changeLanguage('ru'); 
     };
-    function showScreen(screenId) {
-    // Скрываем все экраны
-    document.getElementById('main-feed').style.display = 'none';
-    document.getElementById('referrals-screen').style.display = 'none';
-    
-    // Показываем нужный
-    document.getElementById(screenId).style.display = 'block';
-    
-    // Прокручиваем в начало
-    window.scrollTo(0, 0);
-}
-
-// Функция копирования
-function copyLink() {
-    const link = document.getElementById('ref-link').innerText;
-    navigator.clipboard.writeText(link);
-    alert('Ссылка скопирована!');
-}
 </script>
