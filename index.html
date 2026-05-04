@@ -8,12 +8,16 @@
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     </head>
 <body>
-
-    <div id="splash-screen">
-        <div id="splash-logo">BEAST OMNI</div>
-        <div class="progress-bar"><div class="progress-fill"></div></div>
+   <div id="splash-screen">
+        <div id="splash-logo" data-text="BEAST OMNI">BEAST OMNI</div>
+        
+        <div class="loader-wrapper">
+            <div class="progress-bar"><div class="progress-fill"></div></div>
+            <div class="terminal-loader-text" id="terminal-status">Initializing Neural Core V2.0...</div>
+        </div>
+        
+        <div class="scan-line"></div>
     </div>
-
     <div class="header">
         <h1 id="user-name">BEAST CORE</h1>
         <select id="lang-select" onchange="changeLanguage(this.value)">
@@ -153,56 +157,75 @@
     .package-item:nth-child(4) { animation-delay: 0.4s; }
     .package-item:nth-child(5) { animation-delay: 0.5s; }
 
-    /* --- SPLASH SCREEN --- */
-    #splash-screen {
-        position: fixed; inset: 0;
-        background: #000000;
-        z-index: 10000; display: flex; flex-direction: column; align-items: center; justify-content: center;
-        transition: opacity 0.5s ease;
-    }
-    #splash-logo { 
-        font-family: 'Montserrat'; font-weight: 900; font-size: 42px; color: #fff; 
-        letter-spacing: 2px; margin-bottom: 25px; text-transform: uppercase;
-        text-shadow: 0 0 15px rgba(0, 122, 255, 0.7), 0 0 30px rgba(0, 122, 255, 0.4);
-        animation: scaleIn 1s ease;
-    }
-    .progress-bar { width: 240px; height: 4px; background: rgba(255,255,255,0.1); border-radius: 10px; overflow: hidden; }
-    .progress-fill { height: 100%; width: 0%; background: var(--accent-blue); animation: fillProgress 2.5s ease-in-out forwards; }
-    @keyframes fillProgress { to { width: 100%; } }
+   /* --- КИБЕРПАНК SPLASH SCREEN (АНИМИРОВАННЫЙ) --- */
+#splash-screen {
+    position: fixed; inset: 0;
+    background: radial-gradient(circle at center, #000814 0%, #000000 100%);
+    z-index: 10000; display: flex; flex-direction: column; align-items: center; justify-content: center;
+    overflow: hidden;
+}
 
-    /* --- ШАПКА (HEADER) --- */
-    .header {
-        padding: 45px 20px 15px;
-        display: flex; justify-content: space-between; align-items: center;
-        background: rgba(0, 0, 0, 0.9);
-        backdrop-filter: blur(20px);
-        position: fixed; top: 0; width: 100%; z-index: 1000;
-        border-bottom: 1px solid var(--border-soft);
-    }
-    
-    .header h1 { 
-        margin: 0; 
-        font-family: 'Montserrat'; 
-        font-weight: 900; 
-        font-size: 26px;
-        letter-spacing: -1px; 
-        text-transform: uppercase;
-        color: #ffffff;
-    }
+/* Эффект глитча для логотипа */
+#splash-logo { 
+    font-family: 'Montserrat'; font-weight: 900; font-size: 46px; color: #fff; 
+    letter-spacing: 5px; margin-bottom: 30px; text-transform: uppercase;
+    position: relative;
+    text-shadow: 0 0 15px rgba(0, 122, 255, 0.8);
+    animation: logo-glow 2s infinite alternate;
+}
 
-    #lang-select { 
-        background: #1a1a1a;
-        color: white; 
-        border: 1px solid var(--border-soft);
-        padding: 10px 14px; 
-        border-radius: 14px;
-        font-size: 13px; 
-        font-weight: 800; 
-        font-family: 'Montserrat';
-        outline: none;
-        appearance: none;
-        -webkit-appearance: none;
-    }
+#splash-logo::before, #splash-logo::after {
+    content: attr(data-text); position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0.8;
+}
+
+#splash-logo::before { color: #007aff; z-index: -1; animation: glitch 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) infinite; }
+#splash-logo::after { color: #ff00c1; z-index: -2; animation: glitch 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) reverse infinite; }
+
+@keyframes glitch {
+    0% { transform: translate(0); }
+    20% { transform: translate(-3px, 3px); }
+    40% { transform: translate(-3px, -3px); }
+    60% { transform: translate(3px, 3px); }
+    80% { transform: translate(3px, -3px); }
+    100% { transform: translate(0); }
+}
+
+@keyframes logo-glow {
+    from { text-shadow: 0 0 10px rgba(0, 122, 255, 0.5); }
+    to { text-shadow: 0 0 30px rgba(0, 122, 255, 1), 0 0 50px rgba(0, 122, 255, 0.4); }
+}
+
+/* Терминальные логи под полоской */
+.loader-wrapper { width: 280px; text-align: center; }
+.terminal-loader-text {
+    font-family: monospace; font-size: 10px; color: #007aff;
+    margin-top: 15px; text-transform: uppercase; letter-spacing: 1px;
+    height: 15px; overflow: hidden; opacity: 0.8;
+}
+
+/* Линия сканирования (CRT эффект) */
+.scan-line {
+    width: 100%; height: 100px; z-index: 10001; position: absolute; top: -100px;
+    background: linear-gradient(0deg, rgba(0, 122, 255, 0.05) 0%, transparent 100%);
+    pointer-events: none; animation: scan 3s linear infinite;
+}
+
+@keyframes scan {
+    0% { top: -100px; }
+    100% { top: 100%; }
+}
+
+/* --- СИНЯЯ ОБВОДКА ДЛЯ ВСЕХ КНОПОК --- */
+.btn-main-action, .btn-support, .package-item, #lang-select, .nav-item {
+    transition: all 0.2s ease;
+    border: 1px solid transparent;
+}
+
+.btn-main-action:active, .btn-support:active, .package-item:active, .nav-item:active {
+    border-color: #007aff !important;
+    box-shadow: 0 0 15px rgba(0, 122, 255, 0.6) !important;
+    transform: scale(0.97);
+}
 
     /* --- ЭФФЕКТ СИНЕЙ ОБВОДКИ ПРИ НАЖАТИИ --- */
     .btn-main-action, .btn-support, .package-item, #lang-select, .nav-item {
@@ -401,12 +424,36 @@
     function openGiftModal() { document.getElementById('gift-modal').style.display='flex'; drawWheel(); }
     function closeGiftModal() { document.getElementById('gift-modal').style.display='none'; }
 
-    window.onload = () => { 
-        setTimeout(() => { 
-            document.getElementById('splash-screen').style.opacity='0'; 
-            setTimeout(()=>document.getElementById('splash-screen').style.display='none',500); 
-        }, 2800);
-        if(tg.initDataUnsafe?.user) document.getElementById('user-name').innerText = tg.initDataUnsafe.user.first_name.toUpperCase();
-        changeLanguage('ru'); 
-    };
+   window.onload = () => { 
+    // Эмуляция логов терминала на Splash Screen
+    const logs = [
+        "Connecting to GPU Cluster...",
+        "Authorizing Neural Weights...",
+        "Loading AES-256 Protocol...",
+        "Initializing Beast Omni V2.0",
+        "Handshaking with Blockchain...",
+        "Ready to Dominate."
+    ];
+    let logIdx = 0;
+    const statusEl = document.getElementById('terminal-status');
+    
+    const logInterval = setInterval(() => {
+        if(logIdx < logs.length) {
+            statusEl.innerText = "> " + logs[logIdx];
+            logIdx++;
+        }
+    }, 450);
+
+    // Убираем сплэш чуть позже, чтобы юзер успел кайфануть
+    setTimeout(() => { 
+        clearInterval(logInterval);
+        document.getElementById('splash-screen').style.opacity = '0'; 
+        setTimeout(() => document.getElementById('splash-screen').style.display = 'none', 500); 
+    }, 3500);
+
+    if(tg.initDataUnsafe?.user) {
+        document.getElementById('user-name').innerText = tg.initDataUnsafe.user.first_name.toUpperCase();
+    }
+    changeLanguage('ru'); 
+};
 </script>
