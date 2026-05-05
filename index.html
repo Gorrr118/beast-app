@@ -77,31 +77,50 @@
             </div>
         </div>
     </div>
-<div id="refs-screen" style="display:none; position:fixed; inset:0; background:#000; z-index:1500; overflow-y:auto; padding-bottom: 100px;">
-    <div style="padding: 60px 20px 20px; text-align: center;">
-        <div style="font-family: Montserrat; font-weight: 900; font-size: 20px; color: #fff; letter-spacing: 2px;">BEAST PARTNER</div>
+<div id="refs-screen" style="display:none; position:fixed; inset:0; background:#000; z-index:1500; overflow-y:auto; padding: 0 20px 120px;">
+    
+    <div style="padding-top: 60px; text-align: center; margin-bottom: 40px;">
+        <h2 style="font-family: Montserrat; font-weight: 900; font-size: 28px; letter-spacing: 1px; color: #fff; margin: 0;">РЕФЕРАЛЬНАЯ СИСТЕМА</h2>
+        <div style="width: 50px; height: 2px; background: var(--accent-blue); margin: 15px auto;"></div>
     </div>
 
-    <div class="feed" style="padding-top: 10px;">
-        <div class="beast-card" style="border: 1px solid var(--accent-blue); background: rgba(18, 18, 20, 0.8); backdrop-filter: blur(15px);">
-            <div style="font-family: Montserrat; font-weight: 800; font-size: 11px; color: var(--accent-blue); letter-spacing: 2px; margin-bottom: 15px;">PARTNER PROGRAM</div>
-            <b id="ref-title" style="font-size: 24px; display: block; margin-bottom: 10px;">РЕФЕРАЛЬНАЯ СИСТЕМА</b>
-            <p id="ref-desc" style="color: var(--text-dim); font-size: 14px; margin-bottom: 25px;">Зарабатывай 15% с каждой покупки твоих друзей в Stars.</p>
-            
-            <div style="background: rgba(255,255,255,0.03); border-radius: 24px; padding: 30px 20px; border: 1px solid var(--border-soft); margin-bottom: 10px;">
-                <span style="font-size: 11px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 1px;">Твой доход</span>
-                <h1 style="color: #fff; font-family: Montserrat; font-weight: 900; font-size: 48px; margin: 10px 0;">0.00 <span style="font-size: 18px; color: var(--accent-blue);">STARS</span></h1>
+    <div style="margin-bottom: 40px;">
+        <div style="display: flex; align-items: flex-start; margin-bottom: 25px;">
+            <div style="color: var(--accent-blue); font-size: 24px; margin-right: 15px;">💎</div>
+            <div>
+                <b style="display: block; font-size: 16px; margin-bottom: 5px;">Пожизненный доход 15%</b>
+                <span style="color: var(--text-dim); font-size: 13px; line-height: 1.4;">Получайте комиссию Stars с каждого пополнения баланса вашими партнерами. Всегда.</span>
             </div>
         </div>
 
-        <button class="btn-main-action" style="margin-top: 20px; box-shadow: 0 10px 20px rgba(0, 122, 255, 0.3);" onclick="sharePartnerLink()">
-            <span id="ref-btn-text">ПРИГЛАСИТЬ ПАРТНЕРОВ</span>
-        </button>
+        <div style="display: flex; align-items: flex-start; margin-bottom: 25px;">
+            <div style="color: var(--accent-blue); font-size: 24px; margin-right: 15px;">⚡️</div>
+            <div>
+                <b style="display: block; font-size: 16px; margin-bottom: 5px;">Мгновенные выплаты</b>
+                <span style="color: var(--text-dim); font-size: 13px; line-height: 1.4;">Бонусы зачисляются на ваш баланс Beast Omni сразу после транзакции реферала.</span>
+            </div>
+        </div>
 
-        <div class="back-btn" style="text-align:center; margin-top:40px; color: var(--text-dim); font-family: Montserrat; font-weight: 800; font-size: 12px; opacity: 0.6;" onclick="closeRefs()">← ВЕРНУТЬСЯ В ТЕРМИНАЛ</div>
+        <div style="display: flex; align-items: flex-start;">
+            <div style="color: var(--accent-blue); font-size: 24px; margin-right: 15px;">🚀</div>
+            <div>
+                <b style="display: block; font-size: 16px; margin-bottom: 5px;">Приоритетный доступ</b>
+                <span style="color: var(--text-dim); font-size: 13px; line-height: 1.4;">Активные партнеры получают ранний доступ к новым нейросетевым моделям.</span>
+            </div>
+        </div>
     </div>
-</div>
 
+    <div style="background: linear-gradient(180deg, #121214 0%, #000 100%); border: 1px solid var(--border-soft); border-radius: 24px; padding: 25px; text-align: center; margin-bottom: 30px;">
+        <span style="color: var(--text-dim); font-size: 12px; text-transform: uppercase; letter-spacing: 2px;">Ваш текущий профит</span>
+        <div style="font-family: Montserrat; font-weight: 900; font-size: 42px; margin: 10px 0;">0.00 <span style="color: var(--accent-blue); font-size: 16px;">STARS</span></div>
+    </div>
+
+   <button class="btn-main-action" onclick="sharePartnerLink()">
+    <span id="ref-btn-text">ПРИГЛАСИТЬ ДРУЗЕЙ</span>
+</button>
+
+    <div class="back-btn" style="text-align:center; margin-top:30px; font-size: 12px; letter-spacing: 1px; opacity: 0.5;" onclick="closeRefs()">← НАЗАД В ТЕРМИНАЛ</div>
+</div>
 <div class="tab-bar">
     <a href="#" class="nav-item active" id="tab-home" onclick="closeRefs()">ГЛАВНАЯ</a>
     <a href="#" class="nav-item" id="tab-stats" onclick="tg.showAlert('Stats coming soon')">СТАТЫ</a>
@@ -332,97 +351,110 @@
     let tg = window.Telegram.WebApp;
     tg.expand();
 
-   const i18n = {
-    ru: {
-        home: "ГЛАВНАЯ", stats: "СТАТЫ", refs: "РЕФЫ", tariffs: "ТАРИФЫ", gift: "БОНУС",
-        creation: "ULTIMATE GENERATION 2.0", create_btn: "ЗАПУСТИТЬ ТЕРМИНАЛ",
-        project_t: "ЭКОСИСТЕМА BEAST OMNI", plans_t: "ТАРИФНЫЕ ПЛАНЫ", sec_t: "БЕЗОПАСНОСТЬ ДАННЫХ", pay_t: "СПОСОБЫ ОПЛАТЫ",
-        supp_t: "ЭЛИТНАЯ ПОДДЕРЖКА 24/7", supp_b: "СВЯЗАТЬСЯ С ПОДДЕРЖКОЙ", spin: "КРУТИТЬ КОЛЕСО", back: "← НАЗАД", lucky: "BEAST LUCK",
-        
-        desc_p: "<strong>Beast Omni</strong> — это не просто инструмент, это цифровая сингулярность в мире генеративного искусства. Мы развернули сложнейшую архитектуру из <strong>высокопроизводительных графических кластеров</strong>, работающих в синергии с авторскими весами нейросетей. В то время как другие предлагают шаблоны, мы предлагаем <strong>бескомпромиссную детализацию</strong>, фотореалистичную физику света и текстуры, которые стирают грань между рендером и реальностью. Beast Omni оптимизирован для задач запредельной сложности: от кинематографических кадров до гиперреалистичных концептов. Добро пожаловать в высшую лигу визуального доминирования.",
-        
-        desc_s: "Ваша приватность — наш главный приоритет и фундаментальная ценность. Вся архитектура Beast Omni построена на протоколах <strong>Zero-Knowledge</strong>. Мы внедрили военное шифрование <strong>AES-256-GCM</strong>, которое делает перехват данных невозможным. Сразу после завершения вашей сессии или скачивания итогового файла, система <strong>безвозвратно уничтожает</strong> все временные кэши, промпты и промежуточные слои генерации. Мы не собираем логи и не храним историю ваших творческих поисков. В Beast Omni вы остаетесь невидимым творцом под защитой совершенных алгоритмов безопасности.",
-        
-        desc_pay: "Для обеспечения полной анонимности и скорости транзакций, мы интегрировали передовые методы расчетов внутри экосистемы Telegram. Мы принимаем <strong>Telegram Stars</strong> для мгновенных покупок и <strong>Telegram Wallet (TON/Crypto)</strong> для тех, кто ценит децентрализацию и отсутствие посредников. Это решение полностью исключает риск блокировок или утечки банковских данных сторонним лицам. Каждая транзакция подтверждается блокчейном, формируя прозрачную и честную среду. Мы создали систему, где оплата происходит в один тап, а ваша финансовая свобода остается незыблемой.",
-        
-        desc_supp: "Наши инженеры и технические специалисты мониторят систему 24/7, обеспечивая бесперебойную мощь Beast Omni. <span style='color:#ff3b30; font-weight: 800;'>ВНИМАНИЕ:</span> Чтобы ваш запрос был обработан мгновенно, <strong>используйте только официальный тикет-бот</strong>. Прямые сообщения владельцу замедляют работу всей структуры. Бот поддержки автоматически приоритизирует заявку и свяжет вас с нужным отделом. Мы здесь, чтобы ваша работа не прерывалась ни на секунду.",
-        
-        ref_title: "РЕФЕРАЛЬНАЯ СИСТЕМА",
-ref_desc: "Приглашай друзей в Beast Omni и получай пожизненный доход 15% от их транзакций.",
-ref_btn: "ПРИГЛАСИТЬ ПАРТНЕРОВ",
-        plans: [
-            {n:"STARTER", p:"$5", f:"• 5 экспресс-генераций ежесуточно<br>• Доступ к High-Definition ядру<br>• Стандартный приоритет в очереди"},
-            {n:"STANDARD", p:"$15", f:"• 15 Full HD генераций без лимитов<br>• Удаление любых водяных знаков<br>• Приоритетный доступ к серверам"},
-            {n:"ADVANCED", p:"$30", f:"• 40 Cinematic-сессий в месяц<br>• Профессиональная настройка промптов<br>• Ускоренный рендер сложных текстур"},
-            {n:"ELITE", p:"$50", f:"• 80 генераций в Ultra 2K качестве<br>• Доступ к закрытым бета-моделям<br>• Выделенный поток данных"},
-            {n:"ULTIMATE", p:"$100", f:"• ПОЛНЫЙ БЕЗЛИМИТ 24/7<br>• Максимальное 4K Cinematic качество<br>• Индивидуальный тюнинг модели под вас"}
-        ]
-    },
-    en: {
-        home: "HOME", stats: "STATS", refs: "REFS", tariffs: "PLANS", gift: "BONUS",
-        creation: "ULTIMATE GENERATION 2.0", create_btn: "LAUNCH TERMINAL",
-        project_t: "BEAST OMNI ECOSYSTEM", plans_t: "TARIFF PLANS", sec_t: "DATA SECURITY", pay_t: "PAYMENT METHODS",
-        supp_t: "24/7 ELITE SUPPORT", supp_b: "CONTACT SUPPORT", spin: "SPIN WHEEL", back: "← BACK", lucky: "BEAST LUCK",
-        
-        desc_p: "<strong>Beast Omni</strong> is not just a tool, it's a digital singularity in the world of generative art. We've deployed a complex architecture of <strong>high-performance GPU clusters</strong> operating in synergy with proprietary neural weights. While others offer templates, we deliver <strong>uncompromising detail</strong>, photorealistic light physics, and textures that blur the line between render and reality. Beast Omni is optimized for extreme complexity: from cinematic shots to hyper-realistic concepts. Welcome to the major league of visual dominance.",
-        
-        desc_s: "Your privacy is our ultimate priority and core value. The entire Beast Omni architecture is built on <strong>Zero-Knowledge</strong> protocols. We've implemented military-grade <strong>AES-256-GCM</strong> encryption, making data interception impossible. Immediately after your session or file download, the system <strong>irreversibly destroys</strong> all temporary caches, prompts, and generation layers. We do not collect logs or store your creative history. In Beast Omni, you remain an invisible creator protected by perfect security algorithms.",
-        
-        desc_pay: "To ensure complete anonymity and transaction speed, we've integrated advanced payment methods within the Telegram ecosystem. We accept <strong>Telegram Stars</strong> for instant purchases and <strong>Telegram Wallet (TON/Crypto)</strong> for those who value decentralization. This solution eliminates the risk of blocks or leaking bank data to third parties. Every transaction is confirmed by the blockchain, forming a transparent and fair environment. We've created a system where payment happens in one tap while your financial freedom remains intact.",
-        
-        desc_supp: "Our engineers and technical specialists monitor the system 24/7, ensuring the uninterrupted power of Beast Omni. <span style='color:#ff3b30; font-weight: 800;'>ATTENTION:</span> For your request to be processed instantly, <strong>use the official ticket bot only</strong>. Direct messages to the owner slow down the entire structure. The support bot automatically prioritizes your request. We are here to ensure your workflow never stops for a second.",
-        
-        ref_title: "AFFILIATE SYSTEM",
-ref_desc: "Invite friends to Beast Omni and earn a lifetime 15% commission from their transactions.",
-ref_btn: "INVITE PARTNERS",
-        plans: [
-            {n:"STARTER", p:"$5", f:"• 5 daily express generations<br>• High-Definition core access<br>• Standard queue priority"},
-            {n:"STANDARD", p:"$15", f:"• 15 Full HD generations daily<br>• Complete watermark removal<br>• Priority server access"},
-            {n:"ADVANCED", p:"$30", f:"• 40 Cinematic sessions monthly<br>• Professional prompt tuning<br>• Accelerated complex rendering"},
-            {n:"ELITE", p:"$50", f:"• 80 Ultra 2K generations<br>• Access to private beta models<br>• Dedicated data stream"},
-            {n:"ULTIMATE", p:"$100", f:"• UNLIMITED ACCESS 24/7<br>• Maximum 4K Cinematic quality<br>• Individual model weight tuning"}
-        ]
-    }
-};
+    const i18n = {
+        ru: {
+            home: "ГЛАВНАЯ", stats: "СТАТЫ", refs: "РЕФЫ", tariffs: "ТАРИФЫ", gift: "БОНУС",
+            creation: "ULTIMATE GENERATION 2.0", create_btn: "ЗАПУСТИТЬ ТЕРМИНАЛ",
+            project_t: "ЭКОСИСТЕМА BEAST OMNI", plans_t: "ТАРИФНЫЕ ПЛАНЫ", sec_t: "БЕЗОПАСНОСТЬ ДАННЫХ", pay_t: "СПОСОБЫ ОПЛАТЫ",
+            supp_t: "ЭЛИТНАЯ ПОДДЕРЖКА 24/7", supp_b: "СВЯЗАТЬСЯ С ПОДДЕРЖКОЙ", spin: "КРУТИТЬ КОЛЕСО", back: "← НАЗАД", lucky: "BEAST LUCK",
+            ref_title: "РЕФЕРАЛЬНАЯ СИСТЕМА",
+            ref_desc: "Приглашай друзей в Beast Omni и получай пожизненный доход 15% от их транзакций.",
+            ref_btn: "ПРИГЛАСИТЬ ПАРТНЕРОВ",
+            desc_p: "<strong>Beast Omni</strong> — это не просто инструмент, это цифровая сингулярность в мире генеративного искусства. Мы развернули сложнейшую архитектуру из <strong>высокопроизводительных графических кластеров</strong>, работающих в синергии с авторскими весами нейросетей. В то время как другие предлагают шаблоны, мы предлагаем <strong>бескомпромиссную детализацию</strong>, фотореалистичную физику света и текстуры, которые стирают грань между рендером и реальностью. Beast Omni оптимизирован для задач запредельной сложности: от кинематографических кадров до гиперреалистичных концептов. Добро пожаловать в высшую лигу визуального доминирования.",
+            desc_s: "Ваша приватность — наш главный приоритет и фундаментальная ценность. Вся архитектура Beast Omni построена на протоколах <strong>Zero-Knowledge</strong>. Мы внедрили военное шифрование <strong>AES-256-GCM</strong>, которое делает перехват данных невозможным. Сразу после завершения вашей сессии или скачивания итогового файла, система <strong>безвозвратно уничтожает</strong> все временные кэши, промпты и промежуточные слои генерации. Мы не собираем логи и не храним историю ваших творческих поисков. В Beast Omni вы остаетесь невидимым творцом под защитой совершенных алгоритмов безопасности.",
+            desc_pay: "Для обеспечения полной анонимности и скорости транзакций, мы интегрировали передовые методы расчетов внутри экосистемы Telegram. Мы принимаем <strong>Telegram Stars</strong> для мгновенных покупок и <strong>Telegram Wallet (TON/Crypto)</strong> для тех, кто ценит децентрализацию и отсутствие посредников. Это решение полностью исключает риск блокировок или утечки банковских данных сторонним лицам. Каждая транзакция подтверждается блокчейном, формируя прозрачную и честную среду. Мы создали систему, где оплата происходит в один тап, а ваша финансовая свобода остается незыблемой.",
+            desc_supp: "Наши инженеры и технические специалисты мониторят систему 24/7, обеспечивая бесперебойную мощь Beast Omni. <span style='color:#ff3b30; font-weight: 800;'>ВНИМАНИЕ:</span> Чтобы ваш запрос был обработан мгновенно, <strong>используйте только официальный тикет-бот</strong>. Прямые сообщения владельцу замедляют работу всей структуры. Бот поддержки автоматически приоритизирует заявку и свяжет вас с нужным отделом. Мы здесь, чтобы ваша работа не прерывалась ни на секунду.",
+            plans: [
+                {n:"STARTER", p:"$5", f:"• 5 экспресс-генераций ежесуточно<br>• Доступ к High-Definition ядру<br>• Стандартный приоритет в очереди"},
+                {n:"STANDARD", p:"$15", f:"• 15 Full HD генераций без лимитов<br>• Удаление любых водяных знаков<br>• Приоритетный доступ к серверам"},
+                {n:"ADVANCED", p:"$30", f:"• 40 Cinematic-сессий в месяц<br>• Профессиональная настройка промптов<br>• Ускоренный рендер сложных текстур"},
+                {n:"ELITE", p:"$50", f:"• 80 генераций в Ultra 2K качестве<br>• Доступ к закрытым бета-моделям<br>• Выделенный поток данных"},
+                {n:"ULTIMATE", p:"$100", f:"• ПОЛНЫЙ БЕЗЛИМИТ 24/7<br>• Максимальное 4K Cinematic качество<br>• Индивидуальный тюнинг модели под вас"}
+            ]
+        },
+        en: {
+            home: "HOME", stats: "STATS", refs: "REFS", tariffs: "PLANS", gift: "BONUS",
+            creation: "ULTIMATE GENERATION 2.0", create_btn: "LAUNCH TERMINAL",
+            project_t: "BEAST OMNI ECOSYSTEM", plans_t: "TARIFF PLANS", sec_t: "DATA SECURITY", pay_t: "PAYMENT METHODS",
+            supp_t: "24/7 ELITE SUPPORT", supp_b: "CONTACT SUPPORT", spin: "SPIN WHEEL", back: "← BACK", lucky: "BEAST LUCK",
+            ref_title: "AFFILIATE SYSTEM",
+            ref_desc: "Invite friends to Beast Omni and earn a lifetime 15% commission from their transactions.",
+            ref_btn: "INVITE PARTNERS",
+            desc_p: "<strong>Beast Omni</strong> is not just a tool, it's a digital singularity in the world of generative art. We've deployed a complex architecture of <strong>high-performance GPU clusters</strong> operating in synergy with proprietary neural weights. While others offer templates, we deliver <strong>uncompromising detail</strong>, photorealistic light physics, and textures that blur the line between render and reality. Beast Omni is optimized for extreme complexity: from cinematic shots to hyper-realistic concepts. Welcome to the major league of visual dominance.",
+            desc_s: "Your privacy is our ultimate priority and core value. The entire Beast Omni architecture is built on <strong>Zero-Knowledge</strong> protocols. We've implemented military-grade <strong>AES-256-GCM</strong> encryption, making data interception impossible. Immediately after your session or file download, the system <strong>irreversibly destroys</strong> all temporary caches, prompts, and generation layers. We do not collect logs or store your creative history. In Beast Omni, you remain an invisible creator protected by perfect security algorithms.",
+            desc_pay: "To ensure complete anonymity and transaction speed, we've integrated advanced payment methods within the Telegram ecosystem. We accept <strong>Telegram Stars</strong> for instant purchases and <strong>Telegram Wallet (TON/Crypto)</strong> for those who value decentralization. This solution eliminates the risk of blocks or leaking bank data to third parties. Every transaction is confirmed by the blockchain, forming a transparent and fair environment. We've created a system where payment happens in one tap while your financial freedom remains intact.",
+            desc_supp: "Our engineers and technical specialists monitor the system 24/7, ensuring the uninterrupted power of Beast Omni. <span style='color:#ff3b30; font-weight: 800;'>ATTENTION:</span> For your request to be processed instantly, <strong>use the official ticket bot only</strong>. Direct messages to the owner slow down the entire structure. The support bot automatically prioritizes your request. We are here to ensure your workflow never stops for a second.",
+            plans: [
+                {n:"STARTER", p:"$5", f:"• 5 daily express generations<br>• High-Definition core access<br>• Standard queue priority"},
+                {n:"STANDARD", p:"$15", f:"• 15 Full HD generations daily<br>• Complete watermark removal<br>• Priority server access"},
+                {n:"ADVANCED", p:"$30", f:"• 40 Cinematic sessions monthly<br>• Professional prompt tuning<br>• Accelerated complex rendering"},
+                {n:"ELITE", p:"$50", f:"• 80 Ultra 2K generations<br>• Access to private beta models<br>• Dedicated data stream"},
+                {n:"ULTIMATE", p:"$100", f:"• UNLIMITED ACCESS 24/7<br>• Maximum 4K Cinematic quality<br>• Individual model weight tuning"}
+            ]
+        }
+    };
+
     function changeLanguage(lang) {
         const t = i18n[lang];
-        document.getElementById('tab-home').innerText = t.home;
-        document.getElementById('tab-stats').innerText = t.stats;
-        document.getElementById('tab-refs').innerText = t.refs;
-        document.getElementById('tab-plans').innerText = t.tariffs;
-        document.getElementById('tab-gift').innerText = t.gift;
-        document.getElementById('l-creation').innerText = t.creation;
-        document.getElementById('l-create-btn').innerText = t.create_btn;
-        document.getElementById('l-title-project').innerText = t.project_t;
-        document.getElementById('l-title-plans').innerText = t.plans_t;
-        document.getElementById('l-title-sec').innerText = t.sec_t;
-        document.getElementById('l-title-pay').innerText = t.pay_t;
-        document.getElementById('l-title-supp').innerText = t.supp_t;
-        document.getElementById('l-btn-supp').innerText = t.supp_b;
-        document.getElementById('l-spin').innerText = t.spin;
-        document.getElementById('l-back').innerText = t.back;
-        document.getElementById('l-lucky').innerText = t.lucky;
-        document.getElementById('l-desc-project').innerHTML = t.desc_p;
-        document.getElementById('l-desc-sec').innerHTML = t.desc_s;
-        document.getElementById('l-desc-pay').innerHTML = t.desc_pay;
-        document.getElementById('l-desc-supp').innerHTML = t.desc_supp;
-        document.getElementById('ref-title').innerText = t.ref_title; 
-        document.getElementById('ref-desc').innerText = t.ref_desc;
-        document.getElementById('ref-btn-text').innerText = t.ref_btn;
+        if (!t) return;
+
+        // Массив элементов для обновления
+        const updates = {
+            'tab-home': t.home,
+            'tab-stats': t.stats,
+            'tab-refs': t.refs,
+            'tab-plans': t.tariffs,
+            'tab-gift': t.gift,
+            'l-creation': t.creation,
+            'l-create-btn': t.create_btn,
+            'l-title-project': t.project_t,
+            'l-title-plans': t.plans_t,
+            'l-title-sec': t.sec_t,
+            'l-title-pay': t.pay_t,
+            'l-title-supp': t.supp_t,
+            'l-btn-supp': t.supp_b,
+            'l-spin': t.spin,
+            'l-back': t.back,
+            'l-lucky': t.lucky,
+            'ref-title': t.ref_title,
+            'ref-desc': t.ref_desc,
+            'ref-btn-text': t.ref_btn
+        };
+
+        for (let id in updates) {
+            const el = document.getElementById(id);
+            if (el) el.innerText = updates[id];
+        }
+
+        // Обновляем HTML блоки
+        const htmlUpdates = {
+            'l-desc-project': t.desc_p,
+            'l-desc-sec': t.desc_s,
+            'l-desc-pay': t.desc_pay,
+            'l-desc-supp': t.desc_supp
+        };
+
+        for (let id in htmlUpdates) {
+            const el = document.getElementById(id);
+            if (el) el.innerHTML = htmlUpdates[id];
+        }
 
         const container = document.getElementById('packages-container');
-        container.innerHTML = t.plans.map(p => `
-            <div class="package-item" style="${p.n === 'ULTIMATE' ? 'border-color:var(--accent-blue)' : ''}">
-                <div class="package-header"><span class="package-name">${p.n}</span><span class="package-price">${p.p}</span></div>
-                <div class="package-features">${p.f}</div>
-            </div>
-        `).join('');
+        if (container) {
+            container.innerHTML = t.plans.map(p => `
+                <div class="package-item" style="${p.n === 'ULTIMATE' ? 'border-color:var(--accent-blue)' : ''}">
+                    <div class="package-header"><span class="package-name">${p.n}</span><span class="package-price">${p.p}</span></div>
+                    <div class="package-features">${p.f}</div>
+                </div>
+            `).join('');
+        }
     }
 
     const prizes = [{n:"0.1",c:"#121212"},{n:"0.5",c:"#1a1a1a"},{n:"0.1",c:"#121212"},{n:"1.0",c:"#007aff"},{n:"0.1",c:"#121212"},{n:"2.0",c:"#1a1a1a"},{n:"0.1",c:"#121212"},{n:"0.0",c:"#000"}];
     
     function drawWheel() { 
         const ctx = document.getElementById('wheel-canvas').getContext('2d'); 
+        if (!ctx) return;
         ctx.clearRect(0,0,600,600); 
         prizes.forEach((p, i) => { 
             ctx.beginPath(); ctx.fillStyle = p.c; ctx.moveTo(300, 300); 
@@ -435,6 +467,7 @@ ref_btn: "INVITE PARTNERS",
 
     function runWheel() { 
         const canvas = document.getElementById('wheel-canvas'); 
+        if (!canvas) return;
         const idx = Math.floor(Math.random()*prizes.length); 
         canvas.style.transform = `rotate(${3600+(idx*45)}deg)`; 
         setTimeout(() => { tg.showAlert("Jackpot Win!"); }, 4600); 
@@ -445,42 +478,41 @@ ref_btn: "INVITE PARTNERS",
 
     window.onload = () => { 
         setTimeout(() => { 
-            document.getElementById('splash-screen').style.opacity='0'; 
-            setTimeout(()=>document.getElementById('splash-screen').style.display='none',500); 
+            const splash = document.getElementById('splash-screen');
+            if (splash) {
+                splash.style.opacity='0'; 
+                setTimeout(()=> splash.style.display='none', 500);
+            }
         }, 2800);
         if(tg.initDataUnsafe?.user) document.getElementById('user-name').innerText = tg.initDataUnsafe.user.first_name.toUpperCase();
         changeLanguage('ru'); 
     };
-    function openRefs() {
-    // Показываем экран
-    document.getElementById('refs-screen').style.display = 'block';
-    // Убираем синий со всех кнопок
-    document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
-    // Подсвечиваем только РЕФЫ
-    document.getElementById('tab-refs').classList.add('active');
-    tg.HapticFeedback.impactOccurred('medium'); // Вибрация для премиальности
-}
 
-function closeRefs() {
-    // Прячем экран
-    document.getElementById('refs-screen').style.display = 'none';
-    // Убираем синий со всех кнопок
-    document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
-    // Возвращаем синий на ГЛАВНУЮ
-    document.getElementById('tab-home').classList.add('active');
-}
-function sharePartnerLink() {
-    // Получаем ID пользователя из Telegram WebApp
-    const userId = tg.initDataUnsafe?.user?.id || "000000"; 
-    const botUsername = "beast_omni_bot"; // ЗАМЕНИ на юзернейм своего бота без @
-    
-    // Формируем ссылку: сама ссылка + текст сообщения
-    const inviteLink = `https://t.me/${botUsername}?start=ref${userId}`;
-    const shareText = encodeURIComponent("Beast Omni — Доступ к нейросетям нового поколения. Присоединяйся!");
-    
-    const fullUrl = `https://t.me/share/url?url=${inviteLink}&text=${shareText}`;
-    
-    tg.openTelegramLink(fullUrl);
-    tg.HapticFeedback.notificationOccurred('success');
-}
+    function openRefs() {
+        document.getElementById('refs-screen').style.display = 'block';
+        document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
+        document.getElementById('tab-refs').classList.add('active');
+        tg.HapticFeedback.impactOccurred('medium');
+    }
+
+    function closeRefs() {
+        document.getElementById('refs-screen').style.display = 'none';
+        document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
+        document.getElementById('tab-home').classList.add('active');
+    }
+
+    function sharePartnerLink() {
+        const userId = tg.initDataUnsafe?.user?.id || "user";
+        const botUser = "beast_omni_bot"; 
+        const refLink = `https://t.me/${botUser}?start=ref${userId}`;
+        const message = encodeURIComponent("Beast Omni — Твой личный терминал нейросетей. Присоединяйся к элите! 🔥");
+        const shareUrl = `https://t.me/share/url?url=${refLink}&text=${message}`;
+
+        if (window.Telegram?.WebApp) {
+            tg.openTelegramLink(shareUrl);
+            tg.HapticFeedback.impactOccurred('heavy');
+        } else {
+            window.open(shareUrl, '_blank');
+        }
+    }
 </script>
