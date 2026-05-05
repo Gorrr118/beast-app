@@ -359,10 +359,10 @@
             supp_t: "ЭЛИТНАЯ ПОДДЕРЖКА 24/7", supp_b: "СВЯЗАТЬСЯ С ПОДДЕРЖКОЙ", spin: "КРУТИТЬ КОЛЕСО", back: "← НАЗАД", lucky: "BEAST LUCK",
             
             ref_title: "РЕФЕРАЛЬНАЯ СИСТЕМА",
-            ref_desc: "Получай +1 ⭐️ STARS за каждого нового друга! Также тебе идет 15% от всех их транзакций.",
+            ref_desc: "Получай +1 ⭐️ STARS за каждого друга! Также тебе идет 15% от всех их транзакций.",
             ref_btn: "ПРИГЛАСИТЬ ПАРТНЕРОВ",
-            ref_perks_t: "ЭЛИТНЫЕ БОНУСЫ",
-            ref_perks_d: "Накопленные звезды можно обменивать на секретные фичи, скрытые промпты и ускоренный рендер.",
+            ref_perks_t: "ЭЛИТНЫЕ БОНУСЫ И ОБМЕН",
+            ref_perks_d: "Накопленные звезды можно обменивать на крутые фичи и уникальные функции.",
 
             desc_p: "<strong>Beast Omni</strong> — это не просто инструмент, это цифровая сингулярность в мире генеративного искусства. Мы развернули сложнейшую архитектуру из <strong>высокопроизводительных графических кластеров</strong>, работающих в синергии с авторскими весами нейросетей. В то время как другие предлагают шаблоны, мы предлагаем <strong>бескомпромиссную детализацию</strong>, фотореалистичную физику света и текстуры, которые стирают грань между рендером и реальностью. Beast Omni оптимизирован для задач запредельной сложности: от кинематографических кадров до гиперреалистичных концептов. Добро пожаловать в высшую лигу визуального доминирования.",
             desc_s: "Ваша приватность — наш главный приоритет и фундаментальная ценность. Вся архитектура Beast Omni построена на протоколах <strong>Zero-Knowledge</strong>. Мы внедрили военное шифрование <strong>AES-256-GCM</strong>, которое делает перехват данных невозможным. Сразу после завершения вашей сессии или скачивания итогового файла, система <strong>безвозвратно уничтожает</strong> все временные кэши, промпты и промежуточные слои генерации. Мы не собираем логи и не храним историю ваших творческих поисков. В Beast Omni вы остаетесь невидимым творцом под защитой совершенных алгоритмов безопасности.",
@@ -386,8 +386,8 @@
             ref_title: "AFFILIATE SYSTEM",
             ref_desc: "Get +1 ⭐️ STARS for every friend you invite! Plus 15% lifetime commission from their deals.",
             ref_btn: "INVITE PARTNERS",
-            ref_perks_t: "ELITE PERKS",
-            ref_perks_d: "Exchange your earned Stars for secret features, hidden prompts, and accelerated rendering.",
+            ref_perks_t: "ELITE PERKS & EXCHANGE",
+            ref_perks_d: "Exchange your earned Stars for cool features: secret prompts, high-speed render, and unique functions.",
 
             desc_p: "<strong>Beast Omni</strong> is not just a tool, it's a digital singularity in the world of generative art. We've deployed high-performance GPU clusters. Uncompromising detail and photorealistic light physics. Welcome to the major league of visual dominance.",
             desc_s: "Your privacy is our ultimate priority. Zero-Knowledge protocols and military-grade AES-256-GCM encryption. We do not collect logs or store your creative history.",
@@ -408,6 +408,7 @@
         const t = i18n[lang];
         if (!t) return;
 
+        // Полное обновление текстов на всех вкладках
         const updates = {
             'tab-home': t.home, 'tab-stats': t.stats, 'tab-refs': t.refs, 'tab-plans': t.tariffs, 'tab-gift': t.gift,
             'l-creation': t.creation, 'l-create-btn': t.create_btn, 'l-title-project': t.project_t,
@@ -477,7 +478,8 @@
             }
         }, 2800);
         if(tg.initDataUnsafe?.user) {
-            document.getElementById('user-name').innerText = tg.initDataUnsafe.user.first_name.toUpperCase();
+            const userNameEl = document.getElementById('user-name');
+            if (userNameEl) userNameEl.innerText = tg.initDataUnsafe.user.first_name.toUpperCase();
         }
         changeLanguage('ru'); 
     };
@@ -498,14 +500,12 @@
     }
 
     function sharePartnerLink() {
-        // Защита: передаем ID приглашающего в параметр start
         const userId = tg.initDataUnsafe?.user?.id || "0";
         const botUser = "beast_omni_bot"; 
-        
         const refLink = `https://t.me/${botUser}?start=ref${userId}`;
         const message = "Забирай +1 ⭐️ Stars и доступ к Beast Omni по моей ссылке! 🔥";
         
-        // Кодируем параметры, чтобы Telegram не выдал ошибку в ссылке
+        // Полная кодировка для стабильной работы ссылки
         const shareUrl = `https://t.me/share/url?url=${encodeURIComponent(refLink)}&text=${encodeURIComponent(message)}`;
 
         if (window.Telegram?.WebApp) {
