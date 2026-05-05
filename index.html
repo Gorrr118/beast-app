@@ -77,24 +77,33 @@
             </div>
         </div>
     </div>
-<div id="refs-screen" style="display:none; position:fixed; inset:0; background:#000; z-index:1500; padding-top:130px; overflow-y:auto;">
+<div id="refs-screen" style="display:none; position:fixed; inset:0; background:radial-gradient(circle at top, #0a0a0a 0%, #000 100%); z-index:1500; padding-top:130px; overflow-y:auto;">
     <div class="feed">
-        <div class="beast-card" style="margin-bottom:30px;">
-            <b style="font-size: 24px;">РЕФЕРАЛЬНАЯ СИСТЕМА</b>
-            <p>Приглашай друзей и получай 15% от их пополнений в Stars</p>
-            <h1 style="color:var(--accent-blue); font-family: Montserrat; font-weight:900; font-size:40px;">0.00 <span style="font-size:18px;">STARS</span></h1>
+        <div class="beast-card" style="border: 1px solid rgba(0, 122, 255, 0.3); background: rgba(18, 18, 20, 0.6); backdrop-filter: blur(10px); margin-bottom: 25px;">
+            <div style="font-family: Montserrat; font-weight: 800; font-size: 12px; color: var(--accent-blue); letter-spacing: 2px; margin-bottom: 10px;">PARTNER PROGRAM</div>
+            <b id="ref-title" style="font-size: 26px; display: block; margin-bottom: 5px;">РЕФЕРАЛЬНАЯ СИСТЕМА</b>
+            <p id="ref-desc" style="color: var(--text-dim); font-size: 14px; margin-bottom: 25px;">Приглашай друзей в Beast Omni и получай пожизненный доход 15% от их транзакций.</p>
+            
+            <div style="background: rgba(255,255,255,0.03); border-radius: 20px; padding: 20px; border: 1px solid var(--border-soft);">
+                <span style="font-size: 12px; color: var(--text-dim); text-transform: uppercase;">Доступный баланс</span>
+                <h1 style="color: #fff; font-family: Montserrat; font-weight: 900; font-size: 42px; margin: 5px 0;">0.00 <span style="font-size: 16px; color: var(--accent-blue);">STARS</span></h1>
+            </div>
         </div>
-        <button class="btn-main-action" onclick="tg.openTelegramLink('https://t.me/share/url?url=t.me/beast_omni_bot?start=123&text=Зацени Beast Omni!')">ПРИГЛАСИТЬ ПАРТНЕРОВ</button>
-        <div class="back-btn" style="text-align:center; margin-top:30px; cursor:pointer;" onclick="document.getElementById('refs-screen').style.display='none'">← НАЗАД В МЕНЮ</div>
+
+        <button class="btn-main-action" style="box-shadow: 0 10px 20px rgba(0, 122, 255, 0.3);" onclick="tg.openTelegramLink('https://t.me/share/url?url=t.me/beast_omni_bot?start=123&text=Beast Omni — Neural Future is here.')">
+            <span id="ref-btn-text">ПРИГЛАСИТЬ ПАРТНЕРОВ</span>
+        </button>
+
+        <div class="back-btn" style="text-align:center; margin-top:30px; color: var(--text-dim); font-family: Montserrat; font-weight: 800; font-size: 12px; letter-spacing: 1px;" onclick="closeRefs()">← BACK TO TERMINAL</div>
     </div>
- </div>
+</div>
    <div class="tab-bar">
-        <a href="#" class="nav-item active" id="tab-home" onclick="document.getElementById('refs-screen').style.display='none'">ГЛАВНАЯ</a>
-        <a href="#" class="nav-item" id="tab-stats">СТАТЫ</a>
-        <a href="#" class="nav-item" id="tab-refs" onclick="document.getElementById('refs-screen').style.display='block'">РЕФЫ</a>
-        <a href="#" class="nav-item" id="tab-plans">ТАРИФЫ</a>
-        <a href="#" class="nav-item" id="tab-gift" onclick="openGiftModal()">БОНУС</a>
-    </div>>
+    <a href="#" class="nav-item active" id="tab-home" onclick="closeRefs()">ГЛАВНАЯ</a>
+    <a href="#" class="nav-item" id="tab-stats">СТАТЫ</a>
+    <a href="#" class="nav-item" id="tab-refs" onclick="openRefs()">РЕФЫ</a>
+    <a href="#" class="nav-item" id="tab-plans">ТАРИФЫ</a>
+    <a href="#" class="nav-item" id="tab-gift" onclick="openGiftModal()">БОНУС</a>
+</div>
 
     <div id="gift-modal">
         <h2 id="l-lucky">BEAST LUCK</h2>
@@ -109,6 +118,10 @@
     </body>
 </html>
 <style>
+    #refs-screen .beast-card {
+    box-shadow: 0 0 30px rgba(0, 122, 255, 0.15);
+    border: 1px solid rgba(0, 122, 255, 0.4) !important;
+}
     :root {
         --bg-total: #000000;
         --bg-surface: #050505;
@@ -329,6 +342,9 @@
         
         desc_supp: "Наши инженеры и технические специалисты мониторят систему 24/7, обеспечивая бесперебойную мощь Beast Omni. <span style='color:#ff3b30; font-weight: 800;'>ВНИМАНИЕ:</span> Чтобы ваш запрос был обработан мгновенно, <strong>используйте только официальный тикет-бот</strong>. Прямые сообщения владельцу замедляют работу всей структуры. Бот поддержки автоматически приоритизирует заявку и свяжет вас с нужным отделом. Мы здесь, чтобы ваша работа не прерывалась ни на секунду.",
         
+        ref_title: "РЕФЕРАЛЬНАЯ СИСТЕМА",
+ref_desc: "Приглашай друзей в Beast Omni и получай пожизненный доход 15% от их транзакций.",
+ref_btn: "ПРИГЛАСИТЬ ПАРТНЕРОВ",
         plans: [
             {n:"STARTER", p:"$5", f:"• 5 экспресс-генераций ежесуточно<br>• Доступ к High-Definition ядру<br>• Стандартный приоритет в очереди"},
             {n:"STANDARD", p:"$15", f:"• 15 Full HD генераций без лимитов<br>• Удаление любых водяных знаков<br>• Приоритетный доступ к серверам"},
@@ -351,6 +367,9 @@
         
         desc_supp: "Our engineers and technical specialists monitor the system 24/7, ensuring the uninterrupted power of Beast Omni. <span style='color:#ff3b30; font-weight: 800;'>ATTENTION:</span> For your request to be processed instantly, <strong>use the official ticket bot only</strong>. Direct messages to the owner slow down the entire structure. The support bot automatically prioritizes your request. We are here to ensure your workflow never stops for a second.",
         
+        ref_title: "AFFILIATE SYSTEM",
+ref_desc: "Invite friends to Beast Omni and earn a lifetime 15% commission from their transactions.",
+ref_btn: "INVITE PARTNERS",
         plans: [
             {n:"STARTER", p:"$5", f:"• 5 daily express generations<br>• High-Definition core access<br>• Standard queue priority"},
             {n:"STANDARD", p:"$15", f:"• 15 Full HD generations daily<br>• Complete watermark removal<br>• Priority server access"},
@@ -382,6 +401,9 @@
         document.getElementById('l-desc-sec').innerHTML = t.desc_s;
         document.getElementById('l-desc-pay').innerHTML = t.desc_pay;
         document.getElementById('l-desc-supp').innerHTML = t.desc_supp;
+        document.getElementById('ref-title').innerText = t.ref_title; 
+        document.getElementById('ref-desc').innerText = t.ref_desc;
+        document.getElementById('ref-btn-text').innerText = t.ref_btn;
 
         const container = document.getElementById('packages-container');
         container.innerHTML = t.plans.map(p => `
@@ -424,4 +446,23 @@
         if(tg.initDataUnsafe?.user) document.getElementById('user-name').innerText = tg.initDataUnsafe.user.first_name.toUpperCase();
         changeLanguage('ru'); 
     };
+    function openRefs() {
+    // Показываем экран
+    document.getElementById('refs-screen').style.display = 'block';
+    // Убираем синий со всех кнопок
+    document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
+    // Подсвечиваем только РЕФЫ
+    document.getElementById('tab-refs').classList.add('active');
+    tg.HapticFeedback.impactOccurred('medium'); // Вибрация для премиальности
+}
+
+function closeRefs() {
+    // Прячем экран
+    document.getElementById('refs-screen').style.display = 'none';
+    // Убираем синий со всех кнопок
+    document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
+    // Возвращаем синий на ГЛАВНУЮ
+    document.getElementById('tab-home').classList.add('active');
+}
+
 </script>
