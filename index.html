@@ -6,23 +6,25 @@
     <title>Beast Omni Ultimate Elite</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Montserrat:wght@700;800;900&display=swap" rel="stylesheet">
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
-    <link rel="stylesheet" href="style.css">
-</head>
+    </head>
 <body>
-
-    <div class="header-global">
-        <h1 id="l-main-header">BEAST CORE</h1>
-        <button class="btn-lang" id="lang-btn" onclick="toggleLang()">🇷🇺 RU</button>
-    </div>
 
     <div id="splash-screen">
         <div id="splash-logo">BEAST OMNI</div>
         <div class="progress-bar"><div class="progress-fill"></div></div>
     </div>
 
-    <div class="feed" id="main-feed">
+    <div class="header">
+        <h1 id="user-name">BEAST CORE</h1>
+        <select id="lang-select" onchange="changeLanguage(this.value)">
+            <option value="ru" selected>🇷🇺 RU</option>
+            <option value="en">🇺🇸 EN</option>
+        </select>
+    </div>
+
+    <div class="feed">
         <div class="main-video-card">
-            <video autoplay muted loop playsinline>
+            <video autoplay muted loop playsinline poster="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe">
                 <source src="https://www.w3schools.com/howto/rain.mp4" type="video/mp4">
             </video>
             <div class="video-label" id="l-creation">ULTIMATE GENERATION 2.0</div>
@@ -30,70 +32,102 @@
 
         <button class="btn-main-action" id="l-create-btn" onclick="tg.showAlert('Initializing Neural Core...')">ЗАПУСТИТЬ ТЕРМИНАЛ</button>
 
-        <div class="info-block">
+        <div class="info-block" style="margin-top:60px;">
             <div class="info-text">
                 <b id="l-title-project">ЭКОСИСТЕМА BEAST OMNI</b>
-                <span id="l-desc-project"></span>
+                <span id="l-desc-project">
+                    </span>
             </div>
             <img src="https://images.unsplash.com/photo-1614850523296-d8c1af93d400?q=80&w=1000" class="info-img">
         </div>
 
         <div class="info-block">
             <div class="info-text"><b id="l-title-plans">ТАРИФНЫЕ ПЛАНЫ</b></div>
-            <div id="packages-container"></div>
+            
+            <div id="packages-container">
+                </div>
+            <img src="https://images.unsplash.com/photo-1639762681485-074b7f938ba0?q=80&w=1000" class="info-img" style="margin-top:20px;">
         </div>
 
         <div class="info-block">
+
             <div class="info-text">
                 <b id="l-title-sec">БЕЗОПАСНОСТЬ ДАННЫХ</b>
-                <span id="l-desc-sec"></span>
+                <span id="l-desc-sec">
+                    </span>
             </div>
             <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=1000" class="info-img">
         </div>
 
         <div class="info-block">
+            <div class="info-text">
+                <b id="l-title-pay">СПОСОБЫ ОПЛАТЫ</b>
+                <span id="l-desc-pay">
+                    </span>
+            </div>
+            <img src="https://images.unsplash.com/photo-1621416894569-0f39ed31d247?q=80&w=1000" class="info-img">
+        </div>
+
+        <div class="info-block">
             <div class="beast-card">
                 <b id="l-title-supp">ЭЛИТНАЯ ПОДДЕРЖКА 24/7</b>
-                <p id="l-desc-supp"></p>
+                <p id="l-desc-supp">
+                    </p>
                 <button class="btn-support" id="l-btn-supp" onclick="tg.openTelegramLink('https://t.me/your_support_bot')">СВЯЗАТЬСЯ С ПОДДЕРЖКОЙ</button>
             </div>
         </div>
     </div>
-
-    <div id="refs-screen">
-        <div style="text-align: center; margin-bottom: 40px;">
-            <h2 id="ref-title">РЕФЕРАЛЬНАЯ СИСТЕМА</h2>
-            <div style="width: 50px; height: 2px; background: var(--accent-blue); margin: 15px auto;"></div>
-        </div>
-        <div style="margin-bottom: 40px;">
-            <div class="ref-item">
-                <div class="ref-icon">💎</div>
-                <div>
-                    <b id="l-ref-income-t">Пожизненный доход 15%</b>
-                    <span id="l-ref-income-d">Комиссия Stars с каждого пополнения партнерами.</span>
-                </div>
-            </div>
-            <div class="ref-item highlight">
-                <div class="ref-icon">🔥</div>
-                <div>
-                    <b id="l-ref-perks-title">ЭЛИТНЫЕ БОНУСЫ</b>
-                    <span id="l-ref-perks-desc">Обмен на секретные фичи и рендер.</span>
-                </div>
-            </div>
-        </div>
-        <button class="btn-main-action" onclick="sharePartnerLink()">
-            <span id="ref-btn-text">ПРИГЛАСИТЬ ПАРТНЕРОВ</span>
-        </button>
-        <div class="back-btn" style="text-align:center;" onclick="closeRefs()">← НАЗАД В ТЕРМИНАЛ</div>
+<div id="refs-screen" style="display:none; position:fixed; inset:0; background:#000; z-index:1500; overflow-y:auto; padding: 0 20px 120px;">
+    
+    <div style="padding-top: 60px; text-align: center; margin-bottom: 40px;">
+        <h2 style="font-family: Montserrat; font-weight: 900; font-size: 28px; letter-spacing: 1px; color: #fff; margin: 0;">РЕФЕРАЛЬНАЯ СИСТЕМА</h2>
+        <div style="width: 50px; height: 2px; background: var(--accent-blue); margin: 15px auto;"></div>
     </div>
 
-    <div class="tab-bar">
-        <div class="nav-item active" id="tab-home" onclick="closeRefs();closeGiftModal()">ГЛАВНАЯ</div>
-        <div class="nav-item" id="tab-stats" onclick="tg.showAlert('Stats coming soon')">СТАТЫ</div>
-        <div class="nav-item" id="tab-refs" onclick="openRefs()">РЕФЫ</div>
-        <div class="nav-item" id="tab-plans" onclick="closeRefs();closeGiftModal(); scrollToPlans()">ТАРИФЫ</div>
-        <div class="nav-item" id="tab-gift" onclick="openGiftModal()">БОНУС</div>
+    <div style="margin-bottom: 40px;">
+        <div style="display: flex; align-items: flex-start; margin-bottom: 25px;">
+            <div style="color: var(--accent-blue); font-size: 24px; margin-right: 15px;">💎</div>
+            <div>
+                <b style="display: block; font-size: 16px; margin-bottom: 5px;">Пожизненный доход 15%</b>
+                <span style="color: var(--text-dim); font-size: 13px; line-height: 1.4;">Получайте комиссию Stars с каждого пополнения баланса вашими партнерами. Всегда.</span>
+            </div>
+        </div>
+
+        <div style="display: flex; align-items: flex-start; margin-bottom: 25px;">
+            <div style="color: var(--accent-blue); font-size: 24px; margin-right: 15px;">⚡️</div>
+            <div>
+                <b style="display: block; font-size: 16px; margin-bottom: 5px;">Мгновенные выплаты</b>
+                <span style="color: var(--text-dim); font-size: 13px; line-height: 1.4;">Бонусы зачисляются на ваш баланс Beast Omni сразу после транзакции реферала.</span>
+            </div>
+        </div>
+
+        <div style="display: flex; align-items: flex-start;">
+            <div style="color: var(--accent-blue); font-size: 24px; margin-right: 15px;">🚀</div>
+            <div>
+                <b style="display: block; font-size: 16px; margin-bottom: 5px;">Приоритетный доступ</b>
+                <span style="color: var(--text-dim); font-size: 13px; line-height: 1.4;">Активные партнеры получают ранний доступ к новым нейросетевым моделям.</span>
+            </div>
+        </div>
     </div>
+
+    <div style="background: linear-gradient(180deg, #121214 0%, #000 100%); border: 1px solid var(--border-soft); border-radius: 24px; padding: 25px; text-align: center; margin-bottom: 30px;">
+        <span style="color: var(--text-dim); font-size: 12px; text-transform: uppercase; letter-spacing: 2px;">Ваш текущий профит</span>
+        <div style="font-family: Montserrat; font-weight: 900; font-size: 42px; margin: 10px 0;">0.00 <span style="color: var(--accent-blue); font-size: 16px;">STARS</span></div>
+    </div>
+
+   <button class="btn-main-action" onclick="sharePartnerLink()">
+    <span id="ref-btn-text">ПРИГЛАСИТЬ ДРУЗЕЙ</span>
+</button>
+
+    <div class="back-btn" style="text-align:center; margin-top:30px; font-size: 12px; letter-spacing: 1px; opacity: 0.5;" onclick="closeRefs()">← НАЗАД В ТЕРМИНАЛ</div>
+</div>
+<div class="tab-bar">
+    <a href="#" class="nav-item active" id="tab-home" onclick="closeRefs()">ГЛАВНАЯ</a>
+    <a href="#" class="nav-item" id="tab-stats" onclick="tg.showAlert('Stats coming soon')">СТАТЫ</a>
+    <a href="#" class="nav-item" id="tab-refs" onclick="openRefs()">РЕФЫ</a>
+    <a href="#" class="nav-item" id="tab-plans" onclick="closeRefs(); window.scrollTo({top: document.getElementById('l-title-plans').offsetTop - 100, behavior: 'smooth'})">ТАРИФЫ</a>
+    <a href="#" class="nav-item" id="tab-gift" onclick="openGiftModal()">БОНУС</a>
+</div>>
 
     <div id="gift-modal">
         <h2 id="l-lucky">BEAST LUCK</h2>
@@ -105,244 +139,380 @@
         <div class="back-btn" onclick="closeGiftModal()" id="l-back">← НАЗАД</div>
     </div>
 
-    <script src="script.js"></script>
-</body>
+    </body>
 </html>
 <style>
-   :root {
-    --bg-total: #000000;
-    --bg-surface: #050505;
-    --bg-card: #121214;
-    --text-main: #ffffff;
-    --text-dim: #a1a1a6;
-    --accent-blue: #007aff;
-    --accent-gradient: linear-gradient(135deg, #007aff 0%, #0040ff 100%);
-    --border-soft: rgba(255, 255, 255, 0.06);
-    --nav-height: 85px;
+    #refs-screen .beast-card {
+    box-shadow: 0 0 30px rgba(0, 122, 255, 0.15);
+    border: 1px solid rgba(0, 122, 255, 0.4) !important;
 }
+    :root {
+        --bg-total: #000000;
+        --bg-surface: #050505;
+        --bg-card: #121214;
+        --text-main: #ffffff;
+        --text-dim: #a1a1a6;
+        --accent-blue: #007aff;
+        --accent-gradient: linear-gradient(135deg, #007aff 0%, #0040ff 100%);
+        --border-soft: rgba(255, 255, 255, 0.06);
+        --nav-height: 85px;
+    }
 
-* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 
-body {
-    background-color: var(--bg-total);
-    color: var(--text-main);
-    font-family: 'Inter', sans-serif;
-    margin: 0; padding: 0;
-    overflow-x: hidden;
-    padding-bottom: calc(var(--nav-height) + 40px);
+    body {
+        background-color: var(--bg-total);
+        color: var(--text-main);
+        font-family: 'Inter', sans-serif;
+        margin: 0; padding: 0;
+        overflow-x: hidden;
+        -webkit-user-select: none;
+        padding-bottom: calc(var(--nav-height) + 40px);
+    }
+
+    /* --- АНИМАЦИИ (KEYFRAMES) --- */
+    @keyframes fadeInUp {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes scaleIn {
+        from { opacity: 0; transform: scale(0.9); }
+        to { opacity: 1; transform: scale(1); }
+    }
+
+    @keyframes pulseBlue {
+        0% { box-shadow: 0 0 5px rgba(0, 122, 255, 0.2); }
+        50% { box-shadow: 0 0 20px rgba(0, 122, 255, 0.5); }
+        100% { box-shadow: 0 0 5px rgba(0, 122, 255, 0.2); }
+    }
+
+    /* Применяем анимацию к элементам контента */
+    .main-video-card { animation: scaleIn 0.8s ease forwards; }
+    .info-text b { animation: fadeInUp 0.6s ease forwards; }
+    .info-text span { animation: fadeInUp 0.8s ease forwards; }
+    .package-item { animation: fadeInUp 0.5s ease forwards; animation-fill-mode: both; }
+    
+    /* Задержка появления для каждого тарифа (чтобы выплывали по очереди) */
+    .package-item:nth-child(1) { animation-delay: 0.1s; }
+    .package-item:nth-child(2) { animation-delay: 0.2s; }
+    .package-item:nth-child(3) { animation-delay: 0.3s; }
+    .package-item:nth-child(4) { animation-delay: 0.4s; }
+    .package-item:nth-child(5) { animation-delay: 0.5s; }
+
+    /* --- SPLASH SCREEN --- */
+    #splash-screen {
+        position: fixed; inset: 0;
+        background: #000000;
+        z-index: 10000; display: flex; flex-direction: column; align-items: center; justify-content: center;
+        transition: opacity 0.5s ease;
+    }
+    #splash-logo { 
+        font-family: 'Montserrat'; font-weight: 900; font-size: 42px; color: #fff; 
+        letter-spacing: 2px; margin-bottom: 25px; text-transform: uppercase;
+        text-shadow: 0 0 15px rgba(0, 122, 255, 0.7), 0 0 30px rgba(0, 122, 255, 0.4);
+        animation: scaleIn 1s ease;
+    }
+    .progress-bar { width: 240px; height: 4px; background: rgba(255,255,255,0.1); border-radius: 10px; overflow: hidden; }
+    .progress-fill { height: 100%; width: 0%; background: var(--accent-blue); animation: fillProgress 2.5s ease-in-out forwards; }
+    @keyframes fillProgress { to { width: 100%; } }
+
+    /* --- ШАПКА (HEADER) --- */
+    .header {
+        padding: 45px 20px 15px;
+        display: flex; justify-content: space-between; align-items: center;
+        background: rgba(0, 0, 0, 0.9);
+        backdrop-filter: blur(20px);
+        position: fixed; top: 0; width: 100%; z-index: 1000;
+        border-bottom: 1px solid var(--border-soft);
+    }
+    
+    .header h1 { 
+        margin: 0; 
+        font-family: 'Montserrat'; 
+        font-weight: 900; 
+        font-size: 26px;
+        letter-spacing: -1px; 
+        text-transform: uppercase;
+        color: #ffffff;
+    }
+
+    #lang-select { 
+        background: #1a1a1a;
+        color: white; 
+        border: 1px solid var(--border-soft);
+        padding: 10px 14px; 
+        border-radius: 14px;
+        font-size: 13px; 
+        font-weight: 800; 
+        font-family: 'Montserrat';
+        outline: none;
+        appearance: none;
+        -webkit-appearance: none;
+    }
+
+    /* --- ЭФФЕКТ СИНЕЙ ОБВОДКИ ПРИ НАЖАТИИ --- */
+    .btn-main-action, .btn-support, .package-item, #lang-select, .nav-item {
+        transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        outline: 2px solid transparent;
+        outline-offset: 2px;
+    }
+
+    .btn-main-action:active, 
+    .btn-support:active, 
+    .package-item:active, 
+    #lang-select:active,
+    .nav-item:active {
+        outline: 2px solid var(--accent-blue) !important; 
+        box-shadow: 0 0 15px rgba(0, 122, 255, 0.5);
+        transform: scale(0.97);
+    }
+
+    /* --- CONTENT --- */
+    .feed { padding: 130px 20px 20px; }
+    
+    .main-video-card {
+        width: 100%; height: 420px; border-radius: 30px; overflow: hidden; position: relative;
+        margin-bottom: 25px; border: 1px solid var(--border-soft);
+    }
+    .main-video-card video { width: 100%; height: 100%; object-fit: cover; opacity: 0.7; }
+    .video-label { 
+        position: absolute; bottom: 25px; left: 25px; font-family: 'Montserrat'; 
+        font-weight: 900; font-size: 20px; text-transform: uppercase; 
+    }
+
+    .btn-main-action {
+        background: var(--accent-gradient); color: #fff; border: none; width: 100%;
+        padding: 22px; border-radius: 24px; font-family: 'Montserrat'; font-weight: 900;
+        font-size: 16px; text-transform: uppercase; cursor: pointer; transition: 0.2s;
+    }
+
+    /* --- INFO BLOCKS --- */
+    .info-block { margin-bottom: 50px; }
+    .info-text b { 
+        display: block; font-family: 'Montserrat'; font-weight: 900; font-size: 26px;
+        margin-bottom: 15px; color: #fff; text-transform: uppercase;
+    }
+    .info-text span { font-size: 15px; color: var(--text-dim); line-height: 1.7; display: block; }
+    .info-text strong { color: var(--accent-blue); }
+    .info-img { width: 100%; border-radius: 28px; margin-top: 20px; border: 1px solid var(--border-soft); animation: scaleIn 0.8s ease; }
+
+    /* --- PACKAGES --- */
+    .package-item { 
+        background: var(--bg-card); border: 1px solid var(--border-soft); 
+        border-radius: 22px; padding: 20px; margin-bottom: 12px; 
+    }
+    .package-header { display: flex; justify-content: space-between; font-family: 'Montserrat'; font-weight: 900; margin-bottom: 10px; }
+    .package-name { color: var(--accent-blue); font-size: 17px; }
+    .package-price { font-size: 19px; }
+    .package-features { font-size: 13px; color: var(--text-dim); line-height: 1.5; }
+
+    /* --- SUPPORT --- */
+    .beast-card {
+        background: linear-gradient(180deg, #111, #000); border: 1px solid var(--accent-blue);
+        padding: 25px; border-radius: 30px; text-align: center;
+        animation: pulseBlue 3s infinite ease-in-out; /* Карточка поддержки медленно пульсирует */
+    }
+    .beast-card b { font-family: 'Montserrat'; font-weight: 900; font-size: 18px; color: #fff; }
+    .beast-card p { font-size: 13px; color: var(--text-dim); margin: 15px 0; line-height: 1.5; }
+    .btn-support {
+        background: #fff; color: #000; border: none; width: 100%; padding: 18px;
+        border-radius: 18px; font-family: 'Montserrat'; font-weight: 900; text-transform: uppercase;
+    }
+
+    /* --- TAB BAR --- */
+    .tab-bar {
+        position: fixed; bottom: 0; left: 0; width: 100%; height: var(--nav-height);
+        background: rgba(10, 10, 10, 0.9); backdrop-filter: blur(25px);
+        border-top: 1px solid var(--border-soft); display: flex; justify-content: space-around;
+        align-items: center; padding-bottom: 25px; z-index: 2000;
+    }
+    .nav-item {
+        color: var(--text-dim); text-decoration: none; font-family: 'Montserrat';
+        font-weight: 900; font-size: 10px; text-transform: uppercase; letter-spacing: 1px;
+    }
+    .nav-item.active { color: var(--accent-blue); }
+
+    /* --- MODAL --- */
+    #gift-modal { 
+        display: none; position: fixed; inset: 0; background: #000; z-index: 9999;
+        flex-direction: column; align-items: center; justify-content: center; padding: 20px;
+    }
+    #gift-modal h2 { font-family: 'Montserrat'; font-weight: 900; font-size: 32px; margin-bottom: 30px; animation: scaleIn 0.5s ease; }
+
+    .back-btn { margin-top: 30px; color: var(--text-dim); font-family: 'Montserrat'; font-weight: 900; cursor: pointer; text-transform: uppercase; }
+    #refs-screen h1 {
+    text-shadow: 0 0 15px rgba(0, 122, 255, 0.4);
+    margin: 20px 0;
 }
-
-/* Animations */
-@keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-@keyframes scaleIn { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
-@keyframes pulseBlue { 0%, 100% { box-shadow: 0 0 5px rgba(0, 122, 255, 0.2); } 50% { box-shadow: 0 0 20px rgba(0, 122, 255, 0.5); } }
-
-/* Header & Splash */
-.header-global { 
-    position: fixed; top: 0; left: 0; right: 0; background: rgba(0,0,0,0.8); 
-    backdrop-filter: blur(10px); z-index: 2000; display: flex; 
-    justify-content: space-between; align-items: center; padding: 15px 20px; border-bottom: 1px solid #111; 
-}
-.header-global h1 { font-family: Montserrat; font-size: 18px; font-weight: 900; letter-spacing: 1px; }
-.btn-lang { background: #111; border: 1px solid #333; color: #fff; padding: 5px 12px; border-radius: 8px; font-weight: 600; cursor: pointer; }
-
-#splash-screen { position: fixed; inset: 0; background: #000; z-index: 10000; display: flex; flex-direction: column; align-items: center; justify-content: center; transition: opacity 0.5s; }
-#splash-logo { font-family: 'Montserrat'; font-weight: 900; font-size: 42px; text-shadow: 0 0 15px var(--accent-blue); }
-.progress-bar { width: 240px; height: 4px; background: rgba(255,255,255,0.1); border-radius: 10px; overflow: hidden; margin-top: 20px; }
-.progress-fill { height: 100%; width: 0%; background: var(--accent-blue); animation: fillProgress 2s ease-in-out forwards; }
-@keyframes fillProgress { to { width: 100%; } }
-
-/* Content */
-.feed { padding: 100px 20px 20px; }
-.main-video-card { width: 100%; height: 420px; border-radius: 30px; overflow: hidden; position: relative; margin-bottom: 25px; border: 1px solid var(--border-soft); }
-.main-video-card video { width: 100%; height: 100%; object-fit: cover; opacity: 0.7; }
-.video-label { position: absolute; bottom: 25px; left: 25px; font-family: 'Montserrat'; font-weight: 900; font-size: 20px; }
-
-.btn-main-action { background: var(--accent-gradient); color: #fff; border: none; width: 100%; padding: 22px; border-radius: 24px; font-family: 'Montserrat'; font-weight: 900; text-transform: uppercase; cursor: pointer; }
-.btn-main-action:active { transform: scale(0.97); }
-
-.info-block { margin-bottom: 50px; }
-.info-text b { display: block; font-family: 'Montserrat'; font-weight: 900; font-size: 26px; margin-bottom: 15px; text-transform: uppercase; }
-.info-text span { font-size: 15px; color: var(--text-dim); line-height: 1.7; }
-.info-img { width: 100%; border-radius: 28px; margin-top: 20px; border: 1px solid var(--border-soft); }
-
-/* Packages */
-.package-item { background: var(--bg-card); border: 1px solid var(--border-soft); border-radius: 22px; padding: 20px; margin-bottom: 12px; }
-.package-header { display: flex; justify-content: space-between; font-family: 'Montserrat'; font-weight: 900; }
-.package-name { color: var(--accent-blue); }
-.package-features { font-size: 13px; color: var(--text-dim); margin-top: 10px; }
-
-/* Support */
-.beast-card { background: linear-gradient(180deg, #111, #000); border: 1px solid var(--accent-blue); padding: 25px; border-radius: 30px; text-align: center; animation: pulseBlue 3s infinite; }
-.btn-support { background: #fff; color: #000; border: none; width: 100%; padding: 18px; border-radius: 18px; font-family: 'Montserrat'; font-weight: 900; margin-top: 15px; }
-
-/* Tab Bar */
-.tab-bar { position: fixed; bottom: 0; left: 0; width: 100%; height: var(--nav-height); background: rgba(10, 10, 10, 0.9); backdrop-filter: blur(25px); border-top: 1px solid var(--border-soft); display: flex; justify-content: space-around; align-items: center; padding-bottom: 25px; z-index: 2000; }
-.nav-item { color: var(--text-dim); font-family: 'Montserrat'; font-weight: 900; font-size: 10px; letter-spacing: 1px; cursor: pointer; }
-.nav-item.active { color: var(--accent-blue); }
-
-/* Screens & Modals */
-#refs-screen, #gift-modal { display: none; position: fixed; inset: 0; background: #000; z-index: 9999; padding: 80px 20px; overflow-y: auto; }
-#gift-modal { flex-direction: column; align-items: center; justify-content: center; }
-.wheel-container { position: relative; width: 300px; height: 300px; margin-bottom: 40px; }
-#wheel-canvas { width: 100%; height: 100%; transition: transform 4s cubic-bezier(0.15, 0, 0.15, 1); }
-.wheel-pointer { position: absolute; top: -20px; left: 50%; transform: translateX(-50%); width: 40px; height: 40px; background: var(--accent-blue); clip-path: polygon(50% 100%, 0 0, 100% 0); z-index: 10; }
-.back-btn { margin-top: 30px; color: var(--text-dim); font-family: 'Montserrat'; font-weight: 900; cursor: pointer; font-size: 12px; }
-
-.ref-item { display: flex; align-items: flex-start; margin-bottom: 25px; }
-.ref-icon { font-size: 24px; margin-right: 15px; }
-.ref-item.highlight { background: rgba(0,122,255,0.05); padding: 15px; border-radius: 15px; border: 1px solid rgba(0,122,255,0.2); }
 </style>
 
 <script>
     let tg = window.Telegram.WebApp;
-tg.expand();
-let currentLang = 'ru';
+    tg.expand();
 
-const i18n = {
-    ru: {
-        header: "BEAST CORE", header_ref: "BEAST PARTNER",
-        home: "ГЛАВНАЯ", stats: "СТАТЫ", refs: "РЕФЫ", tariffs: "ТАРИФЫ", gift: "БОНУС",
-        creation: "ULTIMATE GENERATION 2.0", create_btn: "ЗАПУСТИТЬ ТЕРМИНАЛ",
-        project_t: "ЭКОСИСТЕМА BEAST OMNI", plans_t: "ТАРИФНЫЕ ПЛАНЫ", sec_t: "БЕЗОПАСНОСТЬ ДАННЫХ",
-        supp_t: "ЭЛИТНАЯ ПОДДЕРЖКА 24/7", supp_b: "СВЯЗАТЬСЯ С ПОДДЕРЖКОЙ", spin: "КРУТИТЬ КОЛЕСО", back: "← НАЗАД", lucky: "BEAST LUCK",
-        ref_title: "РЕФЕРАЛЬНАЯ СИСТЕМА", ref_btn: "ПРИГЛАСИТЬ ПАРТНЕРОВ",
-        ref_income_t: "Пожизненный доход 15%", ref_income_d: "Комиссия Stars с каждого пополнения баланса вашими партнерами. Всегда.",
-        ref_perks_t: "ЭЛИТНЫЕ БОНУСЫ", ref_perks_d: "Накопленные звезды можно обменивать на секретные фичи и ускоренный рендер.",
-        desc_p: "<strong>Beast Omni</strong> — это не просто инструмент, это цифровая сингулярность в мире генеративного искусства. Бескомпромиссная детализация и фотореалистичная физика света.",
-        desc_s: "Ваша приватность — наш приоритет. Протоколы Zero-Knowledge и военное шифрование AES-256-GCM.",
-        desc_supp: "Наши инженеры мониторят систему 24/7. Используйте только официальный тикет-бот для мгновенной связи.",
-        plans: [
-            {n:"STARTER", p:"$5", f:"• 5 экспресс-генераций ежесуточно<br>• Доступ к HD ядру"},
-            {n:"STANDARD", p:"$15", f:"• 15 Full HD генераций<br>• Удаление водяных знаков"},
-            {n:"ULTIMATE", p:"$100", f:"• ПОЛНЫЙ БЕЗЛИМИТ 24/7<br>• Индивидуальный тюнинг"}
-        ]
-    },
-    en: {
-        header: "BEAST CORE", header_ref: "BEAST PARTNER",
-        home: "HOME", stats: "STATS", refs: "REFS", tariffs: "PLANS", gift: "BONUS",
-        creation: "ULTIMATE GENERATION 2.0", create_btn: "LAUNCH TERMINAL",
-        project_t: "BEAST OMNI ECOSYSTEM", plans_t: "TARIFF PLANS", sec_t: "DATA SECURITY",
-        supp_t: "24/7 ELITE SUPPORT", supp_b: "CONTACT SUPPORT", spin: "SPIN WHEEL", back: "← BACK", lucky: "BEAST LUCK",
-        ref_title: "AFFILIATE SYSTEM", ref_btn: "INVITE PARTNERS",
-        ref_income_t: "15% Lifetime Income", ref_income_d: "Get Stars commission from every partner top-up. Forever.",
-        ref_perks_t: "ELITE PERKS", ref_perks_d: "Exchange stars for secret features and fast rendering.",
-        desc_p: "<strong>Beast Omni</strong> is a digital singularity. High-performance GPU clusters and photorealistic light physics.",
-        desc_s: "Privacy is our priority. Zero-Knowledge protocols and AES-256-GCM encryption.",
-        desc_supp: "24/7 engineering monitoring. Use official ticket bot for support.",
-        plans: [
-            {n:"STARTER", p:"$5", f:"• 5 daily express generations"},
-            {n:"STANDARD", p:"$15", f:"• 15 Full HD generations"},
-            {n:"ULTIMATE", p:"$100", f:"• UNLIMITED ACCESS 24/7"}
-        ]
+    const i18n = {
+        ru: {
+            home: "ГЛАВНАЯ", stats: "СТАТЫ", refs: "РЕФЫ", tariffs: "ТАРИФЫ", gift: "БОНУС",
+            creation: "ULTIMATE GENERATION 2.0", create_btn: "ЗАПУСТИТЬ ТЕРМИНАЛ",
+            project_t: "ЭКОСИСТЕМА BEAST OMNI", plans_t: "ТАРИФНЫЕ ПЛАНЫ", sec_t: "БЕЗОПАСНОСТЬ ДАННЫХ", pay_t: "СПОСОБЫ ОПЛАТЫ",
+            supp_t: "ЭЛИТНАЯ ПОДДЕРЖКА 24/7", supp_b: "СВЯЗАТЬСЯ С ПОДДЕРЖКОЙ", spin: "КРУТИТЬ КОЛЕСО", back: "← НАЗАД", lucky: "BEAST LUCK",
+            
+            ref_title: "РЕФЕРАЛЬНАЯ СИСТЕМА",
+            ref_desc: "Получай +1 ⭐️ STARS за каждого друга! Также тебе идет 15% от всех их транзакций.",
+            ref_btn: "ПРИГЛАСИТЬ ПАРТНЕРОВ",
+            ref_perks_t: "ЭЛИТНЫЕ БОНУСЫ И ОБМЕН",
+            ref_perks_d: "Накопленные звезды можно обменивать на крутые фичии уникальные функции.",
+
+            desc_p: "<strong>Beast Omni</strong> — это не просто инструмент, это цифровая сингулярность в мире генеративного искусства. Мы развернули сложнейшую архитектуру из <strong>высокопроизводительных графических кластеров</strong>, работающих в синергии с авторскими весами нейросетей. В то время как другие предлагают шаблоны, мы предлагаем <strong>бескомпромиссную детализацию</strong>, фотореалистичную физику света и текстуры, которые стирают грань между рендером и реальностью. Beast Omni оптимизирован для задач запредельной сложности: от кинематографических кадров до гиперреалистичных концептов. Добро пожаловать в высшую лигу визуального доминирования.",
+            desc_s: "Ваша приватность — наш главный приоритет и фундаментальная ценность. Вся архитектура Beast Omni построена на протоколах <strong>Zero-Knowledge</strong>. Мы внедрили военное шифрование <strong>AES-256-GCM</strong>, которое делает перехват данных невозможным. Сразу после завершения вашей сессии или скачивания итогового файла, система <strong>безвозвратно уничтожает</strong> все временные кэши, промпты и промежуточные слои генерации. Мы не собираем логи и не храним историю ваших творческих поисков. В Beast Omni вы остаетесь невидимым творцом под защитой совершенных алгоритмов безопасности.",
+            desc_pay: "Для обеспечения полной анонимности и скорости транзакций, мы интегрировали передовые методы расчетов внутри экосистемы Telegram. Мы принимаем <strong>Telegram Stars</strong> для мгновенных покупок и <strong>Telegram Wallet (TON/Crypto)</strong> для тех, кто ценит децентрализацию и отсутствие посредников. Это решение полностью исключает риск блокировок или утечки банковских данных сторонним лицам. Каждая транзакция подтверждается блокчейном, формируя прозрачную и честную среду. Мы создали систему, где оплата происходит в один тап, а ваша финансовая свобода остается незыблемой.",
+            desc_supp: "Наши инженеры и технические специалисты мониторят систему 24/7, обеспечивая бесперебойную мощь Beast Omni. <span style='color:#ff3b30; font-weight: 800;'>ВНИМАНИЕ:</span> Чтобы ваш запрос был обработан мгновенно, <strong>используйте только официальный тикет-бот</strong>. Прямые сообщения владельцу замедляют работу всей структуры. Бот поддержки автоматически приоритизирует заявку и свяжет вас с нужным отделом. Мы здесь, чтобы ваша работа не прерывалась ни на секунду.",
+            
+            plans: [
+                {n:"STARTER", p:"$5", f:"• 5 экспресс-генераций ежесуточно<br>• Доступ к High-Definition ядру<br>• Стандартный приоритет в очереди"},
+                {n:"STANDARD", p:"$15", f:"• 15 Full HD генераций без лимитов<br>• Удаление любых водяных знаков<br>• Приоритетный доступ к серверам"},
+                {n:"ADVANCED", p:"$30", f:"• 40 Cinematic-сессий в месяц<br>• Профессиональная настройка промптов<br>• Ускоренный рендер сложных текстур"},
+                {n:"ELITE", p:"$50", f:"• 80 генераций в Ultra 2K качестве<br>• Доступ к закрытым бета-моделям<br>• Выделенный поток данных"},
+                {n:"ULTIMATE", p:"$100", f:"• ПОЛНЫЙ БЕЗЛИМИТ 24/7<br>• Максимальное 4K Cinematic качество<br>• Индивидуальный тюнинг модели под вас"}
+            ]
+        },
+        en: {
+            home: "HOME", stats: "STATS", refs: "REFS", tariffs: "PLANS", gift: "BONUS",
+            creation: "ULTIMATE GENERATION 2.0", create_btn: "LAUNCH TERMINAL",
+            project_t: "BEAST OMNI ECOSYSTEM", plans_t: "TARIFF PLANS", sec_t: "DATA SECURITY", pay_t: "PAYMENT METHODS",
+            supp_t: "24/7 ELITE SUPPORT", supp_b: "CONTACT SUPPORT", spin: "SPIN WHEEL", back: "← BACK", lucky: "BEAST LUCK",
+            
+            ref_title: "AFFILIATE SYSTEM",
+            ref_desc: "Get +1 ⭐️ STARS for every friend you invite! Plus 15% lifetime commission from their deals.",
+            ref_btn: "INVITE PARTNERS",
+            ref_perks_t: "ELITE PERKS & EXCHANGE",
+            ref_perks_d: "Exchange your earned Stars for cool features: secret prompts, high-speed render, and unique functions.",
+
+            desc_p: "<strong>Beast Omni</strong> is not just a tool, it's a digital singularity in the world of generative art. We've deployed high-performance GPU clusters. Uncompromising detail and photorealistic light physics. Welcome to the major league of visual dominance.",
+            desc_s: "Your privacy is our ultimate priority. Zero-Knowledge protocols and military-grade AES-256-GCM encryption. We do not collect logs or store your creative history.",
+            desc_pay: "We accept Telegram Stars and Telegram Wallet (TON/Crypto) for decentralization. Fast, safe, and blockchain-confirmed transactions.",
+            desc_supp: "Engineers monitor the system 24/7. Use the official ticket bot only for instant support. We are here to ensure your workflow never stops.",
+            
+            plans: [
+                {n:"STARTER", p:"$5", f:"• 5 daily express generations<br>• High-Definition core access<br>• Standard queue priority"},
+                {n:"STANDARD", p:"$15", f:"• 15 Full HD generations daily<br>• Complete watermark removal<br>• Priority server access"},
+                {n:"ADVANCED", p:"$30", f:"• 40 Cinematic sessions monthly<br>• Professional prompt tuning<br>• Accelerated complex rendering"},
+                {n:"ELITE", p:"$50", f:"• 80 Ultra 2K generations<br>• Access to private beta models<br>• Dedicated data stream"},
+                {n:"ULTIMATE", p:"$100", f:"• UNLIMITED ACCESS 24/7<br>• Maximum 4K Cinematic quality<br>• Individual model weight tuning"}
+            ]
+        }
+    };
+
+    function changeLanguage(lang) {
+        const t = i18n[lang];
+        if (!t) return;
+
+        // Полное обновление текстов на всех вкладках
+        const updates = {
+            'tab-home': t.home, 'tab-stats': t.stats, 'tab-refs': t.refs, 'tab-plans': t.tariffs, 'tab-gift': t.gift,
+            'l-creation': t.creation, 'l-create-btn': t.create_btn, 'l-title-project': t.project_t,
+            'l-title-plans': t.plans_t, 'l-title-sec': t.sec_t, 'l-title-pay': t.pay_t, 'l-title-supp': t.supp_t,
+            'l-btn-supp': t.supp_b, 'l-spin': t.spin, 'l-back': t.back, 'l-lucky': t.lucky,
+            'ref-title': t.ref_title, 'ref-desc': t.ref_desc, 'ref-btn-text': t.ref_btn,
+            'l-ref-perks-title': t.ref_perks_t, 'l-ref-perks-desc': t.ref_perks_d
+        };
+
+        for (let id in updates) {
+            const el = document.getElementById(id);
+            if (el) el.innerText = updates[id];
+        }
+
+        const htmlUpdates = {
+            'l-desc-project': t.desc_p, 'l-desc-sec': t.desc_s, 'l-desc-pay': t.desc_pay, 'l-desc-supp': t.desc_supp
+        };
+
+        for (let id in htmlUpdates) {
+            const el = document.getElementById(id);
+            if (el) el.innerHTML = htmlUpdates[id];
+        }
+
+        const container = document.getElementById('packages-container');
+        if (container) {
+            container.innerHTML = t.plans.map(p => `
+                <div class="package-item" style="${p.n === 'ULTIMATE' ? 'border-color:var(--accent-blue)' : ''}">
+                    <div class="package-header"><span class="package-name">${p.n}</span><span class="package-price">${p.p}</span></div>
+                    <div class="package-features">${p.f}</div>
+                </div>
+            `).join('');
+        }
     }
-};
 
-function toggleLang() {
-    currentLang = (currentLang === 'ru') ? 'en' : 'ru';
-    document.getElementById('lang-btn').innerText = currentLang === 'ru' ? '🇷🇺 RU' : '🇺🇸 EN';
-    changeLanguage(currentLang);
-}
-
-function changeLanguage(lang) {
-    const t = i18n[lang];
-    const isRefs = document.getElementById('refs-screen').style.display === 'block';
-
-    document.getElementById('l-main-header').innerText = isRefs ? t.header_ref : t.header;
-    document.getElementById('tab-home').innerText = t.home;
-    document.getElementById('tab-stats').innerText = t.stats;
-    document.getElementById('tab-refs').innerText = t.refs;
-    document.getElementById('tab-plans').innerText = t.tariffs;
-    document.getElementById('tab-gift').innerText = t.gift;
+    const prizes = [{n:"0.1",c:"#121212"},{n:"0.5",c:"#1a1a1a"},{n:"0.1",c:"#121212"},{n:"1.0",c:"#007aff"},{n:"0.1",c:"#121212"},{n:"2.0",c:"#1a1a1a"},{n:"0.1",c:"#121212"},{n:"0.0",c:"#000"}];
     
-    document.getElementById('l-creation').innerText = t.creation;
-    document.getElementById('l-create-btn').innerText = t.create_btn;
-    document.getElementById('l-title-project').innerText = t.project_t;
-    document.getElementById('l-title-plans').innerText = t.plans_t;
-    document.getElementById('l-title-sec').innerText = t.sec_t;
-    document.getElementById('l-title-supp').innerText = t.supp_t;
-    document.getElementById('l-btn-supp').innerText = t.supp_b;
-    document.getElementById('ref-title').innerText = t.ref_title;
-    document.getElementById('ref-btn-text').innerText = t.ref_btn;
-    document.getElementById('l-ref-income-t').innerText = t.ref_income_t;
-    document.getElementById('l-ref-income-d').innerText = t.ref_income_d;
-    document.getElementById('l-ref-perks-title').innerText = t.ref_perks_t;
-    document.getElementById('l-ref-perks-desc').innerText = t.ref_perks_d;
-    document.getElementById('l-lucky').innerText = t.lucky;
-    document.getElementById('l-spin').innerText = t.spin;
-    document.getElementById('l-back').innerText = t.back;
-
-    document.getElementById('l-desc-project').innerHTML = t.desc_p;
-    document.getElementById('l-desc-sec').innerHTML = t.desc_s;
-    document.getElementById('l-desc-supp').innerHTML = t.desc_supp;
-
-    const container = document.getElementById('packages-container');
-    if (container) {
-        container.innerHTML = t.plans.map(p => `
-            <div class="package-item" style="${p.n === 'ULTIMATE' ? 'border-color:var(--accent-blue)' : ''}">
-                <div class="package-header"><span class="package-name">${p.n}</span><span class="package-price">${p.p}</span></div>
-                <div class="package-features">${p.f}</div>
-            </div>
-        `).join('');
+    function drawWheel() { 
+        const ctx = document.getElementById('wheel-canvas').getContext('2d'); 
+        if (!ctx) return;
+        ctx.clearRect(0,0,600,600); 
+        prizes.forEach((p, i) => { 
+            ctx.beginPath(); ctx.fillStyle = p.c; ctx.moveTo(300, 300); 
+            ctx.arc(300, 300, 300, i*(Math.PI/4), (i+1)*(Math.PI/4)); ctx.fill();
+            ctx.save(); ctx.translate(300,300); ctx.rotate(i*(Math.PI/4)+Math.PI/8);
+            ctx.fillStyle="#fff"; ctx.font="900 46px Montserrat"; ctx.textAlign="right";
+            ctx.fillText(p.n, 280, 15); ctx.restore(); 
+        }); 
     }
-}
 
-// Wheel Logic
-const prizes = [{n:"0.1",c:"#121212"},{n:"0.5",c:"#1a1a1a"},{n:"0.1",c:"#121212"},{n:"1.0",c:"#007aff"},{n:"0.1",c:"#121212"},{n:"2.0",c:"#1a1a1a"},{n:"0.1",c:"#121212"},{n:"0.0",c:"#000"}];
-function drawWheel() { 
-    const canvas = document.getElementById('wheel-canvas');
-    const ctx = canvas.getContext('2d'); 
-    ctx.clearRect(0,0,600,600); 
-    prizes.forEach((p, i) => { 
-        ctx.beginPath(); ctx.fillStyle = p.c; ctx.moveTo(300, 300); 
-        ctx.arc(300, 300, 300, i*(Math.PI/4), (i+1)*(Math.PI/4)); ctx.fill();
-        ctx.save(); ctx.translate(300,300); ctx.rotate(i*(Math.PI/4)+Math.PI/8);
-        ctx.fillStyle="#fff"; ctx.font="900 46px Montserrat"; ctx.textAlign="right";
-        ctx.fillText(p.n, 280, 15); ctx.restore(); 
-    }); 
-}
-function runWheel() { 
-    const canvas = document.getElementById('wheel-canvas'); 
-    const idx = Math.floor(Math.random()*prizes.length); 
-    canvas.style.transform = `rotate(${3600+(idx*45)}deg)`; 
-    setTimeout(() => { tg.showAlert("Jackpot Win!"); }, 4600); 
-}
+    function runWheel() { 
+        const canvas = document.getElementById('wheel-canvas'); 
+        if (!canvas) return;
+        const idx = Math.floor(Math.random()*prizes.length); 
+        canvas.style.transform = `rotate(${3600+(idx*45)}deg)`; 
+        setTimeout(() => { tg.showAlert("Jackpot Win!"); }, 4600); 
+    }
 
-// Navigation Functions
-function openGiftModal() { document.getElementById('gift-modal').style.display='flex'; drawWheel(); }
-function closeGiftModal() { document.getElementById('gift-modal').style.display='none'; }
-function openRefs() { 
-    document.getElementById('refs-screen').style.display = 'block'; 
-    document.getElementById('main-feed').style.display = 'none';
-    setActiveTab('tab-refs');
-    changeLanguage(currentLang);
-}
-function closeRefs() { 
-    document.getElementById('refs-screen').style.display = 'none'; 
-    document.getElementById('main-feed').style.display = 'block';
-    setActiveTab('tab-home');
-    changeLanguage(currentLang);
-}
-function setActiveTab(id) {
-    document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-    document.getElementById(id).classList.add('active');
-}
-function scrollToPlans() {
-    window.scrollTo({top: document.getElementById('l-title-plans').offsetTop - 100, behavior: 'smooth'});
-}
+    function openGiftModal() { document.getElementById('gift-modal').style.display='flex'; drawWheel(); }
+    function closeGiftModal() { document.getElementById('gift-modal').style.display='none'; }
 
-function sharePartnerLink() {
-    const userId = tg.initDataUnsafe?.user?.id || "0";
-    const refLink = `https://t.me/beast_omni_bot?start=${userId}`;
-    const message = "Забирай +1 ⭐️ Stars и доступ к Beast Omni! 🔥";
-    tg.openTelegramLink(`https://t.me/share/url?url=${encodeURIComponent(refLink)}&text=${encodeURIComponent(message)}`);
-}
+    window.onload = () => { 
+        setTimeout(() => { 
+            const splash = document.getElementById('splash-screen');
+            if (splash) {
+                splash.style.opacity='0'; 
+                setTimeout(()=> splash.style.display='none', 500);
+            }
+        }, 2800);
+        if(tg.initDataUnsafe?.user) {
+            const userNameEl = document.getElementById('user-name');
+            if (userNameEl) userNameEl.innerText = tg.initDataUnsafe.user.first_name.toUpperCase();
+        }
+        changeLanguage('ru'); 
+    };
 
-window.onload = () => { 
-    setTimeout(() => { 
-        document.getElementById('splash-screen').style.opacity='0'; 
-        setTimeout(()=> document.getElementById('splash-screen').style.display='none', 500);
-    }, 2000);
-    changeLanguage('ru'); 
-};
+    function openRefs() {
+        document.getElementById('refs-screen').style.display = 'block';
+        document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
+        const tab = document.getElementById('tab-refs');
+        if(tab) tab.classList.add('active');
+        tg.HapticFeedback.impactOccurred('medium');
+    }
+
+    function closeRefs() {
+        document.getElementById('refs-screen').style.display = 'none';
+        document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
+        const tab = document.getElementById('tab-home');
+        if(tab) tab.classList.add('active');
+    }
+
+    function sharePartnerLink() {
+        const userId = tg.initDataUnsafe?.user?.id || "0";
+        const botUser = "beast_omni_bot"; 
+        const refLink = `https://t.me/${botUser}?start=ref${userId}`;
+        const message = "Забирай +1 ⭐️ Stars и доступ к Beast Omni по моей ссылке! 🔥";
+        
+        // Полная кодировка для стабильной работы ссылки
+        const shareUrl = `https://t.me/share/url?url=${encodeURIComponent(refLink)}&text=${encodeURIComponent(message)}`;
+
+        if (window.Telegram?.WebApp) {
+            tg.openTelegramLink(shareUrl);
+            tg.HapticFeedback.impactOccurred('heavy');
+        } else {
+            window.open(shareUrl, '_blank');
+        }
+    }
 </script>
