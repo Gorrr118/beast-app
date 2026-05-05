@@ -77,33 +77,38 @@
             </div>
         </div>
     </div>
-<div id="refs-screen" style="display:none; position:fixed; inset:0; background:radial-gradient(circle at top, #0a0a0a 0%, #000 100%); z-index:1500; padding-top:130px; overflow-y:auto;">
-    <div class="feed">
-        <div class="beast-card" style="border: 1px solid rgba(0, 122, 255, 0.3); background: rgba(18, 18, 20, 0.6); backdrop-filter: blur(10px); margin-bottom: 25px;">
-            <div style="font-family: Montserrat; font-weight: 800; font-size: 12px; color: var(--accent-blue); letter-spacing: 2px; margin-bottom: 10px;">PARTNER PROGRAM</div>
-            <b id="ref-title" style="font-size: 26px; display: block; margin-bottom: 5px;">РЕФЕРАЛЬНАЯ СИСТЕМА</b>
-            <p id="ref-desc" style="color: var(--text-dim); font-size: 14px; margin-bottom: 25px;">Приглашай друзей в Beast Omni и получай пожизненный доход 15% от их транзакций.</p>
+<div id="refs-screen" style="display:none; position:fixed; inset:0; background:#000; z-index:1500; overflow-y:auto; padding-bottom: 100px;">
+    <div style="padding: 60px 20px 20px; text-align: center;">
+        <div style="font-family: Montserrat; font-weight: 900; font-size: 20px; color: #fff; letter-spacing: 2px;">BEAST PARTNER</div>
+    </div>
+
+    <div class="feed" style="padding-top: 10px;">
+        <div class="beast-card" style="border: 1px solid var(--accent-blue); background: rgba(18, 18, 20, 0.8); backdrop-filter: blur(15px);">
+            <div style="font-family: Montserrat; font-weight: 800; font-size: 11px; color: var(--accent-blue); letter-spacing: 2px; margin-bottom: 15px;">PARTNER PROGRAM</div>
+            <b id="ref-title" style="font-size: 24px; display: block; margin-bottom: 10px;">РЕФЕРАЛЬНАЯ СИСТЕМА</b>
+            <p id="ref-desc" style="color: var(--text-dim); font-size: 14px; margin-bottom: 25px;">Зарабатывай 15% с каждой покупки твоих друзей в Stars.</p>
             
-            <div style="background: rgba(255,255,255,0.03); border-radius: 20px; padding: 20px; border: 1px solid var(--border-soft);">
-                <span style="font-size: 12px; color: var(--text-dim); text-transform: uppercase;">Доступный баланс</span>
-                <h1 style="color: #fff; font-family: Montserrat; font-weight: 900; font-size: 42px; margin: 5px 0;">0.00 <span style="font-size: 16px; color: var(--accent-blue);">STARS</span></h1>
+            <div style="background: rgba(255,255,255,0.03); border-radius: 24px; padding: 30px 20px; border: 1px solid var(--border-soft); margin-bottom: 10px;">
+                <span style="font-size: 11px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 1px;">Твой доход</span>
+                <h1 style="color: #fff; font-family: Montserrat; font-weight: 900; font-size: 48px; margin: 10px 0;">0.00 <span style="font-size: 18px; color: var(--accent-blue);">STARS</span></h1>
             </div>
         </div>
 
-        <button class="btn-main-action" style="box-shadow: 0 10px 20px rgba(0, 122, 255, 0.3);" onclick="tg.openTelegramLink('https://t.me/share/url?url=t.me/beast_omni_bot?start=123&text=Beast Omni — Neural Future is here.')">
+        <button class="btn-main-action" style="margin-top: 20px; box-shadow: 0 10px 20px rgba(0, 122, 255, 0.3);" onclick="sharePartnerLink()">
             <span id="ref-btn-text">ПРИГЛАСИТЬ ПАРТНЕРОВ</span>
         </button>
 
-        <div class="back-btn" style="text-align:center; margin-top:30px; color: var(--text-dim); font-family: Montserrat; font-weight: 800; font-size: 12px; letter-spacing: 1px;" onclick="closeRefs()">← BACK TO TERMINAL</div>
+        <div class="back-btn" style="text-align:center; margin-top:40px; color: var(--text-dim); font-family: Montserrat; font-weight: 800; font-size: 12px; opacity: 0.6;" onclick="closeRefs()">← ВЕРНУТЬСЯ В ТЕРМИНАЛ</div>
     </div>
 </div>
-   <div class="tab-bar">
+
+<div class="tab-bar">
     <a href="#" class="nav-item active" id="tab-home" onclick="closeRefs()">ГЛАВНАЯ</a>
-    <a href="#" class="nav-item" id="tab-stats">СТАТЫ</a>
+    <a href="#" class="nav-item" id="tab-stats" onclick="tg.showAlert('Stats coming soon')">СТАТЫ</a>
     <a href="#" class="nav-item" id="tab-refs" onclick="openRefs()">РЕФЫ</a>
-    <a href="#" class="nav-item" id="tab-plans">ТАРИФЫ</a>
+    <a href="#" class="nav-item" id="tab-plans" onclick="closeRefs(); window.scrollTo({top: document.getElementById('l-title-plans').offsetTop - 100, behavior: 'smooth'})">ТАРИФЫ</a>
     <a href="#" class="nav-item" id="tab-gift" onclick="openGiftModal()">БОНУС</a>
-</div>
+</div>>
 
     <div id="gift-modal">
         <h2 id="l-lucky">BEAST LUCK</h2>
@@ -464,5 +469,18 @@ function closeRefs() {
     // Возвращаем синий на ГЛАВНУЮ
     document.getElementById('tab-home').classList.add('active');
 }
-
+function sharePartnerLink() {
+    // Получаем ID пользователя из Telegram WebApp
+    const userId = tg.initDataUnsafe?.user?.id || "000000"; 
+    const botUsername = "beast_omni_bot"; // ЗАМЕНИ на юзернейм своего бота без @
+    
+    // Формируем ссылку: сама ссылка + текст сообщения
+    const inviteLink = `https://t.me/${botUsername}?start=ref${userId}`;
+    const shareText = encodeURIComponent("Beast Omni — Доступ к нейросетям нового поколения. Присоединяйся!");
+    
+    const fullUrl = `https://t.me/share/url?url=${inviteLink}&text=${shareText}`;
+    
+    tg.openTelegramLink(fullUrl);
+    tg.HapticFeedback.notificationOccurred('success');
+}
 </script>
