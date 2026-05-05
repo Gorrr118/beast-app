@@ -8,13 +8,7 @@
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     </head>
 <body>
-<div class="header-global">
-    <div class="header-left">
-        <span class="status-dot"></span>
-        <h1 id="l-main-header">BEAST CORE</h1>
-    </div>
-    <button class="btn-lang" id="lang-btn" onclick="toggleLang()">🇷🇺 RU</button>
-</div>
+
     <div id="splash-screen">
         <div id="splash-logo">BEAST OMNI</div>
         <div class="progress-bar"><div class="progress-fill"></div></div>
@@ -148,42 +142,6 @@
     </body>
 </html>
 <style>
-    .header-global {
-    position: fixed; /* Закрепляем */
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 60px;
-    background: rgba(0, 0, 0, 0.7); /* Полупрозрачный черный */
-    backdrop-filter: blur(15px); /* Размытие как в iOS */
-    -webkit-backdrop-filter: blur(15px);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 20px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    z-index: 9999; /* Чтобы была поверх всего */
-}
-
-.status-dot {
-    width: 8px;
-    height: 8px;
-    background: #34c759; /* Зеленая точка (Online) */
-    border-radius: 50%;
-    margin-right: 10px;
-    display: inline-block;
-    box-shadow: 0 0 10px #34c759;
-}
-
-.header-left {
-    display: flex;
-    align-items: center;
-}
-
-/* Добавь отступ для контента, чтобы шапка его не закрывала */
-.feed {
-    padding-top: 80px !important;
-}
     #refs-screen .beast-card {
     box-shadow: 0 0 30px rgba(0, 122, 255, 0.15);
     border: 1px solid rgba(0, 122, 255, 0.4) !important;
@@ -393,14 +351,8 @@
     let tg = window.Telegram.WebApp;
     tg.expand();
 
-    // Переменная для хранения текущего языка
-    let currentLang = 'ru';
-
     const i18n = {
         ru: {
-            header: "BEAST CORE", // Заголовок для шапки
-            exchange_t: "ОБМЕН STARS",
-            exchange_b: "ОБМЕНЯТЬ",
             home: "ГЛАВНАЯ", stats: "СТАТЫ", refs: "РЕФЫ", tariffs: "ТАРИФЫ", gift: "БОНУС",
             creation: "ULTIMATE GENERATION 2.0", create_btn: "ЗАПУСТИТЬ ТЕРМИНАЛ",
             project_t: "ЭКОСИСТЕМА BEAST OMNI", plans_t: "ТАРИФНЫЕ ПЛАНЫ", sec_t: "БЕЗОПАСНОСТЬ ДАННЫХ", pay_t: "СПОСОБЫ ОПЛАТЫ",
@@ -426,9 +378,6 @@
             ]
         },
         en: {
-            header: "BEAST CORE",
-            exchange_t: "EXCHANGE STARS",
-            exchange_b: "EXCHANGE",
             home: "HOME", stats: "STATS", refs: "REFS", tariffs: "PLANS", gift: "BONUS",
             creation: "ULTIMATE GENERATION 2.0", create_btn: "LAUNCH TERMINAL",
             project_t: "BEAST OMNI ECOSYSTEM", plans_t: "TARIFF PLANS", sec_t: "DATA SECURITY", pay_t: "PAYMENT METHODS",
@@ -440,43 +389,33 @@
             ref_perks_t: "ELITE PERKS & EXCHANGE",
             ref_perks_d: "Exchange your earned Stars for cool features: secret prompts, high-speed render, and unique functions.",
 
-            desc_p: "<strong>Beast Omni</strong> is not just a tool, it's a digital singularity. High-performance GPU clusters. Photorealistic light physics. Welcome to the major league of visual dominance.",
-            desc_s: "Your privacy is our ultimate priority. Zero-Knowledge protocols and military-grade AES-256-GCM encryption. We do not collect logs.",
-            desc_pay: "We accept Telegram Stars and Telegram Wallet (TON/Crypto). Fast, safe, and blockchain-confirmed transactions.",
-            desc_supp: "Engineers monitor the system 24/7. Use the official ticket bot only for instant support.",
+            desc_p: "<strong>Beast Omni</strong> is not just a tool, it's a digital singularity in the world of generative art. We've deployed high-performance GPU clusters. Uncompromising detail and photorealistic light physics. Welcome to the major league of visual dominance.",
+            desc_s: "Your privacy is our ultimate priority. Zero-Knowledge protocols and military-grade AES-256-GCM encryption. We do not collect logs or store your creative history.",
+            desc_pay: "We accept Telegram Stars and Telegram Wallet (TON/Crypto) for decentralization. Fast, safe, and blockchain-confirmed transactions.",
+            desc_supp: "Engineers monitor the system 24/7. Use the official ticket bot only for instant support. We are here to ensure your workflow never stops.",
             
             plans: [
-                {n:"STARTER", p:"$5", f:"• 5 daily express generations<br>• HD core access"},
-                {n:"STANDARD", p:"$15", f:"• 15 Full HD generations daily"},
-                {n:"ADVANCED", p:"$30", f:"• 40 Cinematic sessions monthly"},
-                {n:"ELITE", p:"$50", f:"• 80 Ultra 2K generations"},
-                {n:"ULTIMATE", p:"$100", f:"• UNLIMITED ACCESS 24/7"}
+                {n:"STARTER", p:"$5", f:"• 5 daily express generations<br>• High-Definition core access<br>• Standard queue priority"},
+                {n:"STANDARD", p:"$15", f:"• 15 Full HD generations daily<br>• Complete watermark removal<br>• Priority server access"},
+                {n:"ADVANCED", p:"$30", f:"• 40 Cinematic sessions monthly<br>• Professional prompt tuning<br>• Accelerated complex rendering"},
+                {n:"ELITE", p:"$50", f:"• 80 Ultra 2K generations<br>• Access to private beta models<br>• Dedicated data stream"},
+                {n:"ULTIMATE", p:"$100", f:"• UNLIMITED ACCESS 24/7<br>• Maximum 4K Cinematic quality<br>• Individual model weight tuning"}
             ]
         }
     };
-
-    // Функция переключения языка (для кнопки в шапке)
-    function toggleLang() {
-        currentLang = (currentLang === 'ru') ? 'en' : 'ru';
-        const btn = document.getElementById('lang-btn');
-        if (btn) btn.innerText = (currentLang === 'ru') ? '🇷🇺 RU' : '🇺🇸 EN';
-        changeLanguage(currentLang);
-        tg.HapticFeedback.selectionChanged();
-    }
 
     function changeLanguage(lang) {
         const t = i18n[lang];
         if (!t) return;
 
+        // Полное обновление текстов на всех вкладках
         const updates = {
-            'l-main-header': t.header, // Заголовок в шапке
             'tab-home': t.home, 'tab-stats': t.stats, 'tab-refs': t.refs, 'tab-plans': t.tariffs, 'tab-gift': t.gift,
             'l-creation': t.creation, 'l-create-btn': t.create_btn, 'l-title-project': t.project_t,
             'l-title-plans': t.plans_t, 'l-title-sec': t.sec_t, 'l-title-pay': t.pay_t, 'l-title-supp': t.supp_t,
             'l-btn-supp': t.supp_b, 'l-spin': t.spin, 'l-back': t.back, 'l-lucky': t.lucky,
             'ref-title': t.ref_title, 'ref-desc': t.ref_desc, 'ref-btn-text': t.ref_btn,
-            'l-ref-perks-title': t.ref_perks_t, 'l-ref-perks-desc': t.ref_perks_d,
-            'l-exchange-title': t.exchange_t, 'l-exchange-btn': t.exchange_b
+            'l-ref-perks-title': t.ref_perks_t, 'l-ref-perks-desc': t.ref_perks_d
         };
 
         for (let id in updates) {
@@ -504,13 +443,11 @@
         }
     }
 
-    // Остальная твоя логика (Колесо, Навигация, Рефы)
     const prizes = [{n:"0.1",c:"#121212"},{n:"0.5",c:"#1a1a1a"},{n:"0.1",c:"#121212"},{n:"1.0",c:"#007aff"},{n:"0.1",c:"#121212"},{n:"2.0",c:"#1a1a1a"},{n:"0.1",c:"#121212"},{n:"0.0",c:"#000"}];
     
     function drawWheel() { 
-        const canvas = document.getElementById('wheel-canvas');
-        if (!canvas) return;
-        const ctx = canvas.getContext('2d'); 
+        const ctx = document.getElementById('wheel-canvas').getContext('2d'); 
+        if (!ctx) return;
         ctx.clearRect(0,0,600,600); 
         prizes.forEach((p, i) => { 
             ctx.beginPath(); ctx.fillStyle = p.c; ctx.moveTo(300, 300); 
@@ -532,6 +469,21 @@
     function openGiftModal() { document.getElementById('gift-modal').style.display='flex'; drawWheel(); }
     function closeGiftModal() { document.getElementById('gift-modal').style.display='none'; }
 
+    window.onload = () => { 
+        setTimeout(() => { 
+            const splash = document.getElementById('splash-screen');
+            if (splash) {
+                splash.style.opacity='0'; 
+                setTimeout(()=> splash.style.display='none', 500);
+            }
+        }, 2800);
+        if(tg.initDataUnsafe?.user) {
+            const userNameEl = document.getElementById('user-name');
+            if (userNameEl) userNameEl.innerText = tg.initDataUnsafe.user.first_name.toUpperCase();
+        }
+        changeLanguage('ru'); 
+    };
+
     function openRefs() {
         document.getElementById('refs-screen').style.display = 'block';
         document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
@@ -552,19 +504,15 @@
         const botUser = "beast_omni_bot"; 
         const refLink = `https://t.me/${botUser}?start=ref${userId}`;
         const message = "Забирай +1 ⭐️ Stars и доступ к Beast Omni по моей ссылке! 🔥";
+        
+        // Полная кодировка для стабильной работы ссылки
         const shareUrl = `https://t.me/share/url?url=${encodeURIComponent(refLink)}&text=${encodeURIComponent(message)}`;
-        tg.openTelegramLink(shareUrl);
-        tg.HapticFeedback.impactOccurred('heavy');
-    }
 
-    window.onload = () => { 
-        setTimeout(() => { 
-            const splash = document.getElementById('splash-screen');
-            if (splash) {
-                splash.style.opacity='0'; 
-                setTimeout(()=> splash.style.display='none', 500);
-            }
-        }, 2800);
-        changeLanguage('ru'); 
-    };
+        if (window.Telegram?.WebApp) {
+            tg.openTelegramLink(shareUrl);
+            tg.HapticFeedback.impactOccurred('heavy');
+        } else {
+            window.open(shareUrl, '_blank');
+        }
+    }
 </script>
