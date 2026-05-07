@@ -15,12 +15,15 @@
     </div>
 
     <div class="header">
+    <div style="display: flex; align-items: center;">
+        <div style="width: 8px; height: 8px; background: var(--accent-blue); border-radius: 50%; margin-right: 10px; box-shadow: 0 0 10px var(--accent-blue);"></div>
         <h1 id="user-name">BEAST CORE</h1>
-        <select id="lang-select" onchange="changeLanguage(this.value)">
-            <option value="ru" selected>🇷🇺 RU</option>
-            <option value="en">🇺🇸 EN</option>
-        </select>
     </div>
+    <select id="lang-select" onchange="changeLanguage(this.value)">
+        <option value="ru" selected>🇷🇺 RU</option>
+        <option value="en">🇺🇸 EN</option>
+    </select>
+</div>
 
     <div class="feed">
         <div class="main-video-card">
@@ -79,36 +82,37 @@
     </div>
 <div id="refs-screen" style="display:none; position:fixed; inset:0; background:#000; z-index:1500; overflow-y:auto; padding: 0 20px 120px;">
     
-    <div style="padding-top: 60px; text-align: center; margin-bottom: 40px;">
-        <h2 style="font-family: Montserrat; font-weight: 900; font-size: 28px; letter-spacing: 1px; color: #fff; margin: 0;">РЕФЕРАЛЬНАЯ СИСТЕМА</h2>
+    <div style="padding-top: 60px; text-align: center; margin-bottom: 20px;">
+        <h2 id="ref-title" style="font-family: Montserrat; font-weight: 900; font-size: 28px; letter-spacing: 1px; color: #fff; margin: 0;">РЕФЕРАЛЬНАЯ СИСТЕМА</h2>
         <div style="width: 50px; height: 2px; background: var(--accent-blue); margin: 15px auto;"></div>
     </div>
 
-    <div style="margin-bottom: 40px;">
-        <div style="display: flex; align-items: flex-start; margin-bottom: 25px;">
-            <div style="color: var(--accent-blue); font-size: 24px; margin-right: 15px;">💎</div>
-            <div>
-                <b style="display: block; font-size: 16px; margin-bottom: 5px;">Пожизненный доход 15%</b>
-                <span style="color: var(--text-dim); font-size: 13px; line-height: 1.4;">Получайте комиссию Stars с каждого пополнения баланса вашими партнерами. Всегда.</span>
-            </div>
-        </div>
+    <div class="info-text" style="text-align: center; margin-bottom: 30px;">
+        <span id="ref-desc" style="font-size: 14px; line-height: 1.6; color: var(--text-dim);">
+            Добро пожаловать в партнерскую сеть <b>BEAST OMNI</b>. <br>
+            За каждого приглашенного друга вы мгновенно получаете <b style="color:var(--accent-blue);">+1.00 Stars</b>. 
+            Но это только начало: вам пожизненно начисляется <b>15%</b> от каждой их транзакции. 
+            Тратьте Stars на эксклюзивные шрифты, нейро-голоса и приоритетный рендер.
+        </span>
+    </div>
 
-        <div style="display: flex; align-items: flex-start; margin-bottom: 25px;">
-            <div style="color: var(--accent-blue); font-size: 24px; margin-right: 15px;">⚡️</div>
-            <div>
-                <b style="display: block; font-size: 16px; margin-bottom: 5px;">Мгновенные выплаты</b>
-                <span style="color: var(--text-dim); font-size: 13px; line-height: 1.4;">Бонусы зачисляются на ваш баланс Beast Omni сразу после транзакции реферала.</span>
-            </div>
-        </div>
+    <div style="width: 100%; height: 180px; border-radius: 24px; overflow: hidden; margin-bottom: 30px; border: 1px solid var(--border-soft);">
+        <img src="https://images.unsplash.com/photo-1639762681485-074b7f938ba0?q=80&w=1000" style="width: 100%; height: 100%; object-fit: cover; opacity: 0.8;">
+    </div>
 
-        <div style="display: flex; align-items: flex-start;">
-            <div style="color: var(--accent-blue); font-size: 24px; margin-right: 15px;">🚀</div>
-            <div>
-                <b style="display: block; font-size: 16px; margin-bottom: 5px;">Приоритетный доступ</b>
-                <span style="color: var(--text-dim); font-size: 13px; line-height: 1.4;">Активные партнеры получают ранний доступ к новым нейросетевым моделям.</span>
-            </div>
+    <div class="beast-card" style="margin-bottom: 30px;">
+        <span style="color: var(--text-dim); font-size: 11px; text-transform: uppercase; letter-spacing: 2px;">Доступно для обмена</span>
+        <div style="font-family: Montserrat; font-weight: 900; font-size: 48px; margin: 5px 0; color: #fff;">
+            0.00 <span style="color: var(--accent-blue); font-size: 18px;">STARS</span>
         </div>
     </div>
+
+    <button class="btn-main-action" onclick="sharePartnerLink()" style="box-shadow: 0 10px 30px rgba(0, 122, 255, 0.3);">
+        <span id="ref-btn-text">ПРИГЛАСИТЬ ДРУГА</span>
+    </button>
+
+    <div class="back-btn" style="text-align:center; margin-top:40px; font-size: 12px; letter-spacing: 1px; opacity: 0.5;" onclick="closeRefs()">← ВЕРНУТЬСЯ В ТЕРМИНАЛ</div>
+</div>
 
     <div style="background: linear-gradient(180deg, #121214 0%, #000 100%); border: 1px solid var(--border-soft); border-radius: 24px; padding: 25px; text-align: center; margin-bottom: 30px;">
         <span style="color: var(--text-dim); font-size: 12px; text-transform: uppercase; letter-spacing: 2px;">Ваш текущий профит</span>
@@ -345,6 +349,24 @@
     text-shadow: 0 0 15px rgba(0, 122, 255, 0.4);
     margin: 20px 0;
 }
+   .header {
+    padding: 20px; /* Уменьшил отступ, так как в телеге сверху есть своя панель */
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    position: fixed; 
+    top: 0; 
+    left: 0;
+    width: 100%; 
+    z-index: 2000; /* Самый высокий приоритет */
+    border-bottom: 1px solid var(--border-soft);
+}
+
+/* Отступ для контента, чтобы его не закрывала шапка */
+.feed { padding-top: 100px !important; }
 </style>
 
 <script>
@@ -352,26 +374,26 @@
     tg.expand();
 
     const i18n = {
-        ru: {
-            home: "ГЛАВНАЯ", stats: "СТАТЫ", refs: "РЕФЫ", tariffs: "ТАРИФЫ", gift: "БОНУС",
+       ru: {
+            home: "ГЛАВНАЯ", stats: "АКТИВЫ", refs: "ПАРТНЕРЫ", tariffs: "ТАРИФЫ", gift: "БОНУС",
             creation: "ULTIMATE GENERATION 2.0", create_btn: "ЗАПУСТИТЬ ТЕРМИНАЛ",
             project_t: "ЭКОСИСТЕМА BEAST OMNI", plans_t: "ТАРИФНЫЕ ПЛАНЫ", sec_t: "БЕЗОПАСНОСТЬ ДАННЫХ", pay_t: "СПОСОБЫ ОПЛАТЫ",
             supp_t: "ЭЛИТНАЯ ПОДДЕРЖКА 24/7", supp_b: "СВЯЗАТЬСЯ С ПОДДЕРЖКОЙ", spin: "КРУТИТЬ КОЛЕСО", back: "← НАЗАД", lucky: "BEAST LUCK",
             
-            ref_title: "РЕФЕРАЛЬНАЯ СИСТЕМА",
-            ref_desc: "Получай +1 ⭐️ STARS за каждого друга! Также тебе идет 15% от всех их транзакций.",
-            ref_btn: "ПРИГЛАСИТЬ ПАРТНЕРОВ",
-            ref_perks_t: "ЭЛИТНЫЕ БОНУСЫ И ОБМЕН",
-            ref_perks_d: "Накопленные звезды можно обменивать на крутые фичии уникальные функции.",
+            ref_title: "ПАРТНЕРСКАЯ СЕТЬ",
+            ref_desc: "Добро пожаловать в высшую лигу. Ваша ссылка — это ключ к <strong>пассивному доходу</strong>. Получайте <b style='color:var(--accent-blue)'>+1.00 Stars</b> за каждого приглашенного резидента и пожизненную комиссию <strong>15%</strong> с каждой их сделки. Накопленные активы можно обналичивать или обменивать на <strong>эксклюзивные ассеты</strong> в Beast Market: уникальные шрифты, нейро-голоса и приоритетные мощности.",
+            ref_btn: "ПРИГЛАСИТЬ ПАРТНЕРА",
+            ref_perks_t: "ЭЛИТНЫЕ ПРИВИЛЕГИИ",
+            ref_perks_d: "Партнеры Beast Omni получают ранний доступ к закрытым нейросетевым моделям и персональным калибровкам весов.",
 
-            desc_p: "<strong>Beast Omni</strong> — это не просто инструмент, это цифровая сингулярность в мире генеративного искусства. Мы развернули сложнейшую архитектуру из <strong>высокопроизводительных графических кластеров</strong>, работающих в синергии с авторскими весами нейросетей. В то время как другие предлагают шаблоны, мы предлагаем <strong>бескомпромиссную детализацию</strong>, фотореалистичную физику света и текстуры, которые стирают грань между рендером и реальностью. Beast Omni оптимизирован для задач запредельной сложности: от кинематографических кадров до гиперреалистичных концептов. Добро пожаловать в высшую лигу визуального доминирования.",
-            desc_s: "Ваша приватность — наш главный приоритет и фундаментальная ценность. Вся архитектура Beast Omni построена на протоколах <strong>Zero-Knowledge</strong>. Мы внедрили военное шифрование <strong>AES-256-GCM</strong>, которое делает перехват данных невозможным. Сразу после завершения вашей сессии или скачивания итогового файла, система <strong>безвозвратно уничтожает</strong> все временные кэши, промпты и промежуточные слои генерации. Мы не собираем логи и не храним историю ваших творческих поисков. В Beast Omni вы остаетесь невидимым творцом под защитой совершенных алгоритмов безопасности.",
-            desc_pay: "Для обеспечения полной анонимности и скорости транзакций, мы интегрировали передовые методы расчетов внутри экосистемы Telegram. Мы принимаем <strong>Telegram Stars</strong> для мгновенных покупок и <strong>Telegram Wallet (TON/Crypto)</strong> для тех, кто ценит децентрализацию и отсутствие посредников. Это решение полностью исключает риск блокировок или утечки банковских данных сторонним лицам. Каждая транзакция подтверждается блокчейном, формируя прозрачную и честную среду. Мы создали систему, где оплата происходит в один тап, а ваша финансовая свобода остается незыблемой.",
-            desc_supp: "Наши инженеры и технические специалисты мониторят систему 24/7, обеспечивая бесперебойную мощь Beast Omni. <span style='color:#ff3b30; font-weight: 800;'>ВНИМАНИЕ:</span> Чтобы ваш запрос был обработан мгновенно, <strong>используйте только официальный тикет-бот</strong>. Прямые сообщения владельцу замедляют работу всей структуры. Бот поддержки автоматически приоритизирует заявку и свяжет вас с нужным отделом. Мы здесь, чтобы ваша работа не прерывалась ни на секунду.",
+            desc_p: "<strong>Beast Omni</strong> — это цифровая сингулярность. Мы развернули <strong>высокопроизводительные графические кластеры</strong>, работающие в синергии с авторскими весами нейросетей. В то время как другие предлагают шаблоны, мы даем <strong>бескомпромиссную детализацию</strong> и фотореалистичную физику света. Beast Omni оптимизирован для задач запредельной сложности. Добро пожаловать в высшую лигу визуального доминирования.",
+            desc_s: "Ваша приватность — наша фундаментальная ценность. Вся архитектура построена на протоколах <strong>Zero-Knowledge</strong> и военном шифровании <strong>AES-256-GCM</strong>. Сразу после завершения сессии система <strong>безвозвратно уничтожает</strong> все временные кэши и промпты. Мы не собираем логи — в Beast Omni вы остаетесь невидимым творцом под защитой совершенных алгоритмов.",
+            desc_pay: "Для обеспечения полной анонимности мы интегрировали расчеты в <strong>Telegram Stars</strong> для мгновенных покупок и <strong>Telegram Wallet (TON/Crypto)</strong> для децентрализации. Каждая транзакция подтверждается блокчейном, формируя прозрачную среду. Ваша финансовая свобода и безопасность платежей остаются незыблемыми.",
+            desc_supp: "Наши инженеры мониторят систему 24/7. <span style='color:#ff3b30; font-weight: 800;'>ВНИМАНИЕ:</span> Для мгновенного отклика используйте только <strong>официальный тикет-бот</strong>. Бот автоматически приоритизирует заявку и свяжет вас с нужным отделом. Мы здесь, чтобы ваша работа не прерывалась ни на секунду.",
             
             plans: [
                 {n:"STARTER", p:"$5", f:"• 5 экспресс-генераций ежесуточно<br>• Доступ к High-Definition ядру<br>• Стандартный приоритет в очереди"},
-                {n:"STANDARD", p:"$15", f:"• 15 Full HD генераций без лимитов<br>• Удаление любых водяных знаков<br>• Приоритетный доступ к серверам"},
+                {n:"STANDARD", p:"$15", f:"• 15 Full HD генераций ежедневно<br>• Полное удаление водяных знаков<br>• Приоритетный доступ к серверам"},
                 {n:"ADVANCED", p:"$30", f:"• 40 Cinematic-сессий в месяц<br>• Профессиональная настройка промптов<br>• Ускоренный рендер сложных текстур"},
                 {n:"ELITE", p:"$50", f:"• 80 генераций в Ultra 2K качестве<br>• Доступ к закрытым бета-моделям<br>• Выделенный поток данных"},
                 {n:"ULTIMATE", p:"$100", f:"• ПОЛНЫЙ БЕЗЛИМИТ 24/7<br>• Максимальное 4K Cinematic качество<br>• Индивидуальный тюнинг модели под вас"}
@@ -516,3 +538,4 @@
         }
     }
 </script>
+
